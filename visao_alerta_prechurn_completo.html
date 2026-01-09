@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSViewData - Visão de Alerta (Pré-Churn)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #1a1f2e;
+            --bg-secondary: #242a3d;
+            --bg-card: #2a3148;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a8c0;
+            --accent-yellow: #fbbf24;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+            --border-color: #3d4560;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #0f1219 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text strong {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            font-size: 12px;
+            color: var(--accent-yellow);
+            letter-spacing: 1px;
+        }
+
+        .header-title {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-title h1 {
+            font-size: 26px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #fbbf24 0%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .alert-banner {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+            border: 2px solid var(--accent-yellow);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .alert-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .alert-content h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--accent-yellow);
+        }
+
+        .alert-content p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .alert-content strong {
+            color: var(--text-primary);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+        }
+
+        .sidebar {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            height: fit-content;
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent-yellow);
+        }
+
+        .stat-item {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-item label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-item .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+        }
+
+        .stat-item .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-group select:hover {
+            border-color: var(--accent-yellow);
+        }
+
+        .btn-clear {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
+            border: none;
+            border-radius: 10px;
+            color: #1a1f2e;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-clear:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .table-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table-count {
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        thead th {
+            padding: 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        tbody tr:hover {
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        tbody td {
+            padding: 18px 16px;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .rank-cell {
+            font-weight: 700;
+            color: var(--accent-yellow);
+            font-size: 16px;
+        }
+
+        .name-cell {
+            font-weight: 500;
+            max-width: 300px;
+        }
+
+        .valor-cell {
+            font-weight: 700;
+            color: var(--accent-yellow);
+            font-size: 15px;
+        }
+
+        .dias-cell {
+            font-weight: 600;
+        }
+
+        .dias-warning {
+            color: var(--accent-orange);
+        }
+
+        .dias-danger {
+            color: var(--accent-red);
+        }
+
+        .rca-cell {
+            background: var(--bg-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .date-cell {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .alert-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .table-wrapper {
+                overflow-x: scroll;
+            }
+
+            table {
+                min-width: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">📊</div>
+                <div class="logo-text">
+                    <strong>DSViewData</strong>
+                    <span>ANALYTICS</span>
+                </div>
+            </div>
+            <div class="header-title">
+                <h1>Visão de Alerta (Pré-Churn)</h1>
+                <p>Clientes em risco de inatividade - Ação urgente necessária</p>
+            </div>
+        </div>
+
+        <!-- Alert Banner -->
+        <div class="alert-banner">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+                <h2>🚨 Atenção: Clientes em Risco de Churn</h2>
+                <p>
+                    <strong>Esses clientes ainda estão ativos</strong>, mas se <strong>nenhuma ação for tomada</strong>, 
+                    eles se tornarão <strong>CHURN-INATIVO automaticamente</strong> ao atingirem 90 dias sem compra. 
+                    É essencial contatar esses clientes <strong>IMEDIATAMENTE</strong> para evitar a perda.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>📈 Resumo</h3>
+                
+                <div class="stat-item">
+                    <label>Total Pré-Churn</label>
+                    <div class="value" id="totalClientes">0</div>
+                    <div class="subtitle">clientes em risco</div>
+                </div>
+
+                <div class="stat-item">
+                    <label>Valor em Risco</label>
+                    <div class="value" id="valorTotal">R$ 0</div>
+                    <div class="subtitle">faturamento ameaçado</div>
+                </div>
+
+                <div class="stat-item">
+                    <label>Dias Médios</label>
+                    <div class="value" id="diasMedio">0</div>
+                    <div class="subtitle">desde última compra</div>
+                </div>
+
+                <h3 style="margin-top: 30px;">🔍 Filtros</h3>
+                
+                <div class="filter-group">
+                    <label>RCA / Time</label>
+                    <select id="filterTime">
+                        <option value="">Todos os Times</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Faixa de Dias</label>
+                    <select id="filterDias">
+                        <option value="">Todos (60-89 dias)</option>
+                        <option value="60-70">60-70 dias</option>
+                        <option value="71-80">71-80 dias</option>
+                        <option value="81-89">81-89 dias (crítico)</option>
+                    </select>
+                </div>
+
+                <button class="btn-clear" onclick="clearFilters()">Limpar Filtros</button>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Table -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h2>Lista de Clientes em Pré-Churn</h2>
+                        <span class="table-count" id="tableCount">0 clientes</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cliente</th>
+                                    <th>Última Compra</th>
+                                    <th>Dias</th>
+                                    <th>Valor Histórico</th>
+                                    <th>RCA / Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientsTableBody">
+                                <!-- Dados serão inseridos aqui -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados dos clientes PRE-CHURN (60-89 dias) já processados e ordenados por valor
+        const clientesData = [
+{"codigo": "C03963", "nome": "SERVIÇO SOCIAL DO COMERCIO SESC - AR/PB", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 62, "valor": 11800.0, "time": "TIME 15"},
+{"codigo": "C07311", "nome": "JMT SERVICOS DE LOCACAO DE MAO DE OBRA LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 8054.0, "time": "TIME 17"},
+{"codigo": "C11736", "nome": "WCM ENGENHARIA LTDA", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 62, "valor": 7260.0, "time": "TIME 07"},
+{"codigo": "C09868", "nome": "INSTITUTO NAC.DE PESQ.E GESTAO EM SAUDE-INSAUDE", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 6838.51, "time": "TIME 23"},
+{"codigo": "C12152", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 6663.96, "time": "TIME 13"},
+{"codigo": "C05452", "nome": "ENERGETICA SUAPE II S. A.", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 6060.0, "time": "TIME 04"},
+{"codigo": "C09409", "nome": "GRIFOS COMERCIO DE ALIMENTOS EIRELI", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 66, "valor": 4718.0, "time": "TIME 04"},
+{"codigo": "C00047", "nome": "H. L HOTEIS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 4643.75, "time": "TIME 12"},
+{"codigo": "C10241", "nome": "SEARA ALIMENTOS LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 71, "valor": 4477.8, "time": "TIME 06"},
+{"codigo": "C06142", "nome": "SOUZA CRUZ S/A", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 76, "valor": 4135.0, "time": "TIME 04"},
+{"codigo": "C10496", "nome": "VALE-IMAGEM CL.DIAGNOSTICA VALE DO PIANCO LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 3325.11, "time": "TIME 16"},
+{"codigo": "C12003", "nome": "MARESIA IND. E COMERCIO DE ALIMENTOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 3197.7, "time": "TIME 22"},
+{"codigo": "C01135", "nome": "MADECENTER LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 3135.0, "time": "TIME 04"},
+{"codigo": "C12189", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A.", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 3028.43, "time": "TIME 13"},
+{"codigo": "C07590", "nome": "PARAIBA TURBO DIESEL COMERCIO P SERVIÇOS LTDA  ME", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 2652.0, "time": "TIME 15"},
+{"codigo": "C02622", "nome": "INSTITUTO JCPM DE COMPROMISSO SOCIAL", "ultimaCompra": "2025-10-20 00:00:00.000", "dias": 80, "valor": 2614.0, "time": "TIME 04"},
+{"codigo": "C08869", "nome": "UNIDADE DE IMAGENS DA FACE LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 2539.4, "time": "TIME 10"},
+{"codigo": "C11666", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 2528.44, "time": "TIME 13"},
+{"codigo": "C12180", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A.", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 2381.67, "time": "TIME 13"},
+{"codigo": "C10042", "nome": "MEMORIAL IMAGEM E DIAGNOSTICO LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 2324.0, "time": "TIME 01"},
+{"codigo": "C01199", "nome": "MANAL MANUTENCAO ALAGOANA DE AERONAVES LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 2306.56, "time": "TIME 25"},
+{"codigo": "C12187", "nome": "CPL CONSTRUTORA LTDA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 66, "valor": 2220.0, "time": "TIME 12"},
+{"codigo": "C10864", "nome": "STER BOM IND. E COM. LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 2161.13, "time": "TIME 17"},
+{"codigo": "C10380", "nome": "CLIOMEL - CLINICA ODONTO MEDICA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 2156.0, "time": "TIME 10"},
+{"codigo": "C02659", "nome": "SIND EMP VEND VIAJ COM PROP VEND VEND PROD FARM PE", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 85, "valor": 2147.8, "time": "TIME 05"},
+{"codigo": "C10683", "nome": "RADIUM UNID.DE SERVS.DE IMAGENS DA FACE LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 2066.4, "time": "TIME 10"},
+{"codigo": "C10617", "nome": "DANUBIO & MELO ALIMENTOS LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 2005.0, "time": "TIME 18"},
+{"codigo": "C10927", "nome": "DSV AIR & SEA BRASIL LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 1940.0, "time": "TIME 04"},
+{"codigo": "C11025", "nome": "ELE E ELA MOTEL LTDA", "ultimaCompra": "2025-10-14 00:00:00.000", "dias": 86, "valor": 1932.0, "time": "TIME 17"},
+{"codigo": "C11860", "nome": "D P B AVICULTURA - COMERCIO VAREJISTA DE OVOS LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 1880.0, "time": "TIME 17"},
+{"codigo": "C12102", "nome": "CLINICA OFTALMOLOGICA PRIME LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 71, "valor": 1749.62, "time": "TIME 20"},
+{"codigo": "C10195", "nome": "ASSOCIACAO EDUCACIONAL E CULTURAL DE QUIXADA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 84, "valor": 1710.0, "time": "TIME 09"},
+{"codigo": "C11535", "nome": "BOLO DE ROLO FABRICACAO PERNAMBUCANA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 1648.0, "time": "TIME 06"},
+{"codigo": "C12199", "nome": "CONDOMINIO BOSQUE DOS PASSAROS", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 62, "valor": 1641.0, "time": "TIME 17"},
+{"codigo": "C00181", "nome": "HOSPITAL DE AVILA LTDA", "ultimaCompra": "2025-10-14 00:00:00.000", "dias": 86, "valor": 1638.0, "time": "TIME 01"},
+{"codigo": "C08394", "nome": "MONDELEZ BRASIL NORTE NORDESTE LTDA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 66, "valor": 1620.0, "time": "TIME 07"},
+{"codigo": "C08457", "nome": "UNIC CLINICA DE ODONTOLOGIA ESPECIALIZADA LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 70, "valor": 1615.0, "time": "TIME 10"},
+{"codigo": "C11341", "nome": "J F LEMOS LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 1531.46, "time": "TIME 23"},
+{"codigo": "C10691", "nome": "SERVICE INSTALAC. E MANUTE. DE REFRIG. RECIFE LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 1500.0, "time": "TIME 04"},
+{"codigo": "C10836", "nome": "ORAL UNIC JOÃO PESSOA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 1496.0, "time": "TIME 15"},
+{"codigo": "C11393", "nome": "ZION CHURCH BRASIL", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 1449.0, "time": "TIME 25"},
+{"codigo": "C01440", "nome": "J A D ARAUJO & CIA LTDA", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 62, "valor": 1430.0, "time": "TIME 18"},
+{"codigo": "C11864", "nome": "MASA CULINARIA ASIATICA LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 1430.0, "time": "TIME 10"},
+{"codigo": "F00770", "nome": "DIESELNORTE LTDA", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 85, "valor": 1429.0, "time": "TIME 06"},
+{"codigo": "C11588", "nome": "CESAR MURILIO MELO PIMENTEL E CIA LTDA", "ultimaCompra": "2025-10-14 00:00:00.000", "dias": 86, "valor": 1427.0, "time": "TIME 18"},
+{"codigo": "C00010", "nome": "BENTONIT UNIAO NE IND E COM  LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 1413.93, "time": "TIME 20"},
+{"codigo": "C12184", "nome": "GOUVEIA MACIEL GESTAO E ENSINO ESPORTIVO LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 70, "valor": 1399.4, "time": "TIME 05"},
+{"codigo": "C12176", "nome": "BRENO DE ALBUQUERQUE SENNA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 84, "valor": 1372.0, "time": "TIME 18"},
+{"codigo": "C01123", "nome": "CONDOMINIO DO EDIFICIO BLUE TOWER", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 1371.0, "time": "TIME 04"},
+{"codigo": "C01788", "nome": "MASTERFOODS BRASIL ALIMENTOS LTDA.", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 1320.0, "time": "TIME 06"},
+{"codigo": "C08105", "nome": "LOBO & VALENCA ADVOGADOS ASSOCIADOS", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 1227.0, "time": "TIME 05"},
+{"codigo": "C08295", "nome": "PAURA ADVOCACIA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 1220.0, "time": "TIME 05"},
+{"codigo": "C02241", "nome": "FERREIRO CAFE LTDA", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 85, "valor": 1196.0, "time": "TIME 03"},
+{"codigo": "C10377", "nome": "MEDICAL CENTRO DE ESPECIALIDADES LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 1167.51, "time": "TIME 16"},
+{"codigo": "C11888", "nome": "F. M. FABRICACAO DE LATICINIOS LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 1141.96, "time": "TIME 16"},
+{"codigo": "C10315", "nome": "TRATORVALE - TRATORES DO VALE DO S. FRANCISCO LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 1110.0, "time": "TIME 10"},
+{"codigo": "C12100", "nome": "NOVA DIAGNOSTICO POR IMAGEM LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 1075.0, "time": "TIME 15"},
+{"codigo": "C12095", "nome": "DIVINA PIZZA RESTAURANTES LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 1060.4, "time": "TIME 10"},
+{"codigo": "C10852", "nome": "A I B IMOVEIS DO BRASIL LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 1058.0, "time": "TIME 26"},
+{"codigo": "C08244", "nome": "BANCO BRADESCO S.A.", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 1050.0, "time": "TIME 04"},
+{"codigo": "C02617", "nome": "OTICA SURUBIM LTDA ME", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 1050.0, "time": "TIME 12"},
+{"codigo": "C10794", "nome": "DIAS E ARAUJO DIAGNOSTICO LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 1045.62, "time": "TIME 16"},
+{"codigo": "C08448", "nome": "SOUZA & TRAJANO MAIA LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 70, "valor": 1045.0, "time": "TIME 10"},
+{"codigo": "C11547", "nome": "FELIPE ALVES DA SILVA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 1025.36, "time": "TIME 10"},
+{"codigo": "C11723", "nome": "SABOR DA ROCA CHURRASCARIA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 1012.92, "time": "TIME 12"},
+{"codigo": "C10337", "nome": "MC COMERCIO DE CARNES NOBRES LTDA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 66, "valor": 990.0, "time": "TIME 26"},
+{"codigo": "C08762", "nome": "NUTRIPAO INDUSTRIA E COMERCIO LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 975.0, "time": "TIME 10"},
+{"codigo": "C10192", "nome": "CORDEIRO E BENEVIDES PIZZARIA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 974.0, "time": "TIME 10"},
+{"codigo": "C09249", "nome": "CENTRAL DE ADUBOS COMERCIO E REPRESENTACOES LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 968.0, "time": "TIME 10"},
+{"codigo": "C10658", "nome": "SAINT-GOBAIN DO BR PRODUTOS INDUS E P/ CONSTR LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 968.0, "time": "TIME 12"},
+{"codigo": "C12097", "nome": "DOLCE RESTAURANTE LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 947.4, "time": "TIME 16"},
+{"codigo": "C10965", "nome": "SARMENTO & BARBOSA LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 942.46, "time": "TIME 16"},
+{"codigo": "C05248", "nome": "FISIO & PILATES EIRELI", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 942.0, "time": "TIME 01"},
+{"codigo": "C09584", "nome": "UMANA BRASIL-ASS.E CONS.DE REC.HUMANOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 917.0, "time": "TIME 04"},
+{"codigo": "C11982", "nome": "BOTICA PERFUMARIA E PRESENTES LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 913.42, "time": "TIME 21"},
+{"codigo": "C03691", "nome": "CARLOS LACERDA DE ANDRADE ALMEIDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 911.43, "time": "TIME 01"},
+{"codigo": "C09156", "nome": "CRISTIANE UCHOA COIMBRA ESTEVES", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 903.5, "time": "TIME 01"},
+{"codigo": "C09219", "nome": "PA COMERCIO DE ALIMENTOS LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 895.0, "time": "TIME 08"},
+{"codigo": "C09473", "nome": "WALERIA QUIRINO DE QUEIROZ VASCONCELOS", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 890.0, "time": "TIME 18"},
+{"codigo": "C11183", "nome": "NURBANO TAVARES DA SILVA 06125218422", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 846.0, "time": "TIME 12"},
+{"codigo": "C11309", "nome": "ALLIANZ SEGUROS S/A", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 838.0, "time": "TIME 04"},
+{"codigo": "C12186", "nome": "CORTFULL IND. E COM. DE CARNES LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 70, "valor": 833.0, "time": "TIME 18"},
+{"codigo": "C09146", "nome": "GARRIDO GALERIA DE ARTE E EVENTOS LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 825.77, "time": "TIME 05"},
+{"codigo": "C09941", "nome": "GALCORR CORRETORA DE SEGUROS LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 820.0, "time": "TIME 04"},
+{"codigo": "C12125", "nome": "INSTITUTO EMANUEL SANTANA LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 816.88, "time": "TIME 20"},
+{"codigo": "C08274", "nome": "COUTINHO LTDA", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 814.83, "time": "TIME 08"},
+{"codigo": "C12182", "nome": "CGB SERVICO DE ALIMENTACAO LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 809.8, "time": "TIME 15"},
+{"codigo": "C05364", "nome": "ELISANGELA FERREIRA DA SILVA LEAL - ME", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 85, "valor": 795.0, "time": "TIME 12"},
+{"codigo": "C09368", "nome": "INSTITUTO DA VISAO LTDA", "ultimaCompra": "2025-10-17 00:00:00.000", "dias": 83, "valor": 794.0, "time": "TIME 25"},
+{"codigo": "C10051", "nome": "SEMPRE VIVA CONDIMENTOS EM GERAL LTDA", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 76, "valor": 783.91, "time": "TIME 06"},
+{"codigo": "C11912", "nome": "CB RESTAURANTE PRIME LTDA", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 778.0, "time": "TIME 12"},
+{"codigo": "C11826", "nome": "ZN HOTEL LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 770.0, "time": "TIME 17"},
+{"codigo": "C09148", "nome": "DILENE MARQUES HENRIQUES DE ALBUQUERQUE", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 747.5, "time": "TIME 20"},
+{"codigo": "C08931", "nome": "RADIOTERAPIA ONCOCLINICAS RECIFE LTDA", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 720.0, "time": "TIME 01"},
+{"codigo": "C10524", "nome": "NUI SERVICO DE ALIMENTOS E BEBIDAS EIRELI", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 76, "valor": 720.0, "time": "TIME 15"},
+{"codigo": "C11876", "nome": "JOCELIO GONCALVES ARAUJO", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 719.7, "time": "TIME 20"},
+{"codigo": "C09208", "nome": "LATICINIO BELO VALE LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 705.25, "time": "TIME 16"},
+{"codigo": "C05588", "nome": "RADIX HOTEIS TURISMO LTDA ME", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 703.0, "time": "TIME 02"},
+{"codigo": "C05657", "nome": "AC COMERCIO DE PNEUS LTDA - EPP", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 76, "valor": 691.72, "time": "TIME 20"},
+{"codigo": "C09019", "nome": "CONDOMINIO DO EDIFICIO WEST SIDE PARK", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 687.4, "time": "TIME 27"},
+{"codigo": "C11605", "nome": "ERICK MACEDO ADVOCACIA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 66, "valor": 686.54, "time": "TIME 05"},
+{"codigo": "C10926", "nome": "PADARIA VOVO OTAVIO TAMANDARE LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 659.0, "time": "TIME 12"},
+{"codigo": "C09120", "nome": "PRIMAPELLE SERVICOS DERMATOLOGICOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 649.0, "time": "TIME 17"},
+{"codigo": "C10743", "nome": "GTS SERVICO DE SAUDE LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 594.97, "time": "TIME 01"},
+{"codigo": "C06266", "nome": "BRIDGE SOLUCOES EDUCACIONAIS LTDA - ME", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 567.0, "time": "TIME 12"},
+{"codigo": "C11425", "nome": "FRANCA VIEIRA PRODUTOS E SERVICOS LTDA", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 62, "valor": 514.0, "time": "TIME 09"},
+{"codigo": "C09351", "nome": "TECFIT BOA VIAGEM ACADEMIA LTDA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 84, "valor": 514.0, "time": "TIME 04"},
+{"codigo": "C05839", "nome": "CARIBE & NEUENSCHWANDER SOCIEDADE DE ADVOGADOS", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 85, "valor": 500.0, "time": "TIME 04"},
+{"codigo": "C10844", "nome": "MILENE CAVALCANTE VALENÇA LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 490.0, "time": "TIME 01"},
+{"codigo": "C10473", "nome": "HOSPITAL DO TRICENTENARIO", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 490.0, "time": "TIME 18"},
+{"codigo": "C10303", "nome": "COLARES ADVOGADOS", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 488.07, "time": "TIME 05"},
+{"codigo": "C10765", "nome": "MARINAS BEACH BAR LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 485.55, "time": "TIME 21"},
+{"codigo": "C12151", "nome": "RESIDENCIAL MIRANTE DAS ESTRELAS", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 62, "valor": 482.0, "time": "TIME 25"},
+{"codigo": "C03825", "nome": "TELMA MENDES E SILVA", "ultimaCompra": "2025-10-14 00:00:00.000", "dias": 86, "valor": 470.0, "time": "TIME 05"},
+{"codigo": "C12110", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 440.64, "time": "TIME 13"},
+{"codigo": "C00843", "nome": "TRON CONTROLES ELETRICOS LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 440.0, "time": "TIME 04"},
+{"codigo": "C12173", "nome": "ARCONTEC COMERCIO E SERVICOS TECNICOS LTDA", "ultimaCompra": "2025-10-13 00:00:00.000", "dias": 87, "valor": 440.0, "time": "TIME 04"},
+{"codigo": "C01183", "nome": "SANTA CASA DE MISERICORDIA DE SAO M. DOS CAMPOS", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 431.8, "time": "TIME 25"},
+{"codigo": "C12193", "nome": "VICCINI EMPORIO CAFETERIA LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 427.0, "time": "TIME 03"},
+{"codigo": "C09153", "nome": "N B DA ROCHA JUNIOR SERVICOS MEDICOS EIRELI", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 412.0, "time": "TIME 01"},
+{"codigo": "C07886", "nome": "IOP-INSTITUTO DE OLHOS DE PERNAMBUCO LTDA-ME", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 71, "valor": 399.9, "time": "TIME 12"},
+{"codigo": "C11806", "nome": "OFTALMOCLINICA SAULO FREIRE LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 390.0, "time": "TIME 20"},
+{"codigo": "C10527", "nome": "CENTRO MEDICO MAYER E FEITOSA LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 381.46, "time": "TIME 16"},
+{"codigo": "C00475", "nome": "THE BRITISH COUNTRY CLUB", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 71, "valor": 377.25, "time": "TIME 05"},
+{"codigo": "C11886", "nome": "FLORA PARNAMIRIM C. VAREJISTA DE COSMETICOS LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 376.5, "time": "TIME 05"},
+{"codigo": "C10934", "nome": "CASA NOVA PARTICIPAÇÕES SOCIETARIAS LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 369.76, "time": "TIME 01"},
+{"codigo": "C09603", "nome": "CAMARADA  ADMINISTRACAO DE RESTAURANTES EIRELI", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 369.56, "time": "TIME 15"},
+{"codigo": "C11662", "nome": "ALEX A DE OLIVEIRA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 368.0, "time": "TIME 09"},
+{"codigo": "C11386", "nome": "MANJERICAO COMERCIO DE ALIMENTOS LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 361.0, "time": "TIME 15"},
+{"codigo": "C06016", "nome": "COONSULT COOPERATIVA DE TRABALHO EM CONSULTORIA E", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 84, "valor": 360.0, "time": "TIME 05"},
+{"codigo": "F00653", "nome": "DIESELNORTE ELETRONICA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 352.0, "time": "TIME 06"},
+{"codigo": "C11756", "nome": "ACE CLUBE ESCOLA DE TENNIS LTDA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 84, "valor": 335.0, "time": "TIME 05"},
+{"codigo": "C10748", "nome": "FN LISBOA BISTRO LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 334.2, "time": "TIME 20"},
+{"codigo": "C12188", "nome": "CTP ENGENHARIA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 330.0, "time": "TIME 27"},
+{"codigo": "C07955", "nome": "M MERCES E SILVA SANTIAGO ME", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 315.0, "time": "TIME 12"},
+{"codigo": "C00109", "nome": "GABINETE PORTUGUES DE LEITURA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 314.0, "time": "TIME 13"},
+{"codigo": "C11785", "nome": "PRATA DA CASA EXPRESS LTDA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 66, "valor": 309.6, "time": "TIME 20"},
+{"codigo": "C10902", "nome": "SETUBAL RESTAURANTE E CAFETERIA LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 309.0, "time": "TIME 03"},
+{"codigo": "C10418", "nome": "BECKER ADVOGADOS", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 308.0, "time": "TIME 05"},
+{"codigo": "C10526", "nome": "IABS EMPRESA SOCIAL COMERCIO LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 307.71, "time": "TIME 22"},
+{"codigo": "C12045", "nome": "VILA ROSA CAFE LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 306.0, "time": "TIME 26"},
+{"codigo": "C12158", "nome": "DL SERVICOS DE LIMPEZA LTDA", "ultimaCompra": "2025-10-17 00:00:00.000", "dias": 83, "valor": 305.0, "time": "TIME 19"},
+{"codigo": "C03957", "nome": "TIAGO ALVES DA SILVA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 69, "valor": 302.0, "time": "TIME 02"},
+{"codigo": "C08921", "nome": "NALULU RESTAURANTE E COMENDORIA LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 297.0, "time": "TIME 12"},
+{"codigo": "C11955", "nome": "FRANUTO RESTAURANTE LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 297.0, "time": "TIME 03"},
+{"codigo": "C00450", "nome": "MOTEL SENZALA LTDA", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 85, "valor": 295.0, "time": "TIME 02"},
+{"codigo": "C12063", "nome": "GRUPO MOR LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 71, "valor": 289.66, "time": "TIME 22"},
+{"codigo": "C11839", "nome": "RIBEIRO E NASCIMENTO LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 70, "valor": 269.0, "time": "TIME 20"},
+{"codigo": "C11373", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 267.8, "time": "TIME 13"},
+{"codigo": "C12167", "nome": "KAIROS DISTRIBUIDORA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 265.0, "time": "TIME 09"},
+{"codigo": "T00128", "nome": "IVANILDO JOSE DE SOUZA FILHO", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 260.59, "time": "TIME 13"},
+{"codigo": "C06197", "nome": "RECICLEAN COMERCIO DE PRODUTOS LTDA", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 260.55, "time": "TIME 09"},
+{"codigo": "C08957", "nome": "KUHNI ATIVIDADES DE FISIOTERAPIA LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 71, "valor": 250.0, "time": "TIME 01"},
+{"codigo": "C11364", "nome": "ED BARBOSA ASSESSORIA E CONSULTORIA LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 249.5, "time": "TIME 12"},
+{"codigo": "C10865", "nome": "HOSPITAL DE OLHOS DO SERTÃO LTDA", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 249.5, "time": "TIME 16"},
+{"codigo": "C00226", "nome": "DT EMPREENDIMENTOS TURISTICOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 77, "valor": 234.0, "time": "TIME 03"},
+{"codigo": "C12143", "nome": "COLEGIO MOTIVA LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 225.0, "time": "TIME 20"},
+{"codigo": "C07320", "nome": "ANDRÉ VITAL CAMARA DE ARAUJO LIMA VAREJO-ME", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 220.0, "time": "TIME 09"},
+{"codigo": "C09548", "nome": "RECIFE ALIMENTOS E EVENTOS LTDA", "ultimaCompra": "2025-10-20 00:00:00.000", "dias": 80, "valor": 210.0, "time": "TIME 08"},
+{"codigo": "C11740", "nome": "ITALO M DA SILVA SOUZA VELOSO", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 209.0, "time": "TIME 12"},
+{"codigo": "T00127", "nome": "ANTONIO JOSE DA SILVA", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 200.0, "time": "TIME 13"},
+{"codigo": "C12192", "nome": "FILIPE ALVES DE SOUZA PESCADOS LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 198.0, "time": "TIME 06"},
+{"codigo": "C12021", "nome": "CABANGA IATE CLUBE DE PERNAMBUCO", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 195.0, "time": "TIME 08"},
+{"codigo": "C12183", "nome": "52.876.879 JOSE MATEUS DE MELO TRINDADE", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 71, "valor": 192.0, "time": "TIME 09"},
+{"codigo": "C11788", "nome": "LONTRA BEACH CLUB LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 179.0, "time": "TIME 26"},
+{"codigo": "C12130", "nome": "RANCHO ALEGRE DISTRIBUIDORA DE PRODUTOS AGROPECUAR", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 76, "valor": 170.0, "time": "TIME 20"},
+{"codigo": "C07912", "nome": "MERGULHAO E ADVOGADOS", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 130.0, "time": "TIME 04"},
+{"codigo": "C00199", "nome": "UNIDADE DE CIRURGIA E ONCOLOGIA LTDA", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 73, "valor": 120.0, "time": "TIME 01"},
+{"codigo": "C00409", "nome": "ORGANIZACAO HOTELLAR LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 79, "valor": 95.0, "time": "TIME 20"},
+{"codigo": "E00155", "nome": "RENATO ALEXANDRE SANTOS", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 64, "valor": 90.0, "time": "TIME 13"},
+{"codigo": "C06146", "nome": "JOSE MARCOS DE OLIVEIRA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 65, "valor": 83.0, "time": "TIME 13"},
+{"codigo": "C12178", "nome": "ASSOCIACAO NACIONAL DOS CATADORES E CATADORAS DE M", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 78, "valor": 56.0, "time": "TIME 09"},
+{"codigo": "C10501", "nome": "PALMEC- MATERIAL PARA ESCRITORIO LTDA", "ultimaCompra": "2025-10-17 00:00:00.000", "dias": 83, "valor": 50.0, "time": "TIME 09"},
+{"codigo": "C11328", "nome": "MARIA DO SOCORRO MOURA LIMA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 72, "valor": 43.36, "time": "TIME 13"},
+{"codigo": "C10314", "nome": "CHARLES WILLIAMS LISBOA PYRRHO", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 63, "valor": 30.0, "time": "TIME 09"}
+        ];
+
+        let allClients = clientesData;
+        let filteredClients = [...allClients];
+
+        function init() {
+            populateFilters();
+            updateDashboard();
+        }
+
+        function populateFilters() {
+            const times = [...new Set(allClients.map(c => c.time).filter(t => t && t !== 'NULL' && t !== 'nan'))];
+            times.sort();
+
+            const timeSelect = document.getElementById('filterTime');
+            times.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            });
+        }
+
+        function applyFilters() {
+            const selectedTime = document.getElementById('filterTime').value;
+            const selectedDias = document.getElementById('filterDias').value;
+
+            filteredClients = allClients.filter(client => {
+                let matchTime = true;
+                let matchDias = true;
+
+                if (selectedTime) {
+                    matchTime = client.time === selectedTime;
+                }
+
+                if (selectedDias) {
+                    const [min, max] = selectedDias.split('-').map(Number);
+                    matchDias = client.dias >= min && client.dias <= max;
+                }
+
+                return matchTime && matchDias;
+            });
+
+            updateDashboard();
+        }
+
+        function clearFilters() {
+            document.getElementById('filterTime').value = '';
+            document.getElementById('filterDias').value = '';
+            filteredClients = [...allClients];
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            updateStats();
+            updateTable();
+        }
+
+        function updateStats() {
+            const totalClientes = filteredClients.length;
+            const valorTotal = filteredClients.reduce((sum, c) => sum + c.valor, 0);
+            const diasMedio = totalClientes > 0 
+                ? Math.round(filteredClients.reduce((sum, c) => sum + c.dias, 0) / totalClientes)
+                : 0;
+
+            document.getElementById('totalClientes').textContent = totalClientes.toLocaleString('pt-BR');
+            document.getElementById('valorTotal').textContent = 'R$ ' + 
+                (valorTotal / 1000).toFixed(0) + 'k';
+            document.getElementById('diasMedio').textContent = diasMedio;
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('clientsTableBody');
+            const tableCount = document.getElementById('tableCount');
+
+            tableCount.textContent = `${filteredClients.length} clientes`;
+
+            tbody.innerHTML = filteredClients.map((client, index) => {
+                const dataCompra = client.ultimaCompra && client.ultimaCompra !== 'NULL' 
+                    ? new Date(client.ultimaCompra).toLocaleDateString('pt-BR')
+                    : '-';
+
+                const valorFormatado = client.valor > 0
+                    ? 'R$ ' + client.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                    : '-';
+
+                let diasClass = '';
+                if (client.dias >= 81) diasClass = 'dias-danger';
+                else if (client.dias >= 71) diasClass = 'dias-warning';
+
+                return `
+                    <tr>
+                        <td class="rank-cell">${index + 1}</td>
+                        <td class="name-cell" title="${client.nome}">${client.nome}</td>
+                        <td class="date-cell">${dataCompra}</td>
+                        <td class="dias-cell ${diasClass}">${client.dias} dias</td>
+                        <td class="valor-cell">${valorFormatado}</td>
+                        <td><span class="rca-cell">${client.time || '-'}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('filterTime').addEventListener('change', applyFilters);
+        document.getElementById('filterDias').addEventListener('change', applyFilters);
+
+        // Inicializar ao carregar a página
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
