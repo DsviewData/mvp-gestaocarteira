@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSViewData - Dashboard Integrado</title>
+    <title>DSViewData - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,8 +14,8 @@
             --text-secondary: #a0a8c0;
             --accent-yellow: #fbbf24;
             --accent-orange: #f97316;
-            --accent-red: #ef4444;
             --border-color: #3d4560;
+            --error-red: #ef4444;
         }
 
         * {
@@ -29,397 +29,411 @@
             background: linear-gradient(135deg, var(--bg-primary) 0%, #0f1219 100%);
             color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .nav-tabs {
-            background: var(--bg-card);
-            padding: 0;
-            border-bottom: 2px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .tabs-wrapper {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            padding: 0 40px;
-        }
-
-        .logo-mini {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 0;
-            margin-right: 40px;
-            border-right: 1px solid var(--border-color);
-            padding-right: 40px;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeito de fundo animado */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+            animation: pulse 5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .login-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 440px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(251, 191, 36, 0.3);
         }
 
         .logo-text {
-            display: flex;
-            flex-direction: column;
+            text-align: center;
         }
 
-        .logo-text strong {
-            font-size: 16px;
+        .logo-text h1 {
+            font-size: 28px;
             font-weight: 700;
+            margin-bottom: 4px;
+            background: linear-gradient(90deg, #fff 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .logo-text span {
-            font-size: 9px;
-            color: var(--accent-yellow);
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 4px;
-            flex: 1;
-        }
-
-        .tab {
-            padding: 18px 28px;
-            background: transparent;
-            border: none;
+        .logo-text p {
+            font-size: 13px;
             color: var(--text-secondary);
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .welcome-text h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .welcome-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
             font-family: 'Outfit', sans-serif;
             font-size: 15px;
-            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-yellow);
+            background: var(--bg-primary);
+        }
+
+        .form-input::placeholder {
+            color: #5a6178;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: var(--error-red);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border: none;
+            border-radius: 12px;
+            color: #1a1f2e;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
         }
 
-        .tab:hover {
-            color: var(--text-primary);
-            background: rgba(251, 191, 36, 0.05);
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(251, 191, 36, 0.4);
         }
 
-        .tab.active {
-            color: var(--accent-yellow);
-            border-bottom-color: var(--accent-yellow);
-            background: rgba(251, 191, 36, 0.1);
+        .login-button:active {
+            transform: translateY(0);
         }
 
-        .tab.tab-red.active {
-            color: var(--accent-red);
-            border-bottom-color: var(--accent-red);
-            background: rgba(239, 68, 68, 0.1);
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .tab.tab-red:hover {
-            background: rgba(239, 68, 68, 0.05);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .instructions {
-            max-width: 800px;
-            margin: 100px auto;
-            text-align: center;
-            padding: 40px;
-            background: var(--bg-card);
-            border-radius: 20px;
-            border: 2px solid var(--border-color);
-        }
-
-        .instructions h2 {
-            font-size: 24px;
-            margin-bottom: 16px;
-            color: var(--accent-yellow);
-        }
-
-        .instructions p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .instructions strong {
-            color: var(--text-primary);
-        }
-
-        .instructions ol {
-            text-align: left;
-            margin: 24px auto;
-            max-width: 500px;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .instructions li {
-            margin-bottom: 12px;
-        }
-
-        .file-list {
-            background: var(--bg-secondary);
+        .demo-credentials {
+            margin-top: 32px;
             padding: 20px;
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.2);
             border-radius: 12px;
-            margin: 24px 0;
-            text-align: left;
         }
 
-        .file-list code {
-            background: var(--bg-primary);
-            padding: 4px 8px;
-            border-radius: 4px;
+        .demo-credentials h3 {
+            font-size: 13px;
+            font-weight: 600;
             color: var(--accent-yellow);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .demo-credentials p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
             font-family: 'Courier New', monospace;
         }
 
-        @media (max-width: 768px) {
-            .tabs-wrapper {
-                flex-direction: column;
-                padding: 16px 20px;
+        .demo-credentials strong {
+            color: var(--text-primary);
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #5a6178;
+        }
+
+        .footer-text a {
+            color: var(--accent-yellow);
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 24px;
             }
 
-            .logo-mini {
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                padding-right: 0;
-                padding-bottom: 16px;
-                margin-right: 0;
-                margin-bottom: 16px;
-                width: 100%;
-                justify-content: center;
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
             }
 
-            .tabs {
-                width: 100%;
-                overflow-x: auto;
-            }
-
-            .tab {
-                padding: 14px 20px;
-                font-size: 14px;
-                white-space: nowrap;
-            }
-
-            .instructions {
-                margin: 40px 20px;
-                padding: 24px;
+            .logo-text h1 {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navegação com Tabs -->
-    <div class="nav-tabs">
-        <div class="tabs-wrapper">
-            <div class="logo-mini">
-                <div class="logo-icon">📊</div>
-                <div class="logo-text">
-                    <strong>DSViewData</strong>
-                    <span>ANALYTICS</span>
+    <div class="login-container">
+        <div class="logo-container">
+            <div class="logo-icon">📊</div>
+            <div class="logo-text">
+                <h1>DSViewData</h1>
+                <p>ANALYTICS PLATFORM</p>
+            </div>
+        </div>
+
+        <div class="welcome-text">
+            <h2>Bem-vindo de volta!</h2>
+            <p>Faça login para acessar seus dashboards e análises</p>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">👤</span>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        class="form-input" 
+                        placeholder="Digite seu usuário"
+                        autocomplete="username"
+                        required
+                    >
                 </div>
             </div>
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab(0)" id="tab-button-0">
-                    <span>📈</span>
-                    <span>Visão Geral</span>
-                </button>
-                <button class="tab" onclick="switchTab(1)" id="tab-button-1">
-                    <span>⚠️</span>
-                    <span>Alerta Pré-Churn</span>
-                </button>
-                <button class="tab tab-red" onclick="switchTab(2)" id="tab-button-2">
-                    <span>💔</span>
-                    <span>Visão de Perda</span>
-                </button>
+
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">🔒</span>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
             </div>
+
+            <div class="error-message" id="errorMessage">
+                ❌ Usuário ou senha incorretos. Tente novamente.
+            </div>
+
+            <button type="submit" class="login-button" id="loginButton">
+                Acessar Dashboard
+            </button>
+        </form>
+
+        <div class="demo-credentials">
+            <h3>🎯 Credenciais de Demonstração</h3>
+            <p><strong>Usuário:</strong> admin</p>
+            <p><strong>Senha:</strong> dsview2024</p>
         </div>
-    </div>
 
-    <!-- Conteúdo das Abas -->
-    
-    <!-- Aba 1: Visão Geral -->
-    <div id="tab-content-0" class="tab-content active">
-        <div class="instructions">
-            <h2>📁 Instruções de Uso</h2>
-            <p><strong>Este dashboard requer 4 arquivos HTML na mesma pasta:</strong></p>
-            
-            <div class="file-list">
-                <p>✓ <code>dashboard_integrado_completo.html</code> (este arquivo)</p>
-                <p>✓ <code>visão_geral.html</code></p>
-                <p>✓ <code>visao_alerta_prechurn_completo.html</code></p>
-                <p>✓ <code>visao_perda_churn_completo.html</code></p>
-            </div>
-
-            <p><strong>Como configurar:</strong></p>
-            <ol>
-                <li>Baixe <strong>todos os 4 arquivos HTML</strong></li>
-                <li>Coloque-os <strong>na mesma pasta/diretório</strong></li>
-                <li>Abra este arquivo no navegador</li>
-                <li>Os dashboards serão carregados automaticamente nas abas</li>
-            </ol>
-
-            <p style="margin-top: 24px; color: var(--accent-orange);">
-                <strong>⚠️ Atenção:</strong> Se você está vendo esta mensagem, os arquivos não estão na mesma pasta!
-            </p>
-        </div>
-    </div>
-
-    <!-- Aba 2: Alerta Pré-Churn -->
-    <div id="tab-content-1" class="tab-content">
-        <div class="instructions">
-            <h2>📁 Instruções de Uso</h2>
-            <p><strong>Este dashboard requer 4 arquivos HTML na mesma pasta:</strong></p>
-            
-            <div class="file-list">
-                <p>✓ <code>dashboard_integrado_completo.html</code> (este arquivo)</p>
-                <p>✓ <code>visão_geral.html</code></p>
-                <p>✓ <code>visao_alerta_prechurn_completo.html</code></p>
-                <p>✓ <code>visao_perda_churn_completo.html</code></p>
-            </div>
-
-            <p><strong>Como configurar:</strong></p>
-            <ol>
-                <li>Baixe <strong>todos os 4 arquivos HTML</strong></li>
-                <li>Coloque-os <strong>na mesma pasta/diretório</strong></li>
-                <li>Abra este arquivo no navegador</li>
-                <li>Os dashboards serão carregados automaticamente nas abas</li>
-            </ol>
-
-            <p style="margin-top: 24px; color: var(--accent-orange);">
-                <strong>⚠️ Atenção:</strong> Se você está vendo esta mensagem, os arquivos não estão na mesma pasta!
-            </p>
-        </div>
-    </div>
-
-    <!-- Aba 3: Visão de Perda -->
-    <div id="tab-content-2" class="tab-content">
-        <div class="instructions">
-            <h2>📁 Instruções de Uso</h2>
-            <p><strong>Este dashboard requer 4 arquivos HTML na mesma pasta:</strong></p>
-            
-            <div class="file-list">
-                <p>✓ <code>dashboard_integrado_completo.html</code> (este arquivo)</p>
-                <p>✓ <code>visão_geral.html</code></p>
-                <p>✓ <code>visao_alerta_prechurn_completo.html</code></p>
-                <p>✓ <code>visao_perda_churn_completo.html</code></p>
-            </div>
-
-            <p><strong>Como configurar:</strong></p>
-            <ol>
-                <li>Baixe <strong>todos os 4 arquivos HTML</strong></li>
-                <li>Coloque-os <strong>na mesma pasta/diretório</strong></li>
-                <li>Abra este arquivo no navegador</li>
-                <li>Os dashboards serão carregados automaticamente nas abas</li>
-            </ol>
-
-            <p style="margin-top: 24px; color: var(--accent-orange);">
-                <strong>⚠️ Atenção:</strong> Se você está vendo esta mensagem, os arquivos não estão na mesma pasta!
-            </p>
+        <div class="footer-text">
+            © 2024 DSView Consultoria | <a href="#">Precisa de ajuda?</a>
         </div>
     </div>
 
     <script>
-        function switchTab(index) {
-            // Remover active de todas as abas e conteúdos
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        // Credenciais padrão
+        const DEFAULT_USER = 'admin';
+        const DEFAULT_PASS = 'dsview2024';
 
-            // Adicionar active na aba e conteúdo selecionados
-            document.getElementById(`tab-button-${index}`).classList.add('active');
-            document.getElementById(`tab-content-${index}`).classList.add('active');
-
-            // Carregar o iframe se ainda não foi carregado
-            loadDashboard(index);
+        // Verificar se já está logado
+        if (localStorage.getItem('dsview_logged_in') === 'true') {
+            window.location.href = 'dashboard.html';
         }
 
-        function loadDashboard(index) {
-            const contentDiv = document.getElementById(`tab-content-${index}`);
-            
-            // Verificar se já tem iframe
-            if (contentDiv.querySelector('iframe')) {
-                return;
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loginButton = document.getElementById('loginButton');
+
+            // Remover mensagem de erro anterior
+            errorMessage.classList.remove('show');
+
+            // Validar credenciais
+            if (username === DEFAULT_USER && password === DEFAULT_PASS) {
+                // Login bem-sucedido
+                loginButton.disabled = true;
+                loginButton.textContent = '✓ Autenticado! Redirecionando...';
+                
+                // Salvar estado de login
+                localStorage.setItem('dsview_logged_in', 'true');
+                localStorage.setItem('dsview_username', username);
+                localStorage.setItem('dsview_login_time', new Date().toISOString());
+
+                // Redirecionar após pequeno delay
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 800);
+            } else {
+                // Login falhou
+                errorMessage.classList.add('show');
+                
+                // Limpar senha
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+
+                // Shake nos inputs
+                document.querySelectorAll('.form-input').forEach(input => {
+                    input.style.borderColor = 'var(--error-red)';
+                    setTimeout(() => {
+                        input.style.borderColor = '';
+                    }, 1000);
+                });
             }
-
-            // Criar iframe
-            const iframe = document.createElement('iframe');
-            iframe.style.width = '100%';
-            iframe.style.height = 'calc(100vh - 80px)';
-            iframe.style.border = 'none';
-            iframe.style.display = 'block';
-            
-            // Definir src baseado no index
-            if (index === 0) {
-                iframe.src = 'visão_geral.html';
-            } else if (index === 1) {
-                iframe.src = 'visao_alerta_prechurn_completo.html';
-            } else if (index === 2) {
-                iframe.src = 'visao_perda_churn_completo.html';
-            }
-
-            // Adicionar loading
-            iframe.addEventListener('load', () => {
-                // Remove instruções quando carrega
-                const instructions = contentDiv.querySelector('.instructions');
-                if (instructions) {
-                    instructions.remove();
-                }
-            });
-
-            // Tratar erro de carregamento
-            iframe.addEventListener('error', () => {
-                console.error('Erro ao carregar dashboard');
-            });
-
-            // Adicionar iframe ao conteúdo
-            contentDiv.appendChild(iframe);
         }
 
-        // Tentar carregar o primeiro dashboard ao iniciar
-        window.addEventListener('DOMContentLoaded', () => {
-            loadDashboard(0);
+        // Permitir login com Enter
+        document.getElementById('password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleLogin(e);
+            }
         });
 
-        // Atalhos de teclado
-        document.addEventListener('keydown', (e) => {
-            if (e.altKey) {
-                if (e.key === '1') {
-                    switchTab(0);
-                    e.preventDefault();
-                } else if (e.key === '2') {
-                    switchTab(1);
-                    e.preventDefault();
-                } else if (e.key === '3') {
-                    switchTab(2);
-                    e.preventDefault();
-                }
-            }
+        // Auto-focus no campo de usuário
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('username').focus();
         });
     </script>
 </body>
