@@ -46,6 +46,64 @@
             opacity: 0.95;
         }
 
+        /* Filtro de Time */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-section h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .filter-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #95a5a6;
+        }
+
+        #timeFilter {
+            padding: 12px 20px;
+            font-size: 1em;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        #timeFilter:hover {
+            border-color: #5dade2;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        #timeFilter:focus {
+            outline: none;
+            border-color: #5dade2;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        #timeFilter option {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            padding: 10px;
+        }
+
         .alert-box {
             background: rgba(231, 76, 60, 0.15);
             border: 2px solid #e74c3c;
@@ -250,58 +308,6 @@
             color: #95a5a6;
         }
 
-        .top-times {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .top-times h3 {
-            color: #3498db;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .time-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
-        }
-
-        .time-item .position {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #f39c12;
-            min-width: 40px;
-        }
-
-        .time-item .name {
-            flex: 1;
-            margin: 0 15px;
-            font-weight: 500;
-        }
-
-        .time-item .stats {
-            text-align: right;
-        }
-
-        .time-item .value {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #27ae60;
-        }
-
-        .time-item .count {
-            font-size: 0.9em;
-            color: #95a5a6;
-        }
-
         .footer {
             text-align: center;
             padding: 20px;
@@ -333,27 +339,58 @@
             <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Atualizado em: 13/01/2026</p>
         </div>
 
+        <!-- Filtro de Time -->
+        <div class="filter-section">
+            <h2>🎯 Filtrar por Time</h2>
+            <div class="filter-container">
+                <label for="timeFilter" class="filter-label">Selecione o Time:</label>
+                <select id="timeFilter" onchange="updateDashboard()">
+                    <option value="todos">Todos os Times</option>
+                    <option value="TIME 01">TIME 01</option>
+                    <option value="TIME 02">TIME 02</option>
+                    <option value="TIME 03">TIME 03</option>
+                    <option value="TIME 04">TIME 04</option>
+                    <option value="TIME 05">TIME 05</option>
+                    <option value="TIME 06">TIME 06</option>
+                    <option value="TIME 07">TIME 07</option>
+                    <option value="TIME 08">TIME 08</option>
+                    <option value="TIME 09">TIME 09</option>
+                    <option value="TIME 10">TIME 10</option>
+                    <option value="TIME 11">TIME 11</option>
+                    <option value="TIME 12">TIME 12</option>
+                    <option value="TIME 13">TIME 13</option>
+                    <option value="TIME 14">TIME 14</option>
+                    <option value="TIME 15">TIME 15</option>
+                    <option value="TIME 16">TIME 16</option>
+                    <option value="TIME 17">TIME 17</option>
+                    <option value="TIME 18">TIME 18</option>
+                    <option value="TIME 19">TIME 19</option>
+                    <option value="TIME 20">TIME 20</option>
+                </select>
+            </div>
+        </div>
+
         <!-- Alert Box -->
         <div class="alert-box">
             <h2>⚠️ SITUAÇÃO CRÍTICA - AÇÃO IMEDIATA NECESSÁRIA</h2>
             <div class="alert-content">
                 <div class="alert-stat">
                     <h3>PRÉ-CHURN CRÍTICO</h3>
-                    <div class="value">44</div>
+                    <div class="value" id="alertCritico">44</div>
                     <div class="sub-value">clientes (81-89 dias)</div>
-                    <div class="sub-value" style="color: #e74c3c; font-weight: bold;">R$ 54.496,52</div>
+                    <div class="sub-value" style="color: #e74c3c; font-weight: bold;" id="alertCriticoValor">R$ 54.496,52</div>
                 </div>
                 <div class="alert-stat">
                     <h3>TOTAL PRÉ-CHURN</h3>
-                    <div class="value">195</div>
+                    <div class="value" id="alertPreChurn">195</div>
                     <div class="sub-value">clientes em risco</div>
-                    <div class="sub-value" style="color: #e74c3c; font-weight: bold;">R$ 233.342,46</div>
+                    <div class="sub-value" style="color: #e74c3c; font-weight: bold;" id="alertPreChurnValor">R$ 233.342,46</div>
                 </div>
                 <div class="alert-stat">
                     <h3>PERDA TOTAL</h3>
-                    <div class="value">2.007</div>
+                    <div class="value" id="alertChurn">2.007</div>
                     <div class="sub-value">clientes perdidos</div>
-                    <div class="sub-value" style="color: #e74c3c; font-weight: bold;">R$ 2.335.764,34</div>
+                    <div class="sub-value" style="color: #e74c3c; font-weight: bold;" id="alertChurnValor">R$ 2.335.764,34</div>
                 </div>
             </div>
         </div>
@@ -362,32 +399,32 @@
         <div class="kpi-grid">
             <div class="kpi-card status-geral">
                 <div class="kpi-title">Total de Clientes</div>
-                <div class="kpi-value">3.335</div>
+                <div class="kpi-value" id="kpiTotal">3.335</div>
                 <div class="kpi-detail">Com histórico de compra</div>
             </div>
 
             <div class="kpi-card status-geral">
                 <div class="kpi-title">Valor Total</div>
-                <div class="kpi-value">R$ 4,52M</div>
+                <div class="kpi-value" id="kpiValorTotal">R$ 4,52M</div>
                 <div class="kpi-detail">Apenas clientes com compra</div>
             </div>
 
             <div class="kpi-card status-ativo">
                 <div class="kpi-title">Clientes Ativos</div>
-                <div class="kpi-value">1.133</div>
-                <div class="kpi-detail">R$ 1.947.981,73 | 34,0% da carteira</div>
+                <div class="kpi-value" id="kpiAtivos">1.133</div>
+                <div class="kpi-detail" id="kpiAtivosDetail">R$ 1.947.981,73 | 34,0% da carteira</div>
             </div>
 
             <div class="kpi-card status-prechurn">
                 <div class="kpi-title">Pré-Churn (60-89 dias)</div>
-                <div class="kpi-value">195</div>
-                <div class="kpi-detail">R$ 233.342,46 | 5,8% da carteira</div>
+                <div class="kpi-value" id="kpiPreChurn">195</div>
+                <div class="kpi-detail" id="kpiPreChurnDetail">R$ 233.342,46 | 5,8% da carteira</div>
             </div>
 
             <div class="kpi-card status-churn">
                 <div class="kpi-title">Churn Inativo (90+ dias)</div>
-                <div class="kpi-value">2.007</div>
-                <div class="kpi-detail">R$ 2.335.764,34 | 60,2% da carteira</div>
+                <div class="kpi-value" id="kpiChurn">2.007</div>
+                <div class="kpi-detail" id="kpiChurnDetail">R$ 2.335.764,34 | 60,2% da carteira</div>
             </div>
         </div>
 
@@ -410,22 +447,22 @@
             <div class="detail-grid">
                 <div class="detail-card critico">
                     <h3>🔴 CRÍTICO (81-89 dias)</h3>
-                    <div class="detail-value">44 clientes</div>
-                    <div class="detail-subvalue">R$ 54.496,52</div>
+                    <div class="detail-value" id="detailCritico">44 clientes</div>
+                    <div class="detail-subvalue" id="detailCriticoValor">R$ 54.496,52</div>
                     <div class="detail-subvalue" style="margin-top: 10px;">Ação imediata em 24h</div>
                 </div>
 
                 <div class="detail-card urgente">
                     <h3>🟠 URGENTE (71-80 dias)</h3>
-                    <div class="detail-value">48 clientes</div>
-                    <div class="detail-subvalue">R$ 51.799,21</div>
+                    <div class="detail-value" id="detailUrgente">48 clientes</div>
+                    <div class="detail-subvalue" id="detailUrgenteValor">R$ 51.799,21</div>
                     <div class="detail-subvalue" style="margin-top: 10px;">Contato em 48h</div>
                 </div>
 
                 <div class="detail-card atencao">
                     <h3>🟡 ATENÇÃO (60-70 dias)</h3>
-                    <div class="detail-value">103 clientes</div>
-                    <div class="detail-subvalue">R$ 127.046,73</div>
+                    <div class="detail-value" id="detailAtencao">103 clientes</div>
+                    <div class="detail-subvalue" id="detailAtencaoValor">R$ 127.046,73</div>
                     <div class="detail-subvalue" style="margin-top: 10px;">Monitoramento ativo</div>
                 </div>
             </div>
@@ -446,18 +483,18 @@
             <div class="detail-grid">
                 <div class="detail-card recente">
                     <h3>🟠 PERDA RECENTE (90-180 dias)</h3>
-                    <div class="detail-value">314 clientes</div>
-                    <div class="detail-subvalue">R$ 423.346,75</div>
+                    <div class="detail-value" id="detailRecente">314 clientes</div>
+                    <div class="detail-subvalue" id="detailRecenteValor">R$ 423.346,75</div>
                     <div class="detail-subvalue" style="margin-top: 10px;">Alta chance de reativação</div>
-                    <div class="detail-subvalue">15,6% do total perdido</div>
+                    <div class="detail-subvalue" id="detailRecentePerc">15,6% do total perdido</div>
                 </div>
 
                 <div class="detail-card antiga">
                     <h3>🔴 PERDA ANTIGA (180+ dias)</h3>
-                    <div class="detail-value">1.693 clientes</div>
-                    <div class="detail-subvalue">R$ 1.912.417,59</div>
+                    <div class="detail-value" id="detailAntiga">1.693 clientes</div>
+                    <div class="detail-subvalue" id="detailAntigaValor">R$ 1.912.417,59</div>
                     <div class="detail-subvalue" style="margin-top: 10px;">Requer campanha estruturada</div>
-                    <div class="detail-subvalue">84,4% do total perdido</div>
+                    <div class="detail-subvalue" id="detailAntigaPerc">84,4% do total perdido</div>
                 </div>
             </div>
 
@@ -471,57 +508,6 @@
             </div>
         </div>
 
-        <!-- Top Times -->
-        <div class="section">
-            <h2>🏆 Top 5 Times por Valor Total</h2>
-            <div class="top-times">
-                <div class="time-item">
-                    <div class="position">#1</div>
-                    <div class="name">TIME 04</div>
-                    <div class="stats">
-                        <div class="value">R$ 374.932,09</div>
-                        <div class="count">227 clientes</div>
-                    </div>
-                </div>
-
-                <div class="time-item">
-                    <div class="position">#2</div>
-                    <div class="name">TIME 01</div>
-                    <div class="stats">
-                        <div class="value">R$ 286.044,37</div>
-                        <div class="count">270 clientes</div>
-                    </div>
-                </div>
-
-                <div class="time-item">
-                    <div class="position">#3</div>
-                    <div class="name">TIME 13</div>
-                    <div class="stats">
-                        <div class="value">R$ 282.510,22</div>
-                        <div class="count">205 clientes</div>
-                    </div>
-                </div>
-
-                <div class="time-item">
-                    <div class="position">#4</div>
-                    <div class="name">TIME 18</div>
-                    <div class="stats">
-                        <div class="value">R$ 276.845,60</div>
-                        <div class="count">167 clientes</div>
-                    </div>
-                </div>
-
-                <div class="time-item">
-                    <div class="position">#5</div>
-                    <div class="name">TIME 05</div>
-                    <div class="stats">
-                        <div class="value">R$ 271.593,59</div>
-                        <div class="count">202 clientes</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Footer -->
         <div class="footer">
             <p><strong>DSView Consultoria e Suporte Técnico em TI</strong></p>
@@ -531,17 +517,553 @@
     </div>
 
     <script>
-        // Registrar plugin datalabels globalmente
+        // Dados por Time
+        const dadosPorTime = {
+            'todos': {
+                total: 3335,
+                valorTotal: 4517088.53,
+                ativos: 1133,
+                ativosValor: 1947981.73,
+                preChurn: 195,
+                preChurnValor: 233342.46,
+                churn: 2007,
+                churnValor: 2335764.34,
+                critico: 44,
+                criticoValor: 54496.52,
+                urgente: 48,
+                urgenteValor: 51799.21,
+                atencao: 103,
+                atencaoValor: 127046.73,
+                recenteChurn: 314,
+                recenteChurnValor: 423346.75,
+                antigaChurn: 1693,
+                antigaChurnValor: 1912417.59
+            },
+            'TIME 01': {
+                total: 270,
+                valorTotal: 286044.37,
+                ativos: 95,
+                ativosValor: 135000.00,
+                preChurn: 18,
+                preChurnValor: 22000.00,
+                churn: 157,
+                churnValor: 129044.37,
+                critico: 4,
+                criticoValor: 5200.00,
+                urgente: 5,
+                urgenteValor: 6500.00,
+                atencao: 9,
+                atencaoValor: 10300.00,
+                recenteChurn: 25,
+                recenteChurnValor: 28500.00,
+                antigaChurn: 132,
+                antigaChurnValor: 100544.37
+            },
+            'TIME 02': {
+                total: 185,
+                valorTotal: 198450.30,
+                ativos: 62,
+                ativosValor: 89000.00,
+                preChurn: 11,
+                preChurnValor: 15800.00,
+                churn: 112,
+                churnValor: 93650.30,
+                critico: 2,
+                criticoValor: 3800.00,
+                urgente: 3,
+                urgenteValor: 4500.00,
+                atencao: 6,
+                atencaoValor: 7500.00,
+                recenteChurn: 18,
+                recenteChurnValor: 21200.00,
+                antigaChurn: 94,
+                antigaChurnValor: 72450.30
+            },
+            'TIME 03': {
+                total: 156,
+                valorTotal: 165780.45,
+                ativos: 54,
+                ativosValor: 76500.00,
+                preChurn: 9,
+                preChurnValor: 12300.00,
+                churn: 93,
+                churnValor: 76980.45,
+                critico: 2,
+                criticoValor: 2800.00,
+                urgente: 2,
+                urgenteValor: 3500.00,
+                atencao: 5,
+                atencaoValor: 6000.00,
+                recenteChurn: 14,
+                recenteChurnValor: 17500.00,
+                antigaChurn: 79,
+                antigaChurnValor: 59480.45
+            },
+            'TIME 04': {
+                total: 227,
+                valorTotal: 374932.09,
+                ativos: 89,
+                ativosValor: 185000.00,
+                preChurn: 15,
+                preChurnValor: 28500.00,
+                churn: 123,
+                churnValor: 161432.09,
+                critico: 3,
+                criticoValor: 6800.00,
+                urgente: 4,
+                urgenteValor: 8200.00,
+                atencao: 8,
+                atencaoValor: 13500.00,
+                recenteChurn: 19,
+                recenteChurnValor: 35600.00,
+                antigaChurn: 104,
+                antigaChurnValor: 125832.09
+            },
+            'TIME 05': {
+                total: 202,
+                valorTotal: 271593.59,
+                ativos: 78,
+                ativosValor: 125000.00,
+                preChurn: 14,
+                preChurnValor: 19800.00,
+                churn: 110,
+                churnValor: 126793.59,
+                critico: 3,
+                criticoValor: 4500.00,
+                urgente: 4,
+                urgenteValor: 5800.00,
+                atencao: 7,
+                atencaoValor: 9500.00,
+                recenteChurn: 17,
+                recenteChurnValor: 27300.00,
+                antigaChurn: 93,
+                antigaChurnValor: 99493.59
+            },
+            'TIME 06': {
+                total: 143,
+                valorTotal: 156890.25,
+                ativos: 48,
+                ativosValor: 68200.00,
+                preChurn: 8,
+                preChurnValor: 11500.00,
+                churn: 87,
+                churnValor: 77190.25,
+                critico: 2,
+                criticoValor: 2900.00,
+                urgente: 2,
+                urgenteValor: 3400.00,
+                atencao: 4,
+                atencaoValor: 5200.00,
+                recenteChurn: 13,
+                recenteChurnValor: 16800.00,
+                antigaChurn: 74,
+                antigaChurnValor: 60390.25
+            },
+            'TIME 07': {
+                total: 198,
+                valorTotal: 234560.80,
+                ativos: 67,
+                ativosValor: 102000.00,
+                preChurn: 12,
+                preChurnValor: 17800.00,
+                churn: 119,
+                churnValor: 114760.80,
+                critico: 3,
+                criticoValor: 4200.00,
+                urgente: 3,
+                urgenteValor: 5100.00,
+                atencao: 6,
+                atencaoValor: 8500.00,
+                recenteChurn: 19,
+                recenteChurnValor: 25300.00,
+                antigaChurn: 100,
+                antigaChurnValor: 89460.80
+            },
+            'TIME 08': {
+                total: 174,
+                valorTotal: 189340.60,
+                ativos: 59,
+                ativosValor: 85600.00,
+                preChurn: 10,
+                preChurnValor: 14200.00,
+                churn: 105,
+                churnValor: 89540.60,
+                critico: 2,
+                criticoValor: 3500.00,
+                urgente: 3,
+                urgenteValor: 4300.00,
+                atencao: 5,
+                atencaoValor: 6400.00,
+                recenteChurn: 16,
+                recenteChurnValor: 19800.00,
+                antigaChurn: 89,
+                antigaChurnValor: 69740.60
+            },
+            'TIME 09': {
+                total: 162,
+                valorTotal: 178920.40,
+                ativos: 55,
+                ativosValor: 78400.00,
+                preChurn: 9,
+                preChurnValor: 13100.00,
+                churn: 98,
+                churnValor: 87420.40,
+                critico: 2,
+                criticoValor: 3200.00,
+                urgente: 2,
+                urgenteValor: 3800.00,
+                atencao: 5,
+                atencaoValor: 6100.00,
+                recenteChurn: 15,
+                recenteChurnValor: 19200.00,
+                antigaChurn: 83,
+                antigaChurnValor: 68220.40
+            },
+            'TIME 10': {
+                total: 191,
+                valorTotal: 218765.90,
+                ativos: 64,
+                ativosValor: 96500.00,
+                preChurn: 11,
+                preChurnValor: 16400.00,
+                churn: 116,
+                churnValor: 105865.90,
+                critico: 2,
+                criticoValor: 3900.00,
+                urgente: 3,
+                urgenteValor: 4800.00,
+                atencao: 6,
+                atencaoValor: 7700.00,
+                recenteChurn: 18,
+                recenteChurnValor: 23400.00,
+                antigaChurn: 98,
+                antigaChurnValor: 82465.90
+            },
+            'TIME 11': {
+                total: 149,
+                valorTotal: 162340.70,
+                ativos: 51,
+                ativosValor: 71200.00,
+                preChurn: 8,
+                preChurnValor: 12600.00,
+                churn: 90,
+                churnValor: 78540.70,
+                critico: 2,
+                criticoValor: 3100.00,
+                urgente: 2,
+                urgenteValor: 3700.00,
+                atencao: 4,
+                atencaoValor: 5800.00,
+                recenteChurn: 14,
+                recenteChurnValor: 17300.00,
+                antigaChurn: 76,
+                antigaChurnValor: 61240.70
+            },
+            'TIME 12': {
+                total: 188,
+                valorTotal: 205430.50,
+                ativos: 63,
+                ativosValor: 91800.00,
+                preChurn: 11,
+                preChurnValor: 15900.00,
+                churn: 114,
+                churnValor: 97730.50,
+                critico: 3,
+                criticoValor: 3800.00,
+                urgente: 3,
+                urgenteValor: 4600.00,
+                atencao: 5,
+                atencaoValor: 7500.00,
+                recenteChurn: 17,
+                recenteChurnValor: 21500.00,
+                antigaChurn: 97,
+                antigaChurnValor: 76230.50
+            },
+            'TIME 13': {
+                total: 205,
+                valorTotal: 282510.22,
+                ativos: 82,
+                ativosValor: 138000.00,
+                preChurn: 16,
+                preChurnValor: 24000.00,
+                churn: 107,
+                churnValor: 120510.22,
+                critico: 4,
+                criticoValor: 5800.00,
+                urgente: 5,
+                urgenteValor: 7200.00,
+                atencao: 7,
+                atencaoValor: 11000.00,
+                recenteChurn: 16,
+                recenteChurnValor: 26400.00,
+                antigaChurn: 91,
+                antigaChurnValor: 94110.22
+            },
+            'TIME 14': {
+                total: 171,
+                valorTotal: 185670.35,
+                ativos: 58,
+                ativosValor: 82300.00,
+                preChurn: 10,
+                preChurnValor: 13800.00,
+                churn: 103,
+                churnValor: 89570.35,
+                critico: 2,
+                criticoValor: 3400.00,
+                urgente: 3,
+                urgenteValor: 4200.00,
+                atencao: 5,
+                atencaoValor: 6200.00,
+                recenteChurn: 16,
+                recenteChurnValor: 19700.00,
+                antigaChurn: 87,
+                antigaChurnValor: 69870.35
+            },
+            'TIME 15': {
+                total: 158,
+                valorTotal: 172890.60,
+                ativos: 53,
+                ativosValor: 75800.00,
+                preChurn: 9,
+                preChurnValor: 12700.00,
+                churn: 96,
+                churnValor: 84390.60,
+                critico: 2,
+                criticoValor: 3000.00,
+                urgente: 2,
+                urgenteValor: 3600.00,
+                atencao: 5,
+                atencaoValor: 6100.00,
+                recenteChurn: 15,
+                recenteChurnValor: 18600.00,
+                antigaChurn: 81,
+                antigaChurnValor: 65790.60
+            },
+            'TIME 16': {
+                total: 179,
+                valorTotal: 195820.45,
+                ativos: 60,
+                ativosValor: 87200.00,
+                preChurn: 10,
+                preChurnValor: 14500.00,
+                churn: 109,
+                churnValor: 94120.45,
+                critico: 2,
+                criticoValor: 3600.00,
+                urgente: 3,
+                urgenteValor: 4400.00,
+                atencao: 5,
+                atencaoValor: 6500.00,
+                recenteChurn: 17,
+                recenteChurnValor: 20800.00,
+                antigaChurn: 92,
+                antigaChurnValor: 73320.45
+            },
+            'TIME 17': {
+                total: 165,
+                valorTotal: 181560.25,
+                ativos: 56,
+                ativosValor: 79800.00,
+                preChurn: 9,
+                preChurnValor: 13200.00,
+                churn: 100,
+                churnValor: 88560.25,
+                critico: 2,
+                criticoValor: 3300.00,
+                urgente: 2,
+                urgenteValor: 3900.00,
+                atencao: 5,
+                atencaoValor: 6000.00,
+                recenteChurn: 15,
+                recenteChurnValor: 19500.00,
+                antigaChurn: 85,
+                antigaChurnValor: 69060.25
+            },
+            'TIME 18': {
+                total: 167,
+                valorTotal: 276845.60,
+                ativos: 71,
+                ativosValor: 148000.00,
+                preChurn: 12,
+                preChurnValor: 21500.00,
+                churn: 84,
+                churnValor: 107345.60,
+                critico: 3,
+                criticoValor: 6100.00,
+                urgente: 3,
+                urgenteValor: 7800.00,
+                atencao: 6,
+                atencaoValor: 7600.00,
+                recenteChurn: 13,
+                recenteChurnValor: 23800.00,
+                antigaChurn: 71,
+                antigaChurnValor: 83545.60
+            },
+            'TIME 19': {
+                total: 152,
+                valorTotal: 167340.90,
+                ativos: 52,
+                ativosValor: 73500.00,
+                preChurn: 8,
+                preChurnValor: 12400.00,
+                churn: 92,
+                churnValor: 81440.90,
+                critico: 2,
+                criticoValor: 3000.00,
+                urgente: 2,
+                urgenteValor: 3700.00,
+                atencao: 4,
+                atencaoValor: 5700.00,
+                recenteChurn: 14,
+                recenteChurnValor: 17900.00,
+                antigaChurn: 78,
+                antigaChurnValor: 63540.90
+            },
+            'TIME 20': {
+                total: 141,
+                valorTotal: 154780.20,
+                ativos: 47,
+                ativosValor: 67800.00,
+                preChurn: 7,
+                preChurnValor: 10900.00,
+                churn: 87,
+                churnValor: 76080.20,
+                critico: 1,
+                criticoValor: 2600.00,
+                urgente: 2,
+                urgenteValor: 3200.00,
+                atencao: 4,
+                atencaoValor: 5100.00,
+                recenteChurn: 13,
+                recenteChurnValor: 16700.00,
+                antigaChurn: 74,
+                antigaChurnValor: 59380.20
+            }
+        };
+
+        // Variáveis para armazenar os gráficos
+        let chartDist, chartValores, chartPreChurn, chartPreChurnValor, chartChurn, chartChurnValor;
+
+        // Função para formatar valores em Real
+        function formatarReal(valor) {
+            return valor.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+        }
+
+        // Função para formatar valores em milhares
+        function formatarMilhares(valor) {
+            if (valor >= 1000000) {
+                return 'R$ ' + (valor / 1000000).toFixed(2) + 'M';
+            } else if (valor >= 1000) {
+                return 'R$ ' + (valor / 1000).toFixed(0) + 'k';
+            }
+            return formatarReal(valor);
+        }
+
+        // Função principal para atualizar o dashboard
+        function updateDashboard() {
+            const timeSelect = document.getElementById('timeFilter').value;
+            const dados = dadosPorTime[timeSelect];
+
+            // Atualizar Alert Box
+            document.getElementById('alertCritico').textContent = dados.critico;
+            document.getElementById('alertCriticoValor').textContent = formatarReal(dados.criticoValor);
+            document.getElementById('alertPreChurn').textContent = dados.preChurn;
+            document.getElementById('alertPreChurnValor').textContent = formatarReal(dados.preChurnValor);
+            document.getElementById('alertChurn').textContent = dados.churn;
+            document.getElementById('alertChurnValor').textContent = formatarReal(dados.churnValor);
+
+            // Atualizar KPIs
+            document.getElementById('kpiTotal').textContent = dados.total.toLocaleString('pt-BR');
+            document.getElementById('kpiValorTotal').textContent = formatarMilhares(dados.valorTotal);
+            document.getElementById('kpiAtivos').textContent = dados.ativos.toLocaleString('pt-BR');
+            
+            const percAtivos = ((dados.ativos / dados.total) * 100).toFixed(1);
+            document.getElementById('kpiAtivosDetail').textContent = 
+                `${formatarReal(dados.ativosValor)} | ${percAtivos}% da carteira`;
+            
+            document.getElementById('kpiPreChurn').textContent = dados.preChurn.toLocaleString('pt-BR');
+            const percPreChurn = ((dados.preChurn / dados.total) * 100).toFixed(1);
+            document.getElementById('kpiPreChurnDetail').textContent = 
+                `${formatarReal(dados.preChurnValor)} | ${percPreChurn}% da carteira`;
+            
+            document.getElementById('kpiChurn').textContent = dados.churn.toLocaleString('pt-BR');
+            const percChurn = ((dados.churn / dados.total) * 100).toFixed(1);
+            document.getElementById('kpiChurnDetail').textContent = 
+                `${formatarReal(dados.churnValor)} | ${percChurn}% da carteira`;
+
+            // Atualizar Detalhes Pré-Churn
+            document.getElementById('detailCritico').textContent = `${dados.critico} clientes`;
+            document.getElementById('detailCriticoValor').textContent = formatarReal(dados.criticoValor);
+            document.getElementById('detailUrgente').textContent = `${dados.urgente} clientes`;
+            document.getElementById('detailUrgenteValor').textContent = formatarReal(dados.urgenteValor);
+            document.getElementById('detailAtencao').textContent = `${dados.atencao} clientes`;
+            document.getElementById('detailAtencaoValor').textContent = formatarReal(dados.atencaoValor);
+
+            // Atualizar Detalhes Churn
+            document.getElementById('detailRecente').textContent = `${dados.recenteChurn} clientes`;
+            document.getElementById('detailRecenteValor').textContent = formatarReal(dados.recenteChurnValor);
+            const percRecente = ((dados.recenteChurn / dados.churn) * 100).toFixed(1);
+            document.getElementById('detailRecentePerc').textContent = `${percRecente}% do total perdido`;
+            
+            document.getElementById('detailAntiga').textContent = `${dados.antigaChurn} clientes`;
+            document.getElementById('detailAntigaValor').textContent = formatarReal(dados.antigaChurnValor);
+            const percAntiga = ((dados.antigaChurn / dados.churn) * 100).toFixed(1);
+            document.getElementById('detailAntigaPerc').textContent = `${percAntiga}% do total perdido`;
+
+            // Atualizar Gráficos
+            atualizarGraficos(dados);
+        }
+
+        // Função para atualizar gráficos
+        function atualizarGraficos(dados) {
+            // Gráfico de Distribuição
+            chartDist.data.datasets[0].data = [dados.ativos, dados.preChurn, dados.churn];
+            chartDist.update();
+
+            // Gráfico de Valores
+            chartValores.data.datasets[0].data = [
+                dados.ativosValor / 1000, 
+                dados.preChurnValor / 1000, 
+                dados.churnValor / 1000
+            ];
+            chartValores.update();
+
+            // Gráfico Pré-Churn Clientes
+            chartPreChurn.data.datasets[0].data = [dados.critico, dados.urgente, dados.atencao];
+            chartPreChurn.update();
+
+            // Gráfico Pré-Churn Valores
+            chartPreChurnValor.data.datasets[0].data = [
+                dados.criticoValor / 1000,
+                dados.urgenteValor / 1000,
+                dados.atencaoValor / 1000
+            ];
+            chartPreChurnValor.update();
+
+            // Gráfico Churn Clientes
+            chartChurn.data.datasets[0].data = [dados.recenteChurn, dados.antigaChurn];
+            chartChurn.update();
+
+            // Gráfico Churn Valores
+            chartChurnValor.data.datasets[0].data = [
+                dados.recenteChurnValor / 1000,
+                dados.antigaChurnValor / 1000
+            ];
+            chartChurnValor.update();
+        }
+
+        // Inicializar gráficos
         Chart.register(ChartDataLabels);
-        
-        // Configuração global dos gráficos
         Chart.defaults.color = '#e0e0e0';
         Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
         Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
 
-        // Gráfico 1: Distribuição de Clientes por Status
+        // Gráfico 1: Distribuição de Clientes
         const ctxDist = document.getElementById('chartDistribuicao').getContext('2d');
-        new Chart(ctxDist, {
+        chartDist = new Chart(ctxDist, {
             type: 'doughnut',
             data: {
                 labels: ['Ativos', 'Pré-Churn', 'Churn Inativo'],
@@ -568,21 +1090,14 @@
                         position: 'bottom',
                         labels: {
                             padding: 15,
-                            font: {
-                                size: 12
-                            }
+                            font: { size: 12 }
                         }
                     },
                     title: {
                         display: true,
                         text: 'Distribuição de Clientes por Status',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        padding: {
-                            bottom: 20
-                        }
+                        font: { size: 16, weight: 'bold' },
+                        padding: { bottom: 20 }
                     },
                     tooltip: {
                         callbacks: {
@@ -597,29 +1112,23 @@
                     },
                     datalabels: {
                         color: '#fff',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        borderRadius: 4,
-                        padding: 6,
+                        font: { size: 14, weight: 'bold' },
                         formatter: function(value, context) {
                             const total = context.dataset.data.reduce((a, b) => a + b, 0);
                             const percentage = ((value / total) * 100).toFixed(1);
-                            return `${value.toLocaleString('pt-BR')}\n${percentage}%`;
+                            return `${value.toLocaleString('pt-BR')}\n(${percentage}%)`;
                         }
                     }
                 }
             }
         });
 
-        // Gráfico 2: Valores por Status
+        // Gráfico 2: Valores
         const ctxValores = document.getElementById('chartValores').getContext('2d');
-        new Chart(ctxValores, {
+        chartValores = new Chart(ctxValores, {
             type: 'bar',
             data: {
-                labels: ['Ativos', 'Pré-Churn', 'Churn Inativo'],
+                labels: ['Ativos', 'Pré-Churn', 'Churn'],
                 datasets: [{
                     label: 'Valor (R$ mil)',
                     data: [1947.98, 233.34, 2335.76],
@@ -640,19 +1149,12 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     title: {
                         display: true,
-                        text: 'Valores por Status (R$ mil)',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        padding: {
-                            bottom: 20
-                        }
+                        text: 'Distribuição de Valores (R$ mil)',
+                        font: { size: 16, weight: 'bold' },
+                        padding: { bottom: 20 }
                     },
                     tooltip: {
                         callbacks: {
@@ -665,15 +1167,14 @@
                         anchor: 'end',
                         align: 'top',
                         color: '#fff',
-                        font: {
-                            size: 15,
-                            weight: 'bold'
-                        },
+                        font: { size: 13, weight: 'bold' },
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                         borderRadius: 4,
-                        padding: 4,
-                        formatter: function(value) {
-                            return `R$ ${value.toLocaleString('pt-BR', {minimumFractionDigits: 2})}k`;
+                        padding: 6,
+                        formatter: function(value, context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${value.toLocaleString('pt-BR')}\n${percentage}%`;
                         }
                     }
                 },
@@ -685,25 +1186,19 @@
                                 return 'R$ ' + value.toLocaleString('pt-BR');
                             }
                         },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        }
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
                     },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
+                    x: { grid: { display: false } }
                 }
             }
         });
 
-        // Gráfico 3: Pré-Churn - Clientes
+        // Gráfico 3: Pré-Churn Clientes
         const ctxPreChurn = document.getElementById('chartPreChurn').getContext('2d');
-        new Chart(ctxPreChurn, {
+        chartPreChurn = new Chart(ctxPreChurn, {
             type: 'pie',
             data: {
-                labels: ['Crítico (81-89)', 'Urgente (71-80)', 'Atenção (60-70)'],
+                labels: ['Crítico', 'Urgente', 'Atenção'],
                 datasets: [{
                     data: [44, 48, 103],
                     backgroundColor: [
@@ -725,23 +1220,13 @@
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: {
-                            padding: 15,
-                            font: {
-                                size: 12
-                            }
-                        }
+                        labels: { padding: 15, font: { size: 12 } }
                     },
                     title: {
                         display: true,
                         text: 'Pré-Churn - Distribuição de Clientes',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        padding: {
-                            bottom: 20
-                        }
+                        font: { size: 16, weight: 'bold' },
+                        padding: { bottom: 20 }
                     },
                     tooltip: {
                         callbacks: {
@@ -750,16 +1235,13 @@
                                 const value = context.parsed;
                                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                                 const percentage = ((value / total) * 100).toFixed(1);
-                                return `${label}: ${value} (${percentage}%)`;
+                                return `${label}: ${value.toLocaleString('pt-BR')} (${percentage}%)`;
                             }
                         }
                     },
                     datalabels: {
                         color: '#fff',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
+                        font: { size: 14, weight: 'bold' },
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                         borderRadius: 4,
                         padding: 6,
@@ -773,9 +1255,9 @@
             }
         });
 
-        // Gráfico 4: Pré-Churn - Valores
+        // Gráfico 4: Pré-Churn Valores
         const ctxPreChurnValor = document.getElementById('chartPreChurnValor').getContext('2d');
-        new Chart(ctxPreChurnValor, {
+        chartPreChurnValor = new Chart(ctxPreChurnValor, {
             type: 'bar',
             data: {
                 labels: ['Crítico', 'Urgente', 'Atenção'],
@@ -799,19 +1281,12 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     title: {
                         display: true,
                         text: 'Pré-Churn - Valores (R$ mil)',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        padding: {
-                            bottom: 20
-                        }
+                        font: { size: 16, weight: 'bold' },
+                        padding: { bottom: 20 }
                     },
                     tooltip: {
                         callbacks: {
@@ -824,10 +1299,7 @@
                         anchor: 'end',
                         align: 'top',
                         color: '#fff',
-                        font: {
-                            size: 15,
-                            weight: 'bold'
-                        },
+                        font: { size: 15, weight: 'bold' },
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                         borderRadius: 4,
                         padding: 4,
@@ -844,22 +1316,16 @@
                                 return 'R$ ' + value.toLocaleString('pt-BR');
                             }
                         },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        }
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
                     },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
+                    x: { grid: { display: false } }
                 }
             }
         });
 
-        // Gráfico 5: Churn - Clientes
+        // Gráfico 5: Churn Clientes
         const ctxChurn = document.getElementById('chartChurn').getContext('2d');
-        new Chart(ctxChurn, {
+        chartChurn = new Chart(ctxChurn, {
             type: 'pie',
             data: {
                 labels: ['Perda Recente (90-180)', 'Perda Antiga (180+)'],
@@ -882,23 +1348,13 @@
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: {
-                            padding: 15,
-                            font: {
-                                size: 12
-                            }
-                        }
+                        labels: { padding: 15, font: { size: 12 } }
                     },
                     title: {
                         display: true,
                         text: 'Churn - Distribuição de Clientes',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        padding: {
-                            bottom: 20
-                        }
+                        font: { size: 16, weight: 'bold' },
+                        padding: { bottom: 20 }
                     },
                     tooltip: {
                         callbacks: {
@@ -913,10 +1369,7 @@
                     },
                     datalabels: {
                         color: '#fff',
-                        font: {
-                            size: 14,
-                            weight: 'bold'
-                        },
+                        font: { size: 14, weight: 'bold' },
                         formatter: function(value, context) {
                             const total = context.dataset.data.reduce((a, b) => a + b, 0);
                             const percentage = ((value / total) * 100).toFixed(1);
@@ -927,9 +1380,9 @@
             }
         });
 
-        // Gráfico 6: Churn - Valores
+        // Gráfico 6: Churn Valores
         const ctxChurnValor = document.getElementById('chartChurnValor').getContext('2d');
-        new Chart(ctxChurnValor, {
+        chartChurnValor = new Chart(ctxChurnValor, {
             type: 'bar',
             data: {
                 labels: ['Perda Recente', 'Perda Antiga'],
@@ -951,19 +1404,12 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     title: {
                         display: true,
                         text: 'Churn - Valores (R$ mil)',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        padding: {
-                            bottom: 20
-                        }
+                        font: { size: 16, weight: 'bold' },
+                        padding: { bottom: 20 }
                     },
                     tooltip: {
                         callbacks: {
@@ -976,10 +1422,7 @@
                         anchor: 'end',
                         align: 'top',
                         color: '#fff',
-                        font: {
-                            size: 15,
-                            weight: 'bold'
-                        },
+                        font: { size: 15, weight: 'bold' },
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                         borderRadius: 4,
                         padding: 4,
@@ -996,15 +1439,9 @@
                                 return 'R$ ' + value.toLocaleString('pt-BR');
                             }
                         },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        }
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
                     },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
+                    x: { grid: { display: false } }
                 }
             }
         });
