@@ -16,6 +16,7 @@
             --accent-orange: #f97316;
             --accent-red: #ef4444;
             --accent-purple: #a855f7;
+            --accent-crimson: #dc143c;
             --border-color: #3d4560;
         }
 
@@ -44,7 +45,7 @@
         }
 
         .tabs-wrapper {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -93,15 +94,16 @@
             display: flex;
             gap: 4px;
             flex: 1;
+            overflow-x: auto;
         }
 
         .tab {
-            padding: 18px 28px;
+            padding: 18px 24px;
             background: transparent;
             border: none;
             color: var(--text-secondary);
             font-family: 'Outfit', sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
@@ -109,6 +111,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .tab:hover {
@@ -140,6 +143,16 @@
 
         .tab.tab-purple:hover {
             background: rgba(168, 85, 247, 0.05);
+        }
+
+        .tab.tab-crimson.active {
+            color: var(--accent-crimson);
+            border-bottom-color: var(--accent-crimson);
+            background: rgba(220, 20, 60, 0.1);
+        }
+
+        .tab.tab-crimson:hover {
+            background: rgba(220, 20, 60, 0.05);
         }
 
         /* User Menu */
@@ -263,10 +276,10 @@
             font-family: 'Courier New', monospace;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
             .tabs-wrapper {
-                flex-direction: column;
-                padding: 16px 20px;
+                flex-wrap: wrap;
+                padding: 0 20px;
             }
 
             .logo-mini {
@@ -286,8 +299,8 @@
             }
 
             .tab {
-                padding: 14px 20px;
-                font-size: 14px;
+                padding: 14px 18px;
+                font-size: 13px;
                 white-space: nowrap;
             }
 
@@ -335,6 +348,10 @@
                     <span>🎯</span>
                     <span>Perda & Risco</span>
                 </button>
+                <button class="tab tab-crimson" onclick="switchTab(4)" id="tab-button-4">
+                    <span>📊</span>
+                    <span>Análise Crítica & Indicadores</span>
+                </button>
             </div>
             <div class="user-menu">
                 <div class="user-info">
@@ -355,7 +372,7 @@
     <div id="tab-content-0" class="tab-content active">
         <div class="instructions">
             <h2>📋 Instruções de Uso</h2>
-            <p><strong>Este dashboard requer 5 arquivos HTML na mesma pasta:</strong></p>
+            <p><strong>Este dashboard requer 6 arquivos HTML na mesma pasta:</strong></p>
             
             <div class="file-list">
                 <p>✓ <code>login.html</code></p>
@@ -364,11 +381,12 @@
                 <p>✓ <code>visao_alerta_prechurn_completo.html</code></p>
                 <p>✓ <code>visao_perda_churn_completo.html</code></p>
                 <p>✓ <code>painel_perda_risco_final.html</code></p>
+                <p>✓ <code>painel_perda_risco_novo.html</code></p>
             </div>
 
             <p><strong>Como configurar:</strong></p>
             <ol>
-                <li>Baixe <strong>todos os 6 arquivos HTML</strong></li>
+                <li>Baixe <strong>todos os 7 arquivos HTML</strong></li>
                 <li>Coloque-os <strong>na mesma pasta/diretório</strong></li>
                 <li>Abra o arquivo <code>login.html</code> no navegador</li>
                 <li>Faça login e os dashboards serão carregados automaticamente</li>
@@ -398,6 +416,14 @@
 
     <!-- Aba 4: Perda & Risco -->
     <div id="tab-content-3" class="tab-content">
+        <div class="instructions">
+            <h2>📋 Carregando Dashboard...</h2>
+            <p>Aguarde enquanto o painel é carregado.</p>
+        </div>
+    </div>
+
+    <!-- Aba 5: Análise Crítica & Indicadores -->
+    <div id="tab-content-4" class="tab-content">
         <div class="instructions">
             <h2>📋 Carregando Dashboard...</h2>
             <p>Aguarde enquanto o painel é carregado.</p>
@@ -479,6 +505,8 @@
                 iframe.src = 'visao_perda_churn_completo.html';
             } else if (index === 3) {
                 iframe.src = 'painel_perda_risco_final.html';
+            } else if (index === 4) {
+                iframe.src = 'painel_perda_risco_novo.html';
             }
 
             // Adicionar loading
@@ -518,6 +546,9 @@
                     e.preventDefault();
                 } else if (e.key === '4') {
                     switchTab(3);
+                    e.preventDefault();
+                } else if (e.key === '5') {
+                    switchTab(4);
                     e.preventDefault();
                 }
             }
