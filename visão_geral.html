@@ -554,7 +554,10 @@
             const timeSet = new Set();
             allClients.forEach(client => {
                 if (client.time && client.time !== 'NULL' && client.time !== 'nan' && client.time !== '') {
-                    timeSet.add(client.time);
+                    // Filtrar apenas times que começam com "TIME"
+                    if (client.time.toUpperCase().startsWith('TIME')) {
+                        timeSet.add(client.time);
+                    }
                 }
             });
 
@@ -715,6 +718,8 @@
             filteredClients.forEach(client => {
                 if (!client.time || client.time === 'NULL' || client.time === 'nan' || client.time === '') return;
                 if (client.status === 'SEM COMPRA') return;
+                // Filtrar apenas times que começam com "TIME"
+                if (!client.time.toUpperCase().startsWith('TIME')) return;
                 
                 if (!teamData[client.time]) {
                     teamData[client.time] = { ativos: 0, preChurn: 0, churnInativo: 0, total: 0 };
@@ -780,13 +785,73 @@
                 })
                 .slice(0, 25);
 
-            tbody.innerHTML = priorityClients.map(client => {
+            // Debug: verificar dados dos primeiros clientes
+            console.log('=== DEBUG TABELA PRIORITÁRIOS ===');
+            console.log('Total de clientes prioritários:', priorityClients.length);
+            
+            if (priorityClients.length > 0) {
+                console.log('Primeiros 3 clientes:', priorityClients.slice(0, 3).map(c => ({
+                    nome: c.nome,
+                    ultimaCompra: c.ultimaCompra,
+                    tipo: typeof c.ultimaCompra,
+                    time: c.time,
+                    status: c.status
+                })));
+            }
+
+            tbody.innerHTML = priorityClients.map((client, index) => {
                 const rowClass = client.status === 'PRE-CHURN' ? 'row-prechurn' : 'row-churninativo';
                 const badgeClass = client.status === 'PRE-CHURN' ? 'prechurn' : 'churninativo';
                 const statusLabel = client.status === 'PRE-CHURN' ? 'Pré-Churn' : 'Churn-Inativo';
                 
-                const dataCompra = client.ultimaCompra && client.ultimaCompra !== 'NULL' ? 
-                    new Date(client.ultimaCompra + 'T00:00:00').toLocaleDateString('pt-BR') : '-';
+                // Tratamento de data - verificar múltiplos casos inválidos
+                let dataCompra = '-';
+                const ultimaCompraOriginal = client.ultimaCompra;
+                
+                // Log detalhado para os primeiros registros
+                if (index < 3) {
+                    console.log(`Cliente ${index + 1} - ${client.nome}:`, {
+                        ultimaCompra: client.ultimaCompra,
+                        tipo: typeof client.ultimaCompra,
+                        ehString: typeof client.ultimaCompra === 'string',
+                        temTrim: typeof client.ultimaCompra?.trim === 'function'
+                    });
+                }
+                
+                if (client.ultimaCompra && 
+                    typeof client.ultimaCompra === 'string' &&
+                    client.ultimaCompra !== 'NULL' && 
+                    client.ultimaCompra !== 'nan' && 
+                    client.ultimaCompra !== 'NaN' &&
+                    client.ultimaCompra.trim() !== '') {
+                    try {
+                        const dateStr = client.ultimaCompra.trim();
+                        const dateObj = new Date(dateStr + 'T00:00:00');
+                        
+                        if (index < 3) {
+                            console.log(`  -> Processando data:`, {
+                                dateStr,
+                                dateObj,
+                                isValid: !isNaN(dateObj.getTime())
+                            });
+                        }
+                        
+                        if (!isNaN(dateObj.getTime())) {
+                            dataCompra = dateObj.toLocaleDateString('pt-BR');
+                            if (index < 3) {
+                                console.log(`  -> Data formatada: ${dataCompra}`);
+                            }
+                        }
+                    } catch (e) {
+                        if (index < 3) {
+                            console.log(`  -> Erro ao processar data:`, e);
+                        }
+                    }
+                } else {
+                    if (index < 3) {
+                        console.log(`  -> Data inválida ou ausente`);
+                    }
+                }
                 
                 const valorFormatado = client.valor > 0 ? 
                     'R$ ' + client.valor.toLocaleString('pt-BR', {minimumFractionDigits: 0, maximumFractionDigits: 0}) : '-';
