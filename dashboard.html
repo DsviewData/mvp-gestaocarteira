@@ -155,6 +155,16 @@
             background: rgba(220, 20, 60, 0.05);
         }
 
+        .tab.tab-blue.active {
+            color: #60a5fa;
+            border-bottom-color: #60a5fa;
+            background: rgba(96, 165, 250, 0.1);
+        }
+
+        .tab.tab-blue:hover {
+            background: rgba(96, 165, 250, 0.05);
+        }
+
         /* User Menu */
         .user-menu {
             display: flex;
@@ -352,6 +362,10 @@
                     <span>📊</span>
                     <span>Análise Crítica & Indicadores</span>
                 </button>
+                <button class="tab tab-blue" onclick="switchTab(5)" id="tab-button-5">
+                    <span>📈</span>
+                    <span>Histórico de Churn e Pré-Churn</span>
+                </button>
             </div>
             <div class="user-menu">
                 <div class="user-info">
@@ -372,7 +386,7 @@
     <div id="tab-content-0" class="tab-content active">
         <div class="instructions">
             <h2>📋 Instruções de Uso</h2>
-            <p><strong>Este dashboard requer 6 arquivos HTML na mesma pasta:</strong></p>
+            <p><strong>Este dashboard requer 7 arquivos HTML na mesma pasta:</strong></p>
             
             <div class="file-list">
                 <p>✓ <code>login.html</code></p>
@@ -382,11 +396,12 @@
                 <p>✓ <code>visao_perda_churn_completo.html</code></p>
                 <p>✓ <code>painel_perda_risco_final.html</code></p>
                 <p>✓ <code>painel_perda_risco_novo.html</code></p>
+                <p>✓ <code>dashboard_historico_churn_completo.html</code></p>
             </div>
 
             <p><strong>Como configurar:</strong></p>
             <ol>
-                <li>Baixe <strong>todos os 7 arquivos HTML</strong></li>
+                <li>Baixe <strong>todos os 8 arquivos HTML</strong></li>
                 <li>Coloque-os <strong>na mesma pasta/diretório</strong></li>
                 <li>Abra o arquivo <code>login.html</code> no navegador</li>
                 <li>Faça login e os dashboards serão carregados automaticamente</li>
@@ -424,6 +439,14 @@
 
     <!-- Aba 5: Análise Crítica & Indicadores -->
     <div id="tab-content-4" class="tab-content">
+        <div class="instructions">
+            <h2>📋 Carregando Dashboard...</h2>
+            <p>Aguarde enquanto o painel é carregado.</p>
+        </div>
+    </div>
+
+    <!-- Aba 6: Histórico de Churn e Pré-Churn -->
+    <div id="tab-content-5" class="tab-content">
         <div class="instructions">
             <h2>📋 Carregando Dashboard...</h2>
             <p>Aguarde enquanto o painel é carregado.</p>
@@ -507,6 +530,8 @@
                 iframe.src = 'painel_perda_risco_final.html';
             } else if (index === 4) {
                 iframe.src = 'painel_perda_risco_novo.html';
+            } else if (index === 5) {
+                iframe.src = 'dashboard_historico_churn_completo.html';
             }
 
             // Adicionar loading
@@ -549,6 +574,9 @@
                     e.preventDefault();
                 } else if (e.key === '5') {
                     switchTab(4);
+                    e.preventDefault();
+                } else if (e.key === '6') {
+                    switchTab(5);
                     e.preventDefault();
                 }
             }
