@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSViewData - ⚠️ ALERTA DE PRÉ-CHURN - AÇÃO URGENTE</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <style>
         :root {
             --bg-primary: #1a1f2e;
@@ -317,7 +319,7 @@
 
         .controls-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr auto;
+            grid-template-columns: 2fr 1fr 1fr auto auto;
             gap: 16px;
             align-items: end;
         }
@@ -384,6 +386,36 @@
             color: var(--bg-primary);
             border-color: var(--accent-yellow);
             transform: translateY(-2px);
+        }
+
+        /* BOTÃO EXPORTAR PDF */
+        .btn-export-pdf {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-export-pdf:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-export-pdf:active {
+            transform: translateY(0);
         }
 
         /* TABELA */
@@ -629,6 +661,10 @@
 
                 <button class="btn-clear" onclick="clearFilters()">
                     🔄 Limpar
+                </button>
+
+                <button class="btn-export-pdf" onclick="exportToPDF()">
+                    📄 Exportar PDF
                 </button>
             </div>
         </div>
@@ -976,6 +1012,129 @@
                     </tr>
                 `;
             }).join('');
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Data atual
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            // Configurar cores
+            const corPrimaria = [251, 191, 36]; // Amarelo
+            const corSecundaria = [249, 115, 22]; // Laranja
+            const corTexto = [255, 255, 255]; // Branco
+            const corFundo = [42, 49, 72]; // Cinza escuro
+
+            // Título do documento
+            doc.setFillColor(...corPrimaria);
+            doc.rect(0, 0, 210, 35, 'F');
+            
+            doc.setTextColor(26, 31, 46);
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text('⚠️ ALERTA DE PRÉ-CHURN', 105, 15, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text('DSViewData Analytics - Gestão de Carteira', 105, 23, { align: 'center' });
+            doc.text(`Gerado em: ${dataAtual} às ${horaAtual}`, 105, 30, { align: 'center' });
+
+            // Estatísticas resumidas
+            let yPos = 45;
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('📊 RESUMO EXECUTIVO', 14, yPos);
+            
+            yPos += 7;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            
+            const totalClientes = filteredClients.length;
+            const valorTotal = filteredClients.reduce((sum, c) => sum + c.valor, 0);
+            const diasMedio = totalClientes > 0 
+                ? Math.round(filteredClients.reduce((sum, c) => sum + c.dias, 0) / totalClientes)
+                : 0;
+
+            doc.text(`• Total de Clientes em Risco: ${totalClientes}`, 14, yPos);
+            yPos += 5;
+            doc.text(`• Valor Total em Risco: R$ ${valorTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`, 14, yPos);
+            yPos += 5;
+            doc.text(`• Média de Dias sem Comprar: ${diasMedio} dias`, 14, yPos);
+
+            // Preparar dados da tabela
+            const tableData = filteredClients.map((client, index) => {
+                const dataCompra = client.ultimaCompra && client.ultimaCompra !== 'NULL' 
+                    ? new Date(client.ultimaCompra).toLocaleDateString('pt-BR')
+                    : '-';
+                
+                const valorFormatado = client.valor > 0
+                    ? 'R$ ' + client.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                    : '-';
+
+                return [
+                    index + 1,
+                    client.codigo,
+                    client.nome,
+                    dataCompra,
+                    client.dias + ' dias',
+                    valorFormatado,
+                    client.time || '-'
+                ];
+            });
+
+            // Criar tabela
+            yPos += 10;
+            doc.autoTable({
+                startY: yPos,
+                head: [['#', 'Código', 'Cliente', 'Última Compra', 'Dias', 'Valor', 'Time']],
+                body: tableData,
+                theme: 'striped',
+                headStyles: {
+                    fillColor: corPrimaria,
+                    textColor: [26, 31, 46],
+                    fontStyle: 'bold',
+                    fontSize: 8
+                },
+                bodyStyles: {
+                    fontSize: 7,
+                    cellPadding: 2
+                },
+                columnStyles: {
+                    0: { cellWidth: 10 },
+                    1: { cellWidth: 20 },
+                    2: { cellWidth: 60 },
+                    3: { cellWidth: 25 },
+                    4: { cellWidth: 20 },
+                    5: { cellWidth: 30 },
+                    6: { cellWidth: 20 }
+                },
+                alternateRowStyles: {
+                    fillColor: [245, 245, 245]
+                },
+                margin: { left: 14, right: 14 }
+            });
+
+            // Rodapé
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.setTextColor(128, 128, 128);
+                doc.text(
+                    `DSViewData - Página ${i} de ${pageCount}`,
+                    105,
+                    doc.internal.pageSize.height - 10,
+                    { align: 'center' }
+                );
+            }
+
+            // Salvar PDF com nome descritivo
+            const nomeArquivo = `Pre-Churn_${totalClientes}_clientes_${dataAtual.replace(/\//g, '-')}.pdf`;
+            doc.save(nomeArquivo);
         }
 
         // Event Listeners
