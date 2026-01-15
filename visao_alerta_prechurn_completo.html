@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSViewData - ⚠️ ALERTA DE PRÉ-CHURN - AÇÃO URGENTE</title>
+    
+    <!-- META TAGS ANTI-CACHE -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="data-version" content="20260115_092240">
+    
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -17,6 +24,7 @@
             --accent-yellow: #fbbf24;
             --accent-orange: #f97316;
             --accent-red: #ef4444;
+            --accent-green: #10b981;
             --border-color: #3d4560;
             --alert-glow: rgba(251, 191, 36, 0.3);
         }
@@ -36,7 +44,7 @@
         }
 
         .dashboard {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
         }
 
@@ -45,7 +53,7 @@
             display: flex;
             align-items: center;
             gap: 40px;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             padding-bottom: 20px;
             border-bottom: 2px solid var(--accent-yellow);
         }
@@ -106,92 +114,112 @@
         }
 
         .header-title p {
-            font-size: 16px;
-            color: var(--accent-orange);
+            font-size: 14px;
+            color: var(--text-secondary);
             margin-top: 8px;
-            font-weight: 600;
         }
 
-        /* ALERT BANNER - DESTAQUE MÁXIMO */
-        .alert-banner {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%);
-            border: 3px solid var(--accent-yellow);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 32px;
+        /* INFO BANNER - ATUALIZAÇÃO */
+        .info-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 24px;
-            box-shadow: 0 8px 32px var(--alert-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            animation: borderGlow 3s ease-in-out infinite;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
         }
 
-        @keyframes borderGlow {
-            0%, 100% { 
-                border-color: var(--accent-yellow);
-                box-shadow: 0 8px 32px var(--alert-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            }
-            50% { 
-                border-color: var(--accent-orange);
-                box-shadow: 0 8px 32px rgba(249, 115, 22, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            }
+        .info-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-icon {
+            font-size: 24px;
+        }
+
+        .info-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: var(--accent-green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-datetime {
+            font-size: 15px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
+        .info-version {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            background: var(--bg-secondary);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* BANNER DE ALERTA */
+        .alert-banner {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+            border: 2px solid var(--accent-red);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
         }
 
         .alert-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            flex-shrink: 0;
-            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
-            animation: iconBounce 2s ease-in-out infinite;
+            font-size: 48px;
+            animation: shake 2s ease-in-out infinite;
         }
 
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .alert-content {
-            flex: 1;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
         .alert-content h2 {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--accent-yellow);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--accent-red);
+            margin-bottom: 8px;
         }
 
         .alert-content p {
-            font-size: 16px;
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        .alert-content strong {
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        /* CARDS DE ESTATÍSTICAS - DESTAQUE ESPECIAL */
+        /* CARDS DE ESTATÍSTICAS */
         .stats-cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
         }
 
         .stat-card {
             background: var(--bg-card);
             border-radius: 16px;
-            padding: 28px;
+            padding: 24px;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
             position: relative;
@@ -228,6 +256,20 @@
             animation: shimmer 3s linear infinite;
         }
 
+        /* NOVO CARD DE VALOR MÉDIO EM RISCO */
+        .stat-card.valor-medio-risco {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+            border: 2px solid var(--accent-red);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+        }
+
+        .stat-card.valor-medio-risco::before {
+            height: 6px;
+            background: linear-gradient(90deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+
         @keyframes shimmer {
             0% { background-position: 200% center; }
             100% { background-position: -200% center; }
@@ -245,7 +287,7 @@
         }
 
         .stat-card:nth-child(1) .stat-icon {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
 
         .stat-card:nth-child(2) .stat-icon {
@@ -254,6 +296,11 @@
         }
 
         .stat-card:nth-child(3) .stat-icon {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+        }
+
+        .stat-card:nth-child(4) .stat-icon {
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
         }
 
@@ -286,6 +333,19 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* VALOR MÉDIO EM RISCO */
+        .valor-medio-risco .stat-label {
+            color: var(--accent-red);
+            font-size: 14px;
+        }
+
+        .valor-medio-risco .stat-value {
+            font-size: 48px;
+            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .stat-subtitle {
             font-size: 12px;
             color: var(--text-secondary);
@@ -294,6 +354,12 @@
 
         .valor-destaque .stat-subtitle {
             color: var(--accent-orange);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .valor-medio-risco .stat-subtitle {
+            color: var(--accent-red);
             font-weight: 600;
             font-size: 13px;
         }
@@ -402,54 +468,44 @@
             font-family: 'Outfit', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .btn-export-pdf:hover {
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
         }
 
-        .btn-export-pdf:active {
-            transform: translateY(0);
-        }
-
-        /* TABELA */
-        .table-container {
+        /* TABELA DE CLIENTES */
+        .clients-section {
             background: var(--bg-card);
             border-radius: 16px;
-            overflow: hidden;
             border: 1px solid var(--border-color);
+            overflow: hidden;
         }
 
-        .table-header {
+        .clients-header {
             padding: 20px 24px;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(249, 115, 22, 0.05) 100%);
+            background: var(--bg-secondary);
             border-bottom: 2px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .table-title {
+        .clients-title {
             font-size: 18px;
             font-weight: 700;
-            color: var(--accent-yellow);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--text-primary);
         }
 
-        .table-count {
-            font-size: 14px;
-            color: var(--text-secondary);
-            background: var(--bg-secondary);
+        .clients-count {
+            background: var(--accent-yellow);
+            color: var(--bg-primary);
+            font-size: 13px;
+            font-weight: 700;
             padding: 8px 16px;
             border-radius: 20px;
-            font-weight: 600;
         }
 
         .table-wrapper {
@@ -548,6 +604,19 @@
             text-align: right;
         }
 
+        .info-cell {
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .valor-medio-cell {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 14px;
+            text-align: right;
+        }
+
         .rca-cell {
             background: var(--bg-secondary);
             padding: 6px 12px;
@@ -559,6 +628,12 @@
         }
 
         /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .stats-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 1200px) {
             .stats-cards {
                 grid-template-columns: 1fr;
@@ -587,6 +662,18 @@
             </div>
         </div>
 
+        <!-- INFO BANNER - DADOS ATUALIZADOS -->
+        <div class="info-banner">
+            <div class="info-content">
+                <div class="info-icon">✅</div>
+                <div class="info-text">
+                    <div class="info-label">📅 Dados Atualizados</div>
+                    <div class="info-datetime">15/01/2026 às 09:22</div>
+                </div>
+            </div>
+            <div class="info-version">v20260115_092240</div>
+        </div>
+
         <!-- BANNER DE ALERTA -->
         <div class="alert-banner">
             <div class="alert-icon">⚠️</div>
@@ -611,9 +698,16 @@
 
             <div class="stat-card valor-destaque">
                 <div class="stat-icon">💰</div>
-                <div class="stat-label">⚡ Valor Total em Risco</div>
+                <div class="stat-label">⚡ Valor Última Compra</div>
                 <div class="stat-value" id="valorTotal">R$ 0</div>
-                <div class="stat-subtitle">Receita que pode ser perdida</div>
+                <div class="stat-subtitle">Valor da última compra (soma)</div>
+            </div>
+
+            <div class="stat-card valor-medio-risco">
+                <div class="stat-icon">💸</div>
+                <div class="stat-label">🔥 Valor Médio em Risco</div>
+                <div class="stat-value" id="valorMedioRisco">R$ 0</div>
+                <div class="stat-subtitle">Receita média mensal em risco</div>
             </div>
 
             <div class="stat-card">
@@ -650,12 +744,12 @@
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label">📅 Dias sem Comprar</label>
+                    <label class="filter-label">📅 Dias Sem Comprar</label>
                     <select id="filterDias" class="filter-select">
-                        <option value="">Todos os Períodos</option>
-                        <option value="61-70">61-70 dias (Atenção)</option>
-                        <option value="71-80">71-80 dias (Alerta)</option>
-                        <option value="81-90">81-90 dias (Crítico)</option>
+                        <option value="">Todos</option>
+                        <option value="61-70">61-70 dias</option>
+                        <option value="71-80">71-80 dias</option>
+                        <option value="81-90">81-90 dias</option>
                     </select>
                 </div>
 
@@ -670,10 +764,10 @@
         </div>
 
         <!-- TABELA DE CLIENTES -->
-        <div class="table-container">
-            <div class="table-header">
-                <div class="table-title">📋 Lista de Clientes em Pré-Churn</div>
-                <div class="table-count" id="tableCount">0 clientes</div>
+        <div class="clients-section">
+            <div class="clients-header">
+                <div class="clients-title">📋 Detalhamento dos Clientes</div>
+                <div class="clients-count" id="tableCount">0 clientes</div>
             </div>
             <div class="table-wrapper">
                 <table>
@@ -684,6 +778,8 @@
                             <th>Última Compra</th>
                             <th>Dias Sem Comprar</th>
                             <th style="text-align: right;">Valor Última Compra</th>
+                            <th style="text-align: center;">Pedidos (3 anos)</th>
+                            <th style="text-align: right;">Valor Médio (3 anos)</th>
                             <th>Time/RCA</th>
                         </tr>
                     </thead>
@@ -696,210 +792,1987 @@
     </div>
 
     <script>
+        // VERSÃO DOS DADOS PARA CONTROLE DE CACHE
+        const DATA_VERSION = '20260115_092240';
+        const DATA_GERACAO = '15/01/2026 às 09:22';
+
         const clientesData = [
-{"codigo": "C03963", "nome": "SERVIÇO SOCIAL DO COMERCIO SESC - AR/PB", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 66, "valor": 11800.0, "time": "TIME 15"},
-{"codigo": "C11953", "nome": "MUNICIPIO DE PALMARES", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 10408.8, "time": "TIME 12"},
-{"codigo": "C07311", "nome": "JMT SERVICOS DE LOCACAO DE MAO DE OBRA LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 8054.0, "time": "TIME 17"},
-{"codigo": "C06129", "nome": "VIDAS DONARE LTDA", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 7452.58, "time": "TIME 01"},
-{"codigo": "C11736", "nome": "WCM ENGENHARIA LTDA", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 66, "valor": 7260.0, "time": "TIME 07"},
-{"codigo": "C09868", "nome": "INSTITUTO NAC.DE PESQ.E GESTAO EM SAUDE-INSAUDE", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 6838.51, "time": "TIME 23"},
-{"codigo": "C05452", "nome": "ENERGETICA SUAPE II S. A.", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 6060.0, "time": "TIME 04"},
-{"codigo": "C11845", "nome": "TESS INDUSTRIA E COMERCIO LTDA", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 6000.0, "time": "TIME 20"},
-{"codigo": "C09409", "nome": "GRIFOS COMERCIO DE ALIMENTOS EIRELI", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 70, "valor": 4718.0, "time": "TIME 04"},
-{"codigo": "C00047", "nome": "H. L HOTEIS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 4643.75, "time": "TIME 12"},
-{"codigo": "C10241", "nome": "SEARA ALIMENTOS LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 75, "valor": 4477.8, "time": "TIME 06"},
-{"codigo": "C06142", "nome": "SOUZA CRUZ S/A", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 80, "valor": 4135.0, "time": "TIME 04"},
-{"codigo": "C12003", "nome": "MARESIA IND. E COMERCIO DE ALIMENTOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 3197.7, "time": "TIME 22"},
-{"codigo": "C01135", "nome": "MADECENTER LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 3135.0, "time": "TIME 04"},
-{"codigo": "C12189", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A.", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 3028.43, "time": "TIME 13"},
-{"codigo": "C02622", "nome": "INSTITUTO JCPM DE COMPROMISSO SOCIAL", "ultimaCompra": "2025-10-20 00:00:00.000", "dias": 84, "valor": 2614.0, "time": "TIME 04"},
-{"codigo": "C11666", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 77, "valor": 2528.44, "time": "TIME 13"},
-{"codigo": "C12180", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A.", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 77, "valor": 2381.67, "time": "TIME 13"},
-{"codigo": "C10042", "nome": "MEMORIAL IMAGEM E DIAGNOSTICO LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 2324.0, "time": "TIME 01"},
-{"codigo": "C01199", "nome": "MANAL MANUTENCAO ALAGOANA DE AERONAVES LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 2306.56, "time": "TIME 25"},
-{"codigo": "C12187", "nome": "CPL CONSTRUTORA LTDA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 70, "valor": 2220.0, "time": "TIME 12"},
-{"codigo": "C10864", "nome": "STER BOM IND. E COM. LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 2161.13, "time": "TIME 17"},
-{"codigo": "C10380", "nome": "CLIOMEL - CLINICA ODONTO MEDICA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 2156.0, "time": "TIME 10"},
-{"codigo": "C02659", "nome": "SIND EMP VEND VIAJ COM PROP VEND VEND PROD FARM PE", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 89, "valor": 2147.8, "time": "TIME 05"},
-{"codigo": "C10617", "nome": "DANUBIO & MELO ALIMENTOS LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 2005.0, "time": "TIME 18"},
-{"codigo": "C10614", "nome": "INSTITUTO MEMORIAL DO VALE", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 1980.0, "time": "TIME 10"},
-{"codigo": "C10927", "nome": "DSV AIR & SEA BRASIL LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 1940.0, "time": "TIME 04"},
-{"codigo": "F01410", "nome": "GHR PARTICIPACOES E EMPREENDIMENTOS TURISTICO LIMI", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 1900.0, "time": "TIME 20"},
-{"codigo": "C11860", "nome": "D P B AVICULTURA - COMERCIO VAREJISTA DE OVOS LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 1880.0, "time": "TIME 17"},
-{"codigo": "C12102", "nome": "CLINICA OFTALMOLOGICA PRIME LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 75, "valor": 1749.62, "time": "TIME 20"},
-{"codigo": "C10195", "nome": "ASSOCIACAO EDUCACIONAL E CULTURAL DE QUIXADA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 88, "valor": 1710.0, "time": "TIME 09"},
-{"codigo": "C11535", "nome": "BOLO DE ROLO FABRICACAO PERNAMBUCANA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 1648.0, "time": "TIME 06"},
-{"codigo": "C12199", "nome": "CONDOMINIO BOSQUE DOS PASSAROS", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 66, "valor": 1641.0, "time": "TIME 17"},
-{"codigo": "C08394", "nome": "MONDELEZ BRASIL NORTE NORDESTE LTDA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 70, "valor": 1620.0, "time": "TIME 07"},
-{"codigo": "C08457", "nome": "UNIC CLINICA DE ODONTOLOGIA ESPECIALIZADA LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 74, "valor": 1615.0, "time": "TIME 10"},
-{"codigo": "C12001", "nome": "JST REFEICOES LTDA", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 1614.58, "time": "TIME 08"},
-{"codigo": "C00140", "nome": "JOHN JAYME F. DA SILVA", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 1614.0, "time": "TIME 06"},
-{"codigo": "C11930", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 1587.84, "time": "TIME 13"},
-{"codigo": "C11341", "nome": "J F LEMOS LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 1531.46, "time": "TIME 23"},
-{"codigo": "C12062", "nome": "RB HOTEL LTDA", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 1511.02, "time": "TIME 23"},
-{"codigo": "C10836", "nome": "ORAL UNIC JOÃO PESSOA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 1496.0, "time": "TIME 15"},
-{"codigo": "C01295", "nome": "CENTRO DE ESPECIALIDADES MEDICAS DE ARCOVERDE LTDA", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 1456.0, "time": "TIME 18"},
-{"codigo": "C11393", "nome": "ZION CHURCH BRASIL", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 1449.0, "time": "TIME 25"},
-{"codigo": "C01440", "nome": "J A D ARAUJO & CIA LTDA", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 66, "valor": 1430.0, "time": "TIME 18"},
-{"codigo": "F00770", "nome": "DIESELNORTE LTDA", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 89, "valor": 1429.0, "time": "TIME 06"},
-{"codigo": "C11793", "nome": "LIRA & SOUZA LTDA", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 1424.0, "time": "TIME 10"},
-{"codigo": "C00010", "nome": "BENTONIT UNIAO NE IND E COM  LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 1413.93, "time": "TIME 20"},
-{"codigo": "C09388", "nome": "S A PAULISTA DE CONSTRUCOES E COMERCIO", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 1379.0, "time": "TIME 25"},
-{"codigo": "C12176", "nome": "BRENO DE ALBUQUERQUE SENNA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 88, "valor": 1372.0, "time": "TIME 18"},
-{"codigo": "C01123", "nome": "CONDOMINIO DO EDIFICIO BLUE TOWER", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 1371.0, "time": "TIME 04"},
-{"codigo": "C01788", "nome": "MASTERFOODS BRASIL ALIMENTOS LTDA.", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 1320.0, "time": "TIME 06"},
-{"codigo": "C08105", "nome": "LOBO & VALENCA ADVOGADOS ASSOCIADOS", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 1227.0, "time": "TIME 05"},
-{"codigo": "C08295", "nome": "PAURA ADVOCACIA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 1220.0, "time": "TIME 05"},
-{"codigo": "C02241", "nome": "FERREIRO CAFE LTDA", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 89, "valor": 1196.0, "time": "TIME 03"},
-{"codigo": "C10377", "nome": "MEDICAL CENTRO DE ESPECIALIDADES LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 1167.51, "time": "TIME 16"},
-{"codigo": "C10315", "nome": "TRATORVALE - TRATORES DO VALE DO S. FRANCISCO LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 1110.0, "time": "TIME 10"},
-{"codigo": "C11433", "nome": "POUSADA DO MIRANTE LTDA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 1100.0, "time": "TIME 11"},
-{"codigo": "C12100", "nome": "NOVA DIAGNOSTICO POR IMAGEM LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 1075.0, "time": "TIME 15"},
-{"codigo": "C02617", "nome": "OTICA SURUBIM LTDA ME", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 1050.0, "time": "TIME 12"},
-{"codigo": "C08244", "nome": "BANCO BRADESCO S.A.", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 82, "valor": 1050.0, "time": "TIME 04"},
-{"codigo": "C10794", "nome": "DIAS E ARAUJO DIAGNOSTICO LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 1045.62, "time": "TIME 16"},
-{"codigo": "C08448", "nome": "SOUZA & TRAJANO MAIA LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 74, "valor": 1045.0, "time": "TIME 10"},
-{"codigo": "C09660", "nome": "FORMA ESQUADRIAS METALICAS EIRELI ME", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 1029.0, "time": "TIME 05"},
-{"codigo": "C10574", "nome": "PAJEU NORDESTE LTDA", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 1026.0, "time": "TIME 06"},
-{"codigo": "C11547", "nome": "FELIPE ALVES DA SILVA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 1025.36, "time": "TIME 10"},
-{"codigo": "C11809", "nome": "ARU ADMINISTRADORA LTDA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 1025.15, "time": "TIME 24"},
-{"codigo": "C11668", "nome": "MANUELA GOMES LIRA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 1024.25, "time": "TIME 16"},
-{"codigo": "C12202", "nome": "ANA MARIA BARROS FALCAO", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 1015.0, "time": "TIME 01"},
-{"codigo": "C11723", "nome": "SABOR DA ROCA CHURRASCARIA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 1012.92, "time": "TIME 12"},
-{"codigo": "C10192", "nome": "CORDEIRO E BENEVIDES PIZZARIA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 974.0, "time": "TIME 10"},
-{"codigo": "C09249", "nome": "CENTRAL DE ADUBOS COMERCIO E REPRESENTACOES LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 968.0, "time": "TIME 10"},
-{"codigo": "C10658", "nome": "SAINT-GOBAIN DO BR PRODUTOS INDUS E P/ CONSTR LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 968.0, "time": "TIME 12"},
-{"codigo": "C12097", "nome": "DOLCE RESTAURANTE LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 947.4, "time": "TIME 16"},
-{"codigo": "C10965", "nome": "SARMENTO & BARBOSA LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 942.46, "time": "TIME 16"},
-{"codigo": "C09584", "nome": "UMANA BRASIL-ASS.E CONS.DE REC.HUMANOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 917.0, "time": "TIME 04"},
-{"codigo": "C11982", "nome": "BOTICA PERFUMARIA E PRESENTES LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 913.42, "time": "TIME 21"},
-{"codigo": "C03691", "nome": "CARLOS LACERDA DE ANDRADE ALMEIDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 911.43, "time": "TIME 01"},
-{"codigo": "C09156", "nome": "CRISTIANE UCHOA COIMBRA ESTEVES", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 903.5, "time": "TIME 01"},
-{"codigo": "C08178", "nome": "HARMONY HOTEL EIRELI - ME", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 896.0, "time": "TIME 18"},
-{"codigo": "C09219", "nome": "PA COMERCIO DE ALIMENTOS LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 895.0, "time": "TIME 08"},
-{"codigo": "C02664", "nome": "KILUB LUBRIFICANTES E FILTROS LTDA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 893.0, "time": "TIME 15"},
-{"codigo": "C09473", "nome": "WALERIA QUIRINO DE QUEIROZ VASCONCELOS", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 82, "valor": 890.0, "time": "TIME 18"},
-{"codigo": "C11118", "nome": "MATUTO REPRESENTAÇÕES E COMERCIO DE ALIMENTOS LTDA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 847.0, "time": "TIME 08"},
-{"codigo": "C11183", "nome": "NURBANO TAVARES DA SILVA 06125218422", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 846.0, "time": "TIME 12"},
-{"codigo": "C12186", "nome": "CORTFULL IND. E COM. DE CARNES LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 74, "valor": 833.0, "time": "TIME 18"},
-{"codigo": "C09146", "nome": "GARRIDO GALERIA DE ARTE E EVENTOS LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 825.77, "time": "TIME 05"},
-{"codigo": "C12125", "nome": "INSTITUTO EMANUEL SANTANA LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 816.88, "time": "TIME 20"},
-{"codigo": "C12182", "nome": "CGB SERVICO DE ALIMENTACAO LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 809.8, "time": "TIME 15"},
-{"codigo": "C05364", "nome": "ELISANGELA FERREIRA DA SILVA LEAL - ME", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 89, "valor": 795.0, "time": "TIME 12"},
-{"codigo": "C09368", "nome": "INSTITUTO DA VISAO LTDA", "ultimaCompra": "2025-10-17 00:00:00.000", "dias": 87, "valor": 794.0, "time": "TIME 25"},
-{"codigo": "C10051", "nome": "SEMPRE VIVA CONDIMENTOS EM GERAL LTDA", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 80, "valor": 783.91, "time": "TIME 06"},
-{"codigo": "C11912", "nome": "CB RESTAURANTE PRIME LTDA", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 82, "valor": 778.0, "time": "TIME 12"},
-{"codigo": "C09475", "nome": "TUCCI E PONTUAL SERVICOS LTDA", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 759.0, "time": "TIME 22"},
-{"codigo": "C09148", "nome": "DILENE MARQUES HENRIQUES DE ALBUQUERQUE", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 747.5, "time": "TIME 20"},
-{"codigo": "C05772", "nome": "L ADRESSE STUDIO DE BELEZA LTDA - ME", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 727.0, "time": "TIME 01"},
-{"codigo": "C10524", "nome": "NUI SERVICO DE ALIMENTOS E BEBIDAS EIRELI", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 80, "valor": 720.0, "time": "TIME 15"},
-{"codigo": "C11876", "nome": "JOCELIO GONCALVES ARAUJO", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 719.7, "time": "TIME 20"},
-{"codigo": "C09208", "nome": "LATICINIO BELO VALE LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 705.25, "time": "TIME 16"},
-{"codigo": "C05588", "nome": "RADIX HOTEIS TURISMO LTDA ME", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 77, "valor": 703.0, "time": "TIME 02"},
-{"codigo": "C09019", "nome": "CONDOMINIO DO EDIFICIO WEST SIDE PARK", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 687.4, "time": "TIME 27"},
-{"codigo": "C09486", "nome": "MORATO INDUSTRIA DE ALIMENTOS EIRELI", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 687.0, "time": "TIME 12"},
-{"codigo": "C11605", "nome": "ERICK MACEDO ADVOCACIA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 70, "valor": 686.54, "time": "TIME 05"},
-{"codigo": "C11838", "nome": "NATUZZI CONCEITO COMERCIO, IMPORTACAO E EXPORTACAO", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 672.0, "time": "TIME 04"},
-{"codigo": "C10926", "nome": "PADARIA VOVO OTAVIO TAMANDARE LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 659.0, "time": "TIME 12"},
-{"codigo": "C11650", "nome": "BAG EMPREENDIMENTOS E ENTRETENIMENTOS LTDA ME", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 657.0, "time": "TIME 21"},
-{"codigo": "C09120", "nome": "PRIMAPELLE SERVICOS DERMATOLOGICOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 649.0, "time": "TIME 17"},
-{"codigo": "C11963", "nome": "ENGENHO CASA FORTE DELICATESSEN LTDA", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 643.2, "time": "TIME 08"},
-{"codigo": "C11601", "nome": "ASSOCIACAO DE PAIS E AMIGOS DOS EXCEPCIONAIS DE CA", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 619.14, "time": "TIME 18"},
-{"codigo": "C10743", "nome": "GTS SERVICO DE SAUDE LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 594.97, "time": "TIME 01"},
-{"codigo": "C11706", "nome": "ENGENHO SAO LOURENCO LTDA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 587.2, "time": "TIME 23"},
-{"codigo": "C11949", "nome": "POUSADA TIMONEIRO LTDA.", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 586.0, "time": "TIME 11"},
-{"codigo": "C06266", "nome": "BRIDGE SOLUCOES EDUCACIONAIS LTDA - ME", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 567.0, "time": "TIME 12"},
-{"codigo": "C08949", "nome": "HIBISCUS LOUNGE EIRELI - EPP", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 564.0, "time": "TIME 26"},
-{"codigo": "C07193", "nome": "LITORAL NORTE TURISMO EIRELI - EPP", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 564.0, "time": "TIME 26"},
-{"codigo": "C11337", "nome": "EQUIPE NEUROLOGICA E NEUROCIRURGICA DO SAO FRANCIS", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 550.0, "time": "TIME 10"},
-{"codigo": "C11425", "nome": "FRANCA VIEIRA PRODUTOS E SERVICOS LTDA", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 66, "valor": 514.0, "time": "TIME 09"},
-{"codigo": "C09351", "nome": "TECFIT BOA VIAGEM ACADEMIA LTDA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 88, "valor": 514.0, "time": "TIME 04"},
-{"codigo": "C05839", "nome": "CARIBE & NEUENSCHWANDER SOCIEDADE DE ADVOGADOS", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 89, "valor": 500.0, "time": "TIME 04"},
-{"codigo": "C10844", "nome": "MILENE CAVALCANTE VALENÇA LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 490.0, "time": "TIME 01"},
-{"codigo": "C10303", "nome": "COLARES ADVOGADOS", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 488.07, "time": "TIME 05"},
-{"codigo": "C10765", "nome": "MARINAS BEACH BAR LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 485.55, "time": "TIME 21"},
-{"codigo": "C12151", "nome": "RESIDENCIAL MIRANTE DAS ESTRELAS", "ultimaCompra": "2025-11-07 00:00:00.000", "dias": 66, "valor": 482.0, "time": "TIME 25"},
-{"codigo": "C00686", "nome": "MELO DE ARRUDA FALCAO LTDA ME", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 477.0, "time": "TIME 08"},
-{"codigo": "C12110", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 440.64, "time": "TIME 13"},
-{"codigo": "C00843", "nome": "TRON CONTROLES ELETRICOS LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 440.0, "time": "TIME 04"},
-{"codigo": "C01183", "nome": "SANTA CASA DE MISERICORDIA DE SAO M. DOS CAMPOS", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 431.8, "time": "TIME 25"},
-{"codigo": "C12193", "nome": "VICCINI EMPORIO CAFETERIA LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 427.0, "time": "TIME 03"},
-{"codigo": "C10313", "nome": "DORGIVAL HENRIQUES N F ODONTOLOGIA EIRELI", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 418.54, "time": "TIME 01"},
-{"codigo": "C09153", "nome": "N B DA ROCHA JUNIOR SERVICOS MEDICOS EIRELI", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 412.0, "time": "TIME 01"},
-{"codigo": "C11134", "nome": "LEAL DISTRIBUIDORA  DE MATERIAL DE LIMPEZA LTDA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 405.0, "time": "TIME 09"},
-{"codigo": "C07247", "nome": "INCOMTUBO IND. E COMERCIO DE TUBOS LTDA - ME", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 400.0, "time": "TIME 04"},
-{"codigo": "C07886", "nome": "IOP-INSTITUTO DE OLHOS DE PERNAMBUCO LTDA-ME", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 75, "valor": 399.9, "time": "TIME 12"},
-{"codigo": "C11806", "nome": "OFTALMOCLINICA SAULO FREIRE LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 390.0, "time": "TIME 20"},
-{"codigo": "C10719", "nome": "3A1N CONSULTORIO MEDICO LTDA", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 384.0, "time": "TIME 01"},
-{"codigo": "C11656", "nome": "DESTAK PLAZA HOTEL LTDA", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 382.0, "time": "TIME 12"},
-{"codigo": "C10527", "nome": "CENTRO MEDICO MAYER E FEITOSA LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 381.46, "time": "TIME 16"},
-{"codigo": "C00475", "nome": "THE BRITISH COUNTRY CLUB", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 75, "valor": 377.25, "time": "TIME 05"},
-{"codigo": "C11886", "nome": "FLORA PARNAMIRIM C. VAREJISTA DE COSMETICOS LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 376.5, "time": "TIME 05"},
-{"codigo": "C10934", "nome": "CASA NOVA PARTICIPAÇÕES SOCIETARIAS LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 369.76, "time": "TIME 01"},
-{"codigo": "C11662", "nome": "ALEX A DE OLIVEIRA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 368.0, "time": "TIME 09"},
-{"codigo": "C11386", "nome": "MANJERICAO COMERCIO DE ALIMENTOS LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 361.0, "time": "TIME 15"},
-{"codigo": "C09629", "nome": "LAILA CLEA CAVALCANTI BRAYNER", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 356.29, "time": "TIME 20"},
-{"codigo": "F00653", "nome": "DIESELNORTE ELETRONICA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 352.0, "time": "TIME 06"},
-{"codigo": "C11756", "nome": "ACE CLUBE ESCOLA DE TENNIS LTDA", "ultimaCompra": "2025-10-16 00:00:00.000", "dias": 88, "valor": 335.0, "time": "TIME 05"},
-{"codigo": "C10748", "nome": "FN LISBOA BISTRO LTDA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 334.2, "time": "TIME 20"},
-{"codigo": "C12188", "nome": "CTP ENGENHARIA LTDA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 330.0, "time": "TIME 27"},
-{"codigo": "C11519", "nome": "VENEZA EPIS E FERRAGENS LTDA", "ultimaCompra": "2025-11-13 00:00:00.000", "dias": 60, "valor": 326.0, "time": "TIME 09"},
-{"codigo": "C07955", "nome": "M MERCES E SILVA SANTIAGO ME", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 315.0, "time": "TIME 12"},
-{"codigo": "C00109", "nome": "GABINETE PORTUGUES DE LEITURA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 314.0, "time": "TIME 13"},
-{"codigo": "C11785", "nome": "PRATA DA CASA EXPRESS LTDA", "ultimaCompra": "2025-11-03 00:00:00.000", "dias": 70, "valor": 309.6, "time": "TIME 20"},
-{"codigo": "C10902", "nome": "SETUBAL RESTAURANTE E CAFETERIA LTDA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 309.0, "time": "TIME 03"},
-{"codigo": "C10418", "nome": "BECKER ADVOGADOS", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 308.0, "time": "TIME 05"},
-{"codigo": "C10526", "nome": "IABS EMPRESA SOCIAL COMERCIO LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 307.71, "time": "TIME 22"},
-{"codigo": "C12045", "nome": "VILA ROSA CAFE LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 306.0, "time": "TIME 26"},
-{"codigo": "C12158", "nome": "DL SERVICOS DE LIMPEZA LTDA", "ultimaCompra": "2025-10-17 00:00:00.000", "dias": 87, "valor": 305.0, "time": "TIME 19"},
-{"codigo": "C10255", "nome": "JOAO PAULO RODRIGUES CARDOSO", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 305.0, "time": "TIME 21"},
-{"codigo": "C03957", "nome": "TIAGO ALVES DA SILVA", "ultimaCompra": "2025-10-31 00:00:00.000", "dias": 73, "valor": 302.0, "time": "TIME 02"},
-{"codigo": "C00087", "nome": "SANTA CASA DE MISERICORDIA HOSPITAL SANTO AMARO", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 300.0, "time": "TIME 01"},
-{"codigo": "C11543", "nome": "F & L EMPREENDIMENTOS COMERCIAIS LTDA", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 297.13, "time": "TIME 25"},
-{"codigo": "C08921", "nome": "NALULU RESTAURANTE E COMENDORIA LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 297.0, "time": "TIME 12"},
-{"codigo": "C11955", "nome": "FRANUTO RESTAURANTE LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 297.0, "time": "TIME 03"},
-{"codigo": "C00450", "nome": "MOTEL SENZALA LTDA", "ultimaCompra": "2025-10-15 00:00:00.000", "dias": 89, "valor": 295.0, "time": "TIME 02"},
-{"codigo": "C07022", "nome": "HOTEL PREMIUM LTDA - EPP", "ultimaCompra": "2025-11-10 00:00:00.000", "dias": 63, "valor": 294.0, "time": "TIME 02"},
-{"codigo": "C12063", "nome": "GRUPO MOR LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 75, "valor": 289.66, "time": "TIME 22"},
-{"codigo": "C11839", "nome": "RIBEIRO E NASCIMENTO LTDA", "ultimaCompra": "2025-10-30 00:00:00.000", "dias": 74, "valor": 269.0, "time": "TIME 20"},
-{"codigo": "C11373", "nome": "HAPVIDA ASSISTENCIA MEDICA S.A", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 77, "valor": 267.8, "time": "TIME 13"},
-{"codigo": "C12167", "nome": "KAIROS DISTRIBUIDORA LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 265.0, "time": "TIME 09"},
-{"codigo": "C12004", "nome": "53.347.989 ELYEDNA AGRA AIRES DOS ANJOS", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 261.2, "time": "TIME 20"},
-{"codigo": "T00128", "nome": "IVANILDO JOSE DE SOUZA FILHO", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 260.59, "time": "TIME 13"},
-{"codigo": "C06197", "nome": "RECICLEAN COMERCIO DE PRODUTOS LTDA", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 82, "valor": 260.55, "time": "TIME 09"},
-{"codigo": "C08957", "nome": "KUHNI ATIVIDADES DE FISIOTERAPIA LTDA", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 75, "valor": 250.0, "time": "TIME 01"},
-{"codigo": "C10865", "nome": "HOSPITAL DE OLHOS DO SERTÃO LTDA", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 82, "valor": 249.5, "time": "TIME 16"},
-{"codigo": "C00226", "nome": "DT EMPREENDIMENTOS TURISTICOS LTDA", "ultimaCompra": "2025-10-23 00:00:00.000", "dias": 81, "valor": 234.0, "time": "TIME 03"},
-{"codigo": "C12143", "nome": "COLEGIO MOTIVA LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 225.0, "time": "TIME 20"},
-{"codigo": "C07320", "nome": "ANDRÉ VITAL CAMARA DE ARAUJO LIMA VAREJO-ME", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 220.0, "time": "TIME 09"},
-{"codigo": "C09548", "nome": "RECIFE ALIMENTOS E EVENTOS LTDA", "ultimaCompra": "2025-10-20 00:00:00.000", "dias": 84, "valor": 210.0, "time": "TIME 08"},
-{"codigo": "C11740", "nome": "ITALO M DA SILVA SOUZA VELOSO", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 209.0, "time": "TIME 12"},
-{"codigo": "T00127", "nome": "ANTONIO JOSE DA SILVA", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 77, "valor": 200.0, "time": "TIME 13"},
-{"codigo": "C12192", "nome": "FILIPE ALVES DE SOUZA PESCADOS LTDA", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 198.0, "time": "TIME 06"},
-{"codigo": "C12021", "nome": "CABANGA IATE CLUBE DE PERNAMBUCO", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 77, "valor": 195.0, "time": "TIME 08"},
-{"codigo": "C12183", "nome": "52.876.879 JOSE MATEUS DE MELO TRINDADE", "ultimaCompra": "2025-10-29 00:00:00.000", "dias": 75, "valor": 192.0, "time": "TIME 09"},
-{"codigo": "E00136", "nome": "THAIANNE FERNANDA CAVALCANTI DE OLIVEIRA", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 188.5, "time": "TIME 13"},
-{"codigo": "C11788", "nome": "LONTRA BEACH CLUB LTDA", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 179.0, "time": "TIME 26"},
-{"codigo": "C12130", "nome": "RANCHO ALEGRE DISTRIBUIDORA DE PRODUTOS AGROPECUAR", "ultimaCompra": "2025-10-24 00:00:00.000", "dias": 80, "valor": 170.0, "time": "TIME 20"},
-{"codigo": "C07912", "nome": "MERGULHAO E ADVOGADOS", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 130.0, "time": "TIME 04"},
-{"codigo": "C00199", "nome": "UNIDADE DE CIRURGIA E ONCOLOGIA LTDA", "ultimaCompra": "2025-10-27 00:00:00.000", "dias": 77, "valor": 120.0, "time": "TIME 01"},
-{"codigo": "C00409", "nome": "ORGANIZACAO HOTELLAR LTDA", "ultimaCompra": "2025-10-21 00:00:00.000", "dias": 83, "valor": 95.0, "time": "TIME 20"},
-{"codigo": "E00155", "nome": "RENATO ALEXANDRE SANTOS", "ultimaCompra": "2025-11-05 00:00:00.000", "dias": 68, "valor": 90.0, "time": "TIME 13"},
-{"codigo": "C06146", "nome": "JOSE MARCOS DE OLIVEIRA", "ultimaCompra": "2025-11-04 00:00:00.000", "dias": 69, "valor": 83.0, "time": "TIME 13"},
-{"codigo": "C12178", "nome": "ASSOCIACAO NACIONAL DOS CATADORES E CATADORAS DE M", "ultimaCompra": "2025-10-22 00:00:00.000", "dias": 82, "valor": 56.0, "time": "TIME 09"},
-{"codigo": "C10501", "nome": "PALMEC- MATERIAL PARA ESCRITORIO LTDA", "ultimaCompra": "2025-10-17 00:00:00.000", "dias": 87, "valor": 50.0, "time": "TIME 09"},
-{"codigo": "C11328", "nome": "MARIA DO SOCORRO MOURA LIMA", "ultimaCompra": "2025-10-28 00:00:00.000", "dias": 76, "valor": 43.36, "time": "TIME 13"},
-{"codigo": "C07464", "nome": "GILVANILDO ANDRÉ GOMES", "ultimaCompra": "2025-11-12 00:00:00.000", "dias": 61, "valor": 37.0, "time": "TIME 13"},
-{"codigo": "C10314", "nome": "CHARLES WILLIAMS LISBOA PYRRHO", "ultimaCompra": "2025-11-06 00:00:00.000", "dias": 67, "valor": 30.0, "time": "TIME 09"},
-{"codigo": "F01049", "nome": "DANIEL DE OLIVEIRA RAMOS", "ultimaCompra": "2025-11-11 00:00:00.000", "dias": 62, "valor": 20.0, "time": "TIME 13"}
-        ];
+{
+"codigo": "C09548",
+"nome": "RECIFE ALIMENTOS E EVENTOS LTDA",
+"ultimaCompra": "2025-10-20 00:00:00.000",
+"dias": 87,
+"valor": 210.0,
+"time": "TIME 08",
+"valorTotal3Anos": 3595.0,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 326.82
+},
+{
+"codigo": "C00409",
+"nome": "ORGANIZACAO HOTELLAR LTDA",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 95.0,
+"time": "TIME 20",
+"valorTotal3Anos": 396.29,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 198.15
+},
+{
+"codigo": "C05452",
+"nome": "ENERGETICA SUAPE II S. A.",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 6060.0,
+"time": "TIME 04",
+"valorTotal3Anos": 93375.0,
+"qtdPedidos3Anos": 17,
+"valorMedio3Anos": 5492.65
+},
+{
+"codigo": "C01199",
+"nome": "MANAL MANUTENCAO ALAGOANA DE AERONAVES LTDA",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 2306.56,
+"time": "TIME 25",
+"valorTotal3Anos": 16889.56,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 2111.2
+},
+{
+"codigo": "C09868",
+"nome": "INSTITUTO NAC.DE PESQ.E GESTAO EM SAUDE-INSAUDE",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 6838.51,
+"time": "TIME 23",
+"valorTotal3Anos": 54925.95,
+"qtdPedidos3Anos": 20,
+"valorMedio3Anos": 2746.3
+},
+{
+"codigo": "C09219",
+"nome": "PA COMERCIO DE ALIMENTOS LTDA",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 895.0,
+"time": "TIME 08",
+"valorTotal3Anos": 3591.5,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 718.3
+},
+{
+"codigo": "C10844",
+"nome": "MILENE CAVALCANTE VALENÇA LTDA",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 490.0,
+"time": "TIME 01",
+"valorTotal3Anos": 3294.9,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 470.7
+},
+{
+"codigo": "C10765",
+"nome": "MARINAS BEACH BAR LTDA",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 485.55,
+"time": "TIME 21",
+"valorTotal3Anos": 29651.2,
+"qtdPedidos3Anos": 53,
+"valorMedio3Anos": 559.46
+},
+{
+"codigo": "C10303",
+"nome": "COLARES ADVOGADOS",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 488.07,
+"time": "TIME 05",
+"valorTotal3Anos": 5395.07,
+"qtdPedidos3Anos": 12,
+"valorMedio3Anos": 449.59
+},
+{
+"codigo": "C10743",
+"nome": "GTS SERVICO DE SAUDE LTDA",
+"ultimaCompra": "2025-10-21 00:00:00.000",
+"dias": 86,
+"valor": 594.97,
+"time": "TIME 01",
+"valorTotal3Anos": 3909.6,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 781.92
+},
+{
+"codigo": "C06197",
+"nome": "RECICLEAN COMERCIO DE PRODUTOS LTDA",
+"ultimaCompra": "2025-10-22 00:00:00.000",
+"dias": 85,
+"valor": 260.55,
+"time": "TIME 09",
+"valorTotal3Anos": 9812.65,
+"qtdPedidos3Anos": 34,
+"valorMedio3Anos": 288.61
+},
+{
+"codigo": "C08244",
+"nome": "BANCO BRADESCO S.A.",
+"ultimaCompra": "2025-10-22 00:00:00.000",
+"dias": 85,
+"valor": 1050.0,
+"time": "TIME 04",
+"valorTotal3Anos": 9010.0,
+"qtdPedidos3Anos": 14,
+"valorMedio3Anos": 643.57
+},
+{
+"codigo": "C09473",
+"nome": "WALERIA QUIRINO DE QUEIROZ VASCONCELOS",
+"ultimaCompra": "2025-10-22 00:00:00.000",
+"dias": 85,
+"valor": 890.0,
+"time": "TIME 18",
+"valorTotal3Anos": 8309.0,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 755.36
+},
+{
+"codigo": "C10865",
+"nome": "HOSPITAL DE OLHOS DO SERTÃO LTDA",
+"ultimaCompra": "2025-10-22 00:00:00.000",
+"dias": 85,
+"valor": 249.5,
+"time": "TIME 16",
+"valorTotal3Anos": 8933.87,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 1116.73
+},
+{
+"codigo": "C12178",
+"nome": "ASSOCIACAO NACIONAL DOS CATADORES E CATADORAS DE M",
+"ultimaCompra": "2025-10-22 00:00:00.000",
+"dias": 85,
+"valor": 56.0,
+"time": "TIME 09",
+"valorTotal3Anos": 56.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 56.0
+},
+{
+"codigo": "C11912",
+"nome": "CB RESTAURANTE PRIME LTDA",
+"ultimaCompra": "2025-10-22 00:00:00.000",
+"dias": 85,
+"valor": 778.0,
+"time": "TIME 12",
+"valorTotal3Anos": 5302.13,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 1060.43
+},
+{
+"codigo": "C00109",
+"nome": "GABINETE PORTUGUES DE LEITURA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 314.0,
+"time": "TIME 13",
+"valorTotal3Anos": 2060.0,
+"qtdPedidos3Anos": 6,
+"valorMedio3Anos": 343.33
+},
+{
+"codigo": "C03691",
+"nome": "CARLOS LACERDA DE ANDRADE ALMEIDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 911.43,
+"time": "TIME 01",
+"valorTotal3Anos": 6396.31,
+"qtdPedidos3Anos": 13,
+"valorMedio3Anos": 492.02
+},
+{
+"codigo": "C00047",
+"nome": "H. L HOTEIS LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 4643.75,
+"time": "TIME 12",
+"valorTotal3Anos": 10791.75,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 1541.68
+},
+{
+"codigo": "C00226",
+"nome": "DT EMPREENDIMENTOS TURISTICOS LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 234.0,
+"time": "TIME 03",
+"valorTotal3Anos": 2169.0,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 241.0
+},
+{
+"codigo": "C09584",
+"nome": "UMANA BRASIL-ASS.E CONS.DE REC.HUMANOS LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 917.0,
+"time": "TIME 04",
+"valorTotal3Anos": 9033.08,
+"qtdPedidos3Anos": 13,
+"valorMedio3Anos": 694.85
+},
+{
+"codigo": "C07955",
+"nome": "M MERCES E SILVA SANTIAGO ME",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 315.0,
+"time": "TIME 12",
+"valorTotal3Anos": 24378.78,
+"qtdPedidos3Anos": 33,
+"valorMedio3Anos": 738.75
+},
+{
+"codigo": "C10192",
+"nome": "CORDEIRO E BENEVIDES PIZZARIA LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 974.0,
+"time": "TIME 10",
+"valorTotal3Anos": 11584.49,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 1287.17
+},
+{
+"codigo": "C10864",
+"nome": "STER BOM IND. E COM. LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 2161.13,
+"time": "TIME 17",
+"valorTotal3Anos": 8177.26,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 1635.45
+},
+{
+"codigo": "C10380",
+"nome": "CLIOMEL - CLINICA ODONTO MEDICA LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 2156.0,
+"time": "TIME 10",
+"valorTotal3Anos": 19325.71,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 1756.88
+},
+{
+"codigo": "C11535",
+"nome": "BOLO DE ROLO FABRICACAO PERNAMBUCANA LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 1648.0,
+"time": "TIME 06",
+"valorTotal3Anos": 6988.0,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 776.44
+},
+{
+"codigo": "C12167",
+"nome": "KAIROS DISTRIBUIDORA LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 265.0,
+"time": "TIME 09",
+"valorTotal3Anos": 455.0,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 227.5
+},
+{
+"codigo": "C12003",
+"nome": "MARESIA IND. E COMERCIO DE ALIMENTOS LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 3197.7,
+"time": "TIME 22",
+"valorTotal3Anos": 11204.44,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 1600.63
+},
+{
+"codigo": "C12045",
+"nome": "VILA ROSA CAFE LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 306.0,
+"time": "TIME 26",
+"valorTotal3Anos": 1765.0,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 353.0
+},
+{
+"codigo": "C09120",
+"nome": "PRIMAPELLE SERVICOS DERMATOLOGICOS LTDA",
+"ultimaCompra": "2025-10-23 00:00:00.000",
+"dias": 84,
+"valor": 649.0,
+"time": "TIME 17",
+"valorTotal3Anos": 6692.4,
+"qtdPedidos3Anos": 10,
+"valorMedio3Anos": 669.24
+},
+{
+"codigo": "C06142",
+"nome": "SOUZA CRUZ S/A",
+"ultimaCompra": "2025-10-24 00:00:00.000",
+"dias": 83,
+"valor": 4135.0,
+"time": "TIME 04",
+"valorTotal3Anos": 25229.54,
+"qtdPedidos3Anos": 10,
+"valorMedio3Anos": 2522.95
+},
+{
+"codigo": "C12130",
+"nome": "RANCHO ALEGRE DISTRIBUIDORA DE PRODUTOS AGROPECUAR",
+"ultimaCompra": "2025-10-24 00:00:00.000",
+"dias": 83,
+"valor": 170.0,
+"time": "TIME 20",
+"valorTotal3Anos": 510.0,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 170.0
+},
+{
+"codigo": "C10524",
+"nome": "NUI SERVICO DE ALIMENTOS E BEBIDAS EIRELI",
+"ultimaCompra": "2025-10-24 00:00:00.000",
+"dias": 83,
+"valor": 720.0,
+"time": "TIME 15",
+"valorTotal3Anos": 17306.7,
+"qtdPedidos3Anos": 26,
+"valorMedio3Anos": 665.64
+},
+{
+"codigo": "C00199",
+"nome": "UNIDADE DE CIRURGIA E ONCOLOGIA LTDA",
+"ultimaCompra": "2025-10-27 00:00:00.000",
+"dias": 80,
+"valor": 120.0,
+"time": "TIME 01",
+"valorTotal3Anos": 221.0,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 110.5
+},
+{
+"codigo": "C12021",
+"nome": "CABANGA IATE CLUBE DE PERNAMBUCO",
+"ultimaCompra": "2025-10-27 00:00:00.000",
+"dias": 80,
+"valor": 195.0,
+"time": "TIME 08",
+"valorTotal3Anos": 6298.0,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 899.71
+},
+{
+"codigo": "C11666",
+"nome": "HAPVIDA ASSISTENCIA MEDICA S.A",
+"ultimaCompra": "2025-10-27 00:00:00.000",
+"dias": 80,
+"valor": 2528.44,
+"time": "TIME 13",
+"valorTotal3Anos": 10953.61,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 2190.72
+},
+{
+"codigo": "C11373",
+"nome": "HAPVIDA ASSISTENCIA MEDICA S.A",
+"ultimaCompra": "2025-10-27 00:00:00.000",
+"dias": 80,
+"valor": 267.8,
+"time": "TIME 13",
+"valorTotal3Anos": 25545.1,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 2322.28
+},
+{
+"codigo": "T00127",
+"nome": "ANTONIO JOSE DA SILVA",
+"ultimaCompra": "2025-10-27 00:00:00.000",
+"dias": 80,
+"valor": 200.0,
+"time": "TIME 13",
+"valorTotal3Anos": 608.58,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 67.62
+},
+{
+"codigo": "C12180",
+"nome": "HAPVIDA ASSISTENCIA MEDICA S.A.",
+"ultimaCompra": "2025-10-27 00:00:00.000",
+"dias": 80,
+"valor": 2381.67,
+"time": "TIME 13",
+"valorTotal3Anos": 2381.67,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 2381.67
+},
+{
+"codigo": "C08105",
+"nome": "LOBO & VALENCA ADVOGADOS ASSOCIADOS",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 1227.0,
+"time": "TIME 05",
+"valorTotal3Anos": 8647.36,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 960.82
+},
+{
+"codigo": "C09156",
+"nome": "CRISTIANE UCHOA COIMBRA ESTEVES",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 903.5,
+"time": "TIME 01",
+"valorTotal3Anos": 20219.59,
+"qtdPedidos3Anos": 28,
+"valorMedio3Anos": 722.13
+},
+{
+"codigo": "C07311",
+"nome": "JMT SERVICOS DE LOCACAO DE MAO DE OBRA LTDA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 8054.0,
+"time": "TIME 17",
+"valorTotal3Anos": 70093.77,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 4672.92
+},
+{
+"codigo": "C08295",
+"nome": "PAURA ADVOCACIA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 1220.0,
+"time": "TIME 05",
+"valorTotal3Anos": 6242.0,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 780.25
+},
+{
+"codigo": "C10902",
+"nome": "SETUBAL RESTAURANTE E CAFETERIA LTDA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 309.0,
+"time": "TIME 03",
+"valorTotal3Anos": 9003.7,
+"qtdPedidos3Anos": 28,
+"valorMedio3Anos": 321.56
+},
+{
+"codigo": "C10527",
+"nome": "CENTRO MEDICO MAYER E FEITOSA LTDA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 381.46,
+"time": "TIME 16",
+"valorTotal3Anos": 4097.39,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 455.27
+},
+{
+"codigo": "C11183",
+"nome": "NURBANO TAVARES DA SILVA 06125218422",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 846.0,
+"time": "TIME 12",
+"valorTotal3Anos": 7208.85,
+"qtdPedidos3Anos": 10,
+"valorMedio3Anos": 720.89
+},
+{
+"codigo": "C10315",
+"nome": "TRATORVALE - TRATORES DO VALE DO S. FRANCISCO LTDA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 1110.0,
+"time": "TIME 10",
+"valorTotal3Anos": 13497.0,
+"qtdPedidos3Anos": 19,
+"valorMedio3Anos": 710.37
+},
+{
+"codigo": "C11860",
+"nome": "D P B AVICULTURA - COMERCIO VAREJISTA DE OVOS LTDA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 1880.0,
+"time": "TIME 17",
+"valorTotal3Anos": 25177.0,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 1678.47
+},
+{
+"codigo": "C11328",
+"nome": "MARIA DO SOCORRO MOURA LIMA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 43.36,
+"time": "TIME 13",
+"valorTotal3Anos": 850.67,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 56.71
+},
+{
+"codigo": "C12100",
+"nome": "NOVA DIAGNOSTICO POR IMAGEM LTDA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 1075.0,
+"time": "TIME 15",
+"valorTotal3Anos": 2644.5,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 881.5
+},
+{
+"codigo": "C12182",
+"nome": "CGB SERVICO DE ALIMENTACAO LTDA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 809.8,
+"time": "TIME 15",
+"valorTotal3Anos": 809.8,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 809.8
+},
+{
+"codigo": "C11662",
+"nome": "ALEX A DE OLIVEIRA",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 368.0,
+"time": "TIME 09",
+"valorTotal3Anos": 1304.0,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 326.0
+},
+{
+"codigo": "C11740",
+"nome": "ITALO M DA SILVA SOUZA VELOSO",
+"ultimaCompra": "2025-10-28 00:00:00.000",
+"dias": 79,
+"valor": 209.0,
+"time": "TIME 12",
+"valorTotal3Anos": 2923.3,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 730.83
+},
+{
+"codigo": "C00475",
+"nome": "THE BRITISH COUNTRY CLUB",
+"ultimaCompra": "2025-10-29 00:00:00.000",
+"dias": 78,
+"valor": 377.25,
+"time": "TIME 05",
+"valorTotal3Anos": 4628.25,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 514.25
+},
+{
+"codigo": "C08957",
+"nome": "KUHNI ATIVIDADES DE FISIOTERAPIA LTDA",
+"ultimaCompra": "2025-10-29 00:00:00.000",
+"dias": 78,
+"valor": 250.0,
+"time": "TIME 01",
+"valorTotal3Anos": 750.0,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 250.0
+},
+{
+"codigo": "C07886",
+"nome": "IOP-INSTITUTO DE OLHOS DE PERNAMBUCO LTDA-ME",
+"ultimaCompra": "2025-10-29 00:00:00.000",
+"dias": 78,
+"valor": 399.9,
+"time": "TIME 12",
+"valorTotal3Anos": 4427.09,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 402.46
+},
+{
+"codigo": "C10241",
+"nome": "SEARA ALIMENTOS LTDA",
+"ultimaCompra": "2025-10-29 00:00:00.000",
+"dias": 78,
+"valor": 4477.8,
+"time": "TIME 06",
+"valorTotal3Anos": 221494.52,
+"qtdPedidos3Anos": 80,
+"valorMedio3Anos": 2768.68
+},
+{
+"codigo": "C12183",
+"nome": "52.876.879 JOSE MATEUS DE MELO TRINDADE",
+"ultimaCompra": "2025-10-29 00:00:00.000",
+"dias": 78,
+"valor": 192.0,
+"time": "TIME 09",
+"valorTotal3Anos": 192.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 192.0
+},
+{
+"codigo": "C12063",
+"nome": "GRUPO MOR LTDA",
+"ultimaCompra": "2025-10-29 00:00:00.000",
+"dias": 78,
+"valor": 289.66,
+"time": "TIME 22",
+"valorTotal3Anos": 519.86,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 259.93
+},
+{
+"codigo": "C12102",
+"nome": "CLINICA OFTALMOLOGICA PRIME LTDA",
+"ultimaCompra": "2025-10-29 00:00:00.000",
+"dias": 78,
+"valor": 1749.62,
+"time": "TIME 20",
+"valorTotal3Anos": 4658.64,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 1552.88
+},
+{
+"codigo": "C08448",
+"nome": "SOUZA & TRAJANO MAIA LTDA",
+"ultimaCompra": "2025-10-30 00:00:00.000",
+"dias": 77,
+"valor": 1045.0,
+"time": "TIME 10",
+"valorTotal3Anos": 8891.7,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 1111.46
+},
+{
+"codigo": "C12186",
+"nome": "CORTFULL IND. E COM. DE CARNES LTDA",
+"ultimaCompra": "2025-10-30 00:00:00.000",
+"dias": 77,
+"valor": 833.0,
+"time": "TIME 18",
+"valorTotal3Anos": 833.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 833.0
+},
+{
+"codigo": "C11839",
+"nome": "RIBEIRO E NASCIMENTO LTDA",
+"ultimaCompra": "2025-10-30 00:00:00.000",
+"dias": 77,
+"valor": 269.0,
+"time": "TIME 20",
+"valorTotal3Anos": 4467.4,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 638.2
+},
+{
+"codigo": "C03957",
+"nome": "TIAGO ALVES DA SILVA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 302.0,
+"time": "TIME 02",
+"valorTotal3Anos": 2825.0,
+"qtdPedidos3Anos": 10,
+"valorMedio3Anos": 282.5
+},
+{
+"codigo": "C09148",
+"nome": "DILENE MARQUES HENRIQUES DE ALBUQUERQUE",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 747.5,
+"time": "TIME 20",
+"valorTotal3Anos": 12665.23,
+"qtdPedidos3Anos": 16,
+"valorMedio3Anos": 791.58
+},
+{
+"codigo": "C10794",
+"nome": "DIAS E ARAUJO DIAGNOSTICO LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 1045.62,
+"time": "TIME 16",
+"valorTotal3Anos": 4628.26,
+"qtdPedidos3Anos": 6,
+"valorMedio3Anos": 771.38
+},
+{
+"codigo": "C11386",
+"nome": "MANJERICAO COMERCIO DE ALIMENTOS LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 361.0,
+"time": "TIME 15",
+"valorTotal3Anos": 7237.4,
+"qtdPedidos3Anos": 18,
+"valorMedio3Anos": 402.08
+},
+{
+"codigo": "C10927",
+"nome": "DSV AIR & SEA BRASIL LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 1940.0,
+"time": "TIME 04",
+"valorTotal3Anos": 8429.0,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 936.56
+},
+{
+"codigo": "C10748",
+"nome": "FN LISBOA BISTRO LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 334.2,
+"time": "TIME 20",
+"valorTotal3Anos": 7192.23,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 653.84
+},
+{
+"codigo": "C10926",
+"nome": "PADARIA VOVO OTAVIO TAMANDARE LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 659.0,
+"time": "TIME 12",
+"valorTotal3Anos": 26886.0,
+"qtdPedidos3Anos": 44,
+"valorMedio3Anos": 611.05
+},
+{
+"codigo": "C11806",
+"nome": "OFTALMOCLINICA SAULO FREIRE LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 390.0,
+"time": "TIME 20",
+"valorTotal3Anos": 16511.95,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 1100.8
+},
+{
+"codigo": "C11341",
+"nome": "J F LEMOS LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 1531.46,
+"time": "TIME 23",
+"valorTotal3Anos": 32596.41,
+"qtdPedidos3Anos": 24,
+"valorMedio3Anos": 1358.18
+},
+{
+"codigo": "C11886",
+"nome": "FLORA PARNAMIRIM C. VAREJISTA DE COSMETICOS LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 376.5,
+"time": "TIME 05",
+"valorTotal3Anos": 2025.98,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 405.2
+},
+{
+"codigo": "C12097",
+"nome": "DOLCE RESTAURANTE LTDA",
+"ultimaCompra": "2025-10-31 00:00:00.000",
+"dias": 76,
+"valor": 947.4,
+"time": "TIME 16",
+"valorTotal3Anos": 2632.1,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 877.37
+},
+{
+"codigo": "C09409",
+"nome": "GRIFOS COMERCIO DE ALIMENTOS EIRELI",
+"ultimaCompra": "2025-11-03 00:00:00.000",
+"dias": 73,
+"valor": 4718.0,
+"time": "TIME 04",
+"valorTotal3Anos": 14159.12,
+"qtdPedidos3Anos": 10,
+"valorMedio3Anos": 1415.91
+},
+{
+"codigo": "C08394",
+"nome": "MONDELEZ BRASIL NORTE NORDESTE LTDA",
+"ultimaCompra": "2025-11-03 00:00:00.000",
+"dias": 73,
+"valor": 1620.0,
+"time": "TIME 07",
+"valorTotal3Anos": 398554.87,
+"qtdPedidos3Anos": 38,
+"valorMedio3Anos": 10488.29
+},
+{
+"codigo": "C11605",
+"nome": "ERICK MACEDO ADVOCACIA",
+"ultimaCompra": "2025-11-03 00:00:00.000",
+"dias": 73,
+"valor": 686.54,
+"time": "TIME 05",
+"valorTotal3Anos": 3570.54,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 446.32
+},
+{
+"codigo": "C11785",
+"nome": "PRATA DA CASA EXPRESS LTDA",
+"ultimaCompra": "2025-11-03 00:00:00.000",
+"dias": 73,
+"valor": 309.6,
+"time": "TIME 20",
+"valorTotal3Anos": 6154.11,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 559.46
+},
+{
+"codigo": "C12187",
+"nome": "CPL CONSTRUTORA LTDA",
+"ultimaCompra": "2025-11-03 00:00:00.000",
+"dias": 73,
+"valor": 2220.0,
+"time": "TIME 12",
+"valorTotal3Anos": 2220.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 2220.0
+},
+{
+"codigo": "C01788",
+"nome": "MASTERFOODS BRASIL ALIMENTOS LTDA.",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 1320.0,
+"time": "TIME 06",
+"valorTotal3Anos": 317543.0,
+"qtdPedidos3Anos": 69,
+"valorMedio3Anos": 4602.07
+},
+{
+"codigo": "C09019",
+"nome": "CONDOMINIO DO EDIFICIO WEST SIDE PARK",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 687.4,
+"time": "TIME 27",
+"valorTotal3Anos": 1890.4,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 630.13
+},
+{
+"codigo": "C10658",
+"nome": "SAINT-GOBAIN DO BR PRODUTOS INDUS E P/ CONSTR LTDA",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 968.0,
+"time": "TIME 12",
+"valorTotal3Anos": 968.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 968.0
+},
+{
+"codigo": "C10836",
+"nome": "ORAL UNIC JOÃO PESSOA LTDA",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 1496.0,
+"time": "TIME 15",
+"valorTotal3Anos": 20116.0,
+"qtdPedidos3Anos": 28,
+"valorMedio3Anos": 718.43
+},
+{
+"codigo": "C12110",
+"nome": "HAPVIDA ASSISTENCIA MEDICA S.A",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 440.64,
+"time": "TIME 13",
+"valorTotal3Anos": 2841.84,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 1420.92
+},
+{
+"codigo": "C12189",
+"nome": "HAPVIDA ASSISTENCIA MEDICA S.A.",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 3028.43,
+"time": "TIME 13",
+"valorTotal3Anos": 8055.71,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 4027.86
+},
+{
+"codigo": "C11723",
+"nome": "SABOR DA ROCA CHURRASCARIA LTDA",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 1012.92,
+"time": "TIME 12",
+"valorTotal3Anos": 9853.58,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 895.78
+},
+{
+"codigo": "C12188",
+"nome": "CTP ENGENHARIA LTDA",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 330.0,
+"time": "TIME 27",
+"valorTotal3Anos": 330.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 330.0
+},
+{
+"codigo": "T00128",
+"nome": "IVANILDO JOSE DE SOUZA FILHO",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 260.59,
+"time": "TIME 13",
+"valorTotal3Anos": 1604.69,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 106.98
+},
+{
+"codigo": "C06146",
+"nome": "JOSE MARCOS DE OLIVEIRA",
+"ultimaCompra": "2025-11-04 00:00:00.000",
+"dias": 72,
+"valor": 83.0,
+"time": "TIME 13",
+"valorTotal3Anos": 2265.13,
+"qtdPedidos3Anos": 24,
+"valorMedio3Anos": 94.38
+},
+{
+"codigo": "C07320",
+"nome": "ANDRÉ VITAL CAMARA DE ARAUJO LIMA VAREJO-ME",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 220.0,
+"time": "TIME 09",
+"valorTotal3Anos": 3331.96,
+"qtdPedidos3Anos": 16,
+"valorMedio3Anos": 208.25
+},
+{
+"codigo": "C00843",
+"nome": "TRON CONTROLES ELETRICOS LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 440.0,
+"time": "TIME 04",
+"valorTotal3Anos": 117454.3,
+"qtdPedidos3Anos": 21,
+"valorMedio3Anos": 5593.06
+},
+{
+"codigo": "C02617",
+"nome": "OTICA SURUBIM LTDA ME",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 1050.0,
+"time": "TIME 12",
+"valorTotal3Anos": 7266.6,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 660.6
+},
+{
+"codigo": "C09208",
+"nome": "LATICINIO BELO VALE LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 705.25,
+"time": "TIME 16",
+"valorTotal3Anos": 27741.71,
+"qtdPedidos3Anos": 26,
+"valorMedio3Anos": 1066.99
+},
+{
+"codigo": "C06266",
+"nome": "BRIDGE SOLUCOES EDUCACIONAIS LTDA - ME",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 567.0,
+"time": "TIME 12",
+"valorTotal3Anos": 9289.69,
+"qtdPedidos3Anos": 16,
+"valorMedio3Anos": 580.61
+},
+{
+"codigo": "C09153",
+"nome": "N B DA ROCHA JUNIOR SERVICOS MEDICOS EIRELI",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 412.0,
+"time": "TIME 01",
+"valorTotal3Anos": 2486.0,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 355.14
+},
+{
+"codigo": "C09249",
+"nome": "CENTRAL DE ADUBOS COMERCIO E REPRESENTACOES LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 968.0,
+"time": "TIME 10",
+"valorTotal3Anos": 50797.97,
+"qtdPedidos3Anos": 32,
+"valorMedio3Anos": 1587.44
+},
+{
+"codigo": "C10042",
+"nome": "MEMORIAL IMAGEM E DIAGNOSTICO LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 2324.0,
+"time": "TIME 01",
+"valorTotal3Anos": 69618.89,
+"qtdPedidos3Anos": 40,
+"valorMedio3Anos": 1740.47
+},
+{
+"codigo": "C10934",
+"nome": "CASA NOVA PARTICIPAÇÕES SOCIETARIAS LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 369.76,
+"time": "TIME 01",
+"valorTotal3Anos": 40294.91,
+"qtdPedidos3Anos": 40,
+"valorMedio3Anos": 1007.37
+},
+{
+"codigo": "C11393",
+"nome": "ZION CHURCH BRASIL",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 1449.0,
+"time": "TIME 25",
+"valorTotal3Anos": 17120.52,
+"qtdPedidos3Anos": 21,
+"valorMedio3Anos": 815.26
+},
+{
+"codigo": "E00155",
+"nome": "RENATO ALEXANDRE SANTOS",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 90.0,
+"time": "TIME 13",
+"valorTotal3Anos": 1177.28,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 235.46
+},
+{
+"codigo": "C12192",
+"nome": "FILIPE ALVES DE SOUZA PESCADOS LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 198.0,
+"time": "TIME 06",
+"valorTotal3Anos": 198.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 198.0
+},
+{
+"codigo": "C12125",
+"nome": "INSTITUTO EMANUEL SANTANA LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 816.88,
+"time": "TIME 20",
+"valorTotal3Anos": 6842.41,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 1710.6
+},
+{
+"codigo": "C11982",
+"nome": "BOTICA PERFUMARIA E PRESENTES LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 913.42,
+"time": "TIME 21",
+"valorTotal3Anos": 2360.32,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 590.08
+},
+{
+"codigo": "C12143",
+"nome": "COLEGIO MOTIVA LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 225.0,
+"time": "TIME 20",
+"valorTotal3Anos": 895.0,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 223.75
+},
+{
+"codigo": "C12193",
+"nome": "VICCINI EMPORIO CAFETERIA LTDA",
+"ultimaCompra": "2025-11-05 00:00:00.000",
+"dias": 71,
+"valor": 427.0,
+"time": "TIME 03",
+"valorTotal3Anos": 427.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 427.0
+},
+{
+"codigo": "C01123",
+"nome": "CONDOMINIO DO EDIFICIO BLUE TOWER",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 1371.0,
+"time": "TIME 04",
+"valorTotal3Anos": 4283.0,
+"qtdPedidos3Anos": 6,
+"valorMedio3Anos": 713.83
+},
+{
+"codigo": "C00010",
+"nome": "BENTONIT UNIAO NE IND E COM  LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 1413.93,
+"time": "TIME 20",
+"valorTotal3Anos": 16222.51,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 1081.5
+},
+{
+"codigo": "C01183",
+"nome": "SANTA CASA DE MISERICORDIA DE SAO M. DOS CAMPOS",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 431.8,
+"time": "TIME 25",
+"valorTotal3Anos": 147258.49,
+"qtdPedidos3Anos": 53,
+"valorMedio3Anos": 2778.46
+},
+{
+"codigo": "C07912",
+"nome": "MERGULHAO E ADVOGADOS",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 130.0,
+"time": "TIME 04",
+"valorTotal3Anos": 4759.0,
+"qtdPedidos3Anos": 22,
+"valorMedio3Anos": 216.32
+},
+{
+"codigo": "C08921",
+"nome": "NALULU RESTAURANTE E COMENDORIA LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 297.0,
+"time": "TIME 12",
+"valorTotal3Anos": 8172.46,
+"qtdPedidos3Anos": 21,
+"valorMedio3Anos": 389.16
+},
+{
+"codigo": "C10314",
+"nome": "CHARLES WILLIAMS LISBOA PYRRHO",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 30.0,
+"time": "TIME 09",
+"valorTotal3Anos": 5692.17,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 379.48
+},
+{
+"codigo": "C10965",
+"nome": "SARMENTO & BARBOSA LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 942.46,
+"time": "TIME 16",
+"valorTotal3Anos": 13043.92,
+"qtdPedidos3Anos": 14,
+"valorMedio3Anos": 931.71
+},
+{
+"codigo": "C10377",
+"nome": "MEDICAL CENTRO DE ESPECIALIDADES LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 1167.51,
+"time": "TIME 16",
+"valorTotal3Anos": 13044.58,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 869.64
+},
+{
+"codigo": "C10617",
+"nome": "DANUBIO & MELO ALIMENTOS LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 2005.0,
+"time": "TIME 18",
+"valorTotal3Anos": 22532.0,
+"qtdPedidos3Anos": 19,
+"valorMedio3Anos": 1185.89
+},
+{
+"codigo": "C10526",
+"nome": "IABS EMPRESA SOCIAL COMERCIO LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 307.71,
+"time": "TIME 22",
+"valorTotal3Anos": 8646.46,
+"qtdPedidos3Anos": 19,
+"valorMedio3Anos": 455.08
+},
+{
+"codigo": "C11876",
+"nome": "JOCELIO GONCALVES ARAUJO",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 719.7,
+"time": "TIME 20",
+"valorTotal3Anos": 1392.76,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 696.38
+},
+{
+"codigo": "C11788",
+"nome": "LONTRA BEACH CLUB LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 179.0,
+"time": "TIME 26",
+"valorTotal3Anos": 2817.34,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 352.17
+},
+{
+"codigo": "C11955",
+"nome": "FRANUTO RESTAURANTE LTDA",
+"ultimaCompra": "2025-11-06 00:00:00.000",
+"dias": 70,
+"valor": 297.0,
+"time": "TIME 03",
+"valorTotal3Anos": 12454.93,
+"qtdPedidos3Anos": 24,
+"valorMedio3Anos": 518.96
+},
+{
+"codigo": "C03963",
+"nome": "SERVIÇO SOCIAL DO COMERCIO SESC - AR/PB",
+"ultimaCompra": "2025-11-07 00:00:00.000",
+"dias": 69,
+"valor": 11800.0,
+"time": "TIME 15",
+"valorTotal3Anos": 17700.0,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 8850.0
+},
+{
+"codigo": "C01440",
+"nome": "J A D ARAUJO & CIA LTDA",
+"ultimaCompra": "2025-11-07 00:00:00.000",
+"dias": 69,
+"valor": 1430.0,
+"time": "TIME 18",
+"valorTotal3Anos": 10631.0,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 1328.88
+},
+{
+"codigo": "C12151",
+"nome": "RESIDENCIAL MIRANTE DAS ESTRELAS",
+"ultimaCompra": "2025-11-07 00:00:00.000",
+"dias": 69,
+"valor": 482.0,
+"time": "TIME 25",
+"valorTotal3Anos": 2385.1,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 795.03
+},
+{
+"codigo": "C12199",
+"nome": "CONDOMINIO BOSQUE DOS PASSAROS",
+"ultimaCompra": "2025-11-07 00:00:00.000",
+"dias": 69,
+"valor": 1641.0,
+"time": "TIME 17",
+"valorTotal3Anos": 1641.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 1641.0
+},
+{
+"codigo": "C11425",
+"nome": "FRANCA VIEIRA PRODUTOS E SERVICOS LTDA",
+"ultimaCompra": "2025-11-07 00:00:00.000",
+"dias": 69,
+"valor": 514.0,
+"time": "TIME 09",
+"valorTotal3Anos": 13894.93,
+"qtdPedidos3Anos": 21,
+"valorMedio3Anos": 661.66
+},
+{
+"codigo": "C11736",
+"nome": "WCM ENGENHARIA LTDA",
+"ultimaCompra": "2025-11-07 00:00:00.000",
+"dias": 69,
+"valor": 7260.0,
+"time": "TIME 07",
+"valorTotal3Anos": 8414.42,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 4207.21
+},
+{
+"codigo": "C01295",
+"nome": "CENTRO DE ESPECIALIDADES MEDICAS DE ARCOVERDE LTDA",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 1456.0,
+"time": "TIME 18",
+"valorTotal3Anos": 21957.8,
+"qtdPedidos3Anos": 13,
+"valorMedio3Anos": 1689.06
+},
+{
+"codigo": "C00087",
+"nome": "SANTA CASA DE MISERICORDIA HOSPITAL SANTO AMARO",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 300.0,
+"time": "TIME 01",
+"valorTotal3Anos": 5473.0,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 781.86
+},
+{
+"codigo": "C00140",
+"nome": "JOHN JAYME F. DA SILVA",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 1614.0,
+"time": "TIME 06",
+"valorTotal3Anos": 15152.0,
+"qtdPedidos3Anos": 9,
+"valorMedio3Anos": 1683.56
+},
+{
+"codigo": "C05772",
+"nome": "L ADRESSE STUDIO DE BELEZA LTDA - ME",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 727.0,
+"time": "TIME 01",
+"valorTotal3Anos": 9021.2,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 601.41
+},
+{
+"codigo": "C07022",
+"nome": "HOTEL PREMIUM LTDA - EPP",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 294.0,
+"time": "TIME 02",
+"valorTotal3Anos": 14316.85,
+"qtdPedidos3Anos": 38,
+"valorMedio3Anos": 376.76
+},
+{
+"codigo": "C09475",
+"nome": "TUCCI E PONTUAL SERVICOS LTDA",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 759.0,
+"time": "TIME 22",
+"valorTotal3Anos": 13713.21,
+"qtdPedidos3Anos": 14,
+"valorMedio3Anos": 979.52
+},
+{
+"codigo": "C08949",
+"nome": "HIBISCUS LOUNGE EIRELI - EPP",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 564.0,
+"time": "TIME 26",
+"valorTotal3Anos": 564.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 564.0
+},
+{
+"codigo": "C09388",
+"nome": "S A PAULISTA DE CONSTRUCOES E COMERCIO",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 1379.0,
+"time": "TIME 25",
+"valorTotal3Anos": 23772.22,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 2161.11
+},
+{
+"codigo": "C08178",
+"nome": "HARMONY HOTEL EIRELI - ME",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 896.0,
+"time": "TIME 18",
+"valorTotal3Anos": 2592.0,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 648.0
+},
+{
+"codigo": "C09660",
+"nome": "FORMA ESQUADRIAS METALICAS EIRELI ME",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 1029.0,
+"time": "TIME 05",
+"valorTotal3Anos": 17947.0,
+"qtdPedidos3Anos": 21,
+"valorMedio3Anos": 854.62
+},
+{
+"codigo": "C11543",
+"nome": "F & L EMPREENDIMENTOS COMERCIAIS LTDA",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 297.13,
+"time": "TIME 25",
+"valorTotal3Anos": 2102.48,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 300.35
+},
+{
+"codigo": "C12062",
+"nome": "RB HOTEL LTDA",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 1511.02,
+"time": "TIME 23",
+"valorTotal3Anos": 7586.19,
+"qtdPedidos3Anos": 5,
+"valorMedio3Anos": 1517.24
+},
+{
+"codigo": "C11793",
+"nome": "LIRA & SOUZA LTDA",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 1424.0,
+"time": "TIME 10",
+"valorTotal3Anos": 7059.35,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 1764.84
+},
+{
+"codigo": "C11601",
+"nome": "ASSOCIACAO DE PAIS E AMIGOS DOS EXCEPCIONAIS DE CA",
+"ultimaCompra": "2025-11-10 00:00:00.000",
+"dias": 66,
+"valor": 619.14,
+"time": "TIME 18",
+"valorTotal3Anos": 13931.6,
+"qtdPedidos3Anos": 12,
+"valorMedio3Anos": 1160.97
+},
+{
+"codigo": "C07193",
+"nome": "LITORAL NORTE TURISMO EIRELI - EPP",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 564.0,
+"time": "TIME 26",
+"valorTotal3Anos": 4064.33,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 369.48
+},
+{
+"codigo": "C06129",
+"nome": "VIDAS DONARE LTDA",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 7452.58,
+"time": "TIME 01",
+"valorTotal3Anos": 50101.71,
+"qtdPedidos3Anos": 20,
+"valorMedio3Anos": 2505.09
+},
+{
+"codigo": "C10255",
+"nome": "JOAO PAULO RODRIGUES CARDOSO",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 305.0,
+"time": "TIME 21",
+"valorTotal3Anos": 3450.0,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 313.64
+},
+{
+"codigo": "C10574",
+"nome": "PAJEU NORDESTE LTDA",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 1026.0,
+"time": "TIME 06",
+"valorTotal3Anos": 17706.0,
+"qtdPedidos3Anos": 26,
+"valorMedio3Anos": 681.0
+},
+{
+"codigo": "C10719",
+"nome": "3A1N CONSULTORIO MEDICO LTDA",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 384.0,
+"time": "TIME 01",
+"valorTotal3Anos": 7372.51,
+"qtdPedidos3Anos": 15,
+"valorMedio3Anos": 491.5
+},
+{
+"codigo": "C11838",
+"nome": "NATUZZI CONCEITO COMERCIO, IMPORTACAO E EXPORTACAO",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 672.0,
+"time": "TIME 04",
+"valorTotal3Anos": 7397.94,
+"qtdPedidos3Anos": 14,
+"valorMedio3Anos": 528.42
+},
+{
+"codigo": "C11963",
+"nome": "ENGENHO CASA FORTE DELICATESSEN LTDA",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 643.2,
+"time": "TIME 08",
+"valorTotal3Anos": 1313.2,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 437.73
+},
+{
+"codigo": "C11953",
+"nome": "MUNICIPIO DE PALMARES",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 10408.8,
+"time": "TIME 12",
+"valorTotal3Anos": 60142.1,
+"qtdPedidos3Anos": 13,
+"valorMedio3Anos": 4626.32
+},
+{
+"codigo": "C11650",
+"nome": "BAG EMPREENDIMENTOS E ENTRETENIMENTOS LTDA ME",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 657.0,
+"time": "TIME 21",
+"valorTotal3Anos": 5117.52,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 465.23
+},
+{
+"codigo": "F01049",
+"nome": "DANIEL DE OLIVEIRA RAMOS",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 20.0,
+"time": "TIME 13",
+"valorTotal3Anos": 119.64,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 59.82
+},
+{
+"codigo": "C12001",
+"nome": "JST REFEICOES LTDA",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 1614.58,
+"time": "TIME 08",
+"valorTotal3Anos": 6041.18,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 1510.3
+},
+{
+"codigo": "C11656",
+"nome": "DESTAK PLAZA HOTEL LTDA",
+"ultimaCompra": "2025-11-11 00:00:00.000",
+"dias": 65,
+"valor": 382.0,
+"time": "TIME 12",
+"valorTotal3Anos": 3897.0,
+"qtdPedidos3Anos": 6,
+"valorMedio3Anos": 649.5
+},
+{
+"codigo": "C02664",
+"nome": "KILUB LUBRIFICANTES E FILTROS LTDA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 893.0,
+"time": "TIME 15",
+"valorTotal3Anos": 31820.5,
+"qtdPedidos3Anos": 46,
+"valorMedio3Anos": 691.75
+},
+{
+"codigo": "C07464",
+"nome": "GILVANILDO ANDRÉ GOMES",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 37.0,
+"time": "TIME 13",
+"valorTotal3Anos": 571.53,
+"qtdPedidos3Anos": 17,
+"valorMedio3Anos": 33.62
+},
+{
+"codigo": "C10614",
+"nome": "INSTITUTO MEMORIAL DO VALE",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 1980.0,
+"time": "TIME 10",
+"valorTotal3Anos": 31762.6,
+"qtdPedidos3Anos": 14,
+"valorMedio3Anos": 2268.76
+},
+{
+"codigo": "C11433",
+"nome": "POUSADA DO MIRANTE LTDA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 1100.0,
+"time": "TIME 11",
+"valorTotal3Anos": 4730.0,
+"qtdPedidos3Anos": 4,
+"valorMedio3Anos": 1182.5
+},
+{
+"codigo": "C11118",
+"nome": "MATUTO REPRESENTAÇÕES E COMERCIO DE ALIMENTOS LTDA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 847.0,
+"time": "TIME 08",
+"valorTotal3Anos": 13456.9,
+"qtdPedidos3Anos": 27,
+"valorMedio3Anos": 498.4
+},
+{
+"codigo": "C11134",
+"nome": "LEAL DISTRIBUIDORA  DE MATERIAL DE LIMPEZA LTDA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 405.0,
+"time": "TIME 09",
+"valorTotal3Anos": 11582.0,
+"qtdPedidos3Anos": 21,
+"valorMedio3Anos": 551.52
+},
+{
+"codigo": "C11668",
+"nome": "MANUELA GOMES LIRA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 1024.25,
+"time": "TIME 16",
+"valorTotal3Anos": 22945.03,
+"qtdPedidos3Anos": 13,
+"valorMedio3Anos": 1765.0
+},
+{
+"codigo": "C11706",
+"nome": "ENGENHO SAO LOURENCO LTDA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 587.2,
+"time": "TIME 23",
+"valorTotal3Anos": 13862.94,
+"qtdPedidos3Anos": 10,
+"valorMedio3Anos": 1386.29
+},
+{
+"codigo": "E00136",
+"nome": "THAIANNE FERNANDA CAVALCANTI DE OLIVEIRA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 188.5,
+"time": "TIME 13",
+"valorTotal3Anos": 1104.17,
+"qtdPedidos3Anos": 16,
+"valorMedio3Anos": 69.01
+},
+{
+"codigo": "C11809",
+"nome": "ARU ADMINISTRADORA LTDA",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 1025.15,
+"time": "TIME 24",
+"valorTotal3Anos": 14141.16,
+"qtdPedidos3Anos": 12,
+"valorMedio3Anos": 1178.43
+},
+{
+"codigo": "C12004",
+"nome": "53.347.989 ELYEDNA AGRA AIRES DOS ANJOS",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 261.2,
+"time": "TIME 20",
+"valorTotal3Anos": 931.92,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 310.64
+},
+{
+"codigo": "C12202",
+"nome": "ANA MARIA BARROS FALCAO",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 1015.0,
+"time": "TIME 01",
+"valorTotal3Anos": 1015.0,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 1015.0
+},
+{
+"codigo": "F01410",
+"nome": "GHR PARTICIPACOES E EMPREENDIMENTOS TURISTICO LIMI",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 1900.0,
+"time": "TIME 20",
+"valorTotal3Anos": 29505.69,
+"qtdPedidos3Anos": 19,
+"valorMedio3Anos": 1552.93
+},
+{
+"codigo": "C00686",
+"nome": "MELO DE ARRUDA FALCAO LTDA ME",
+"ultimaCompra": "2025-11-12 00:00:00.000",
+"dias": 64,
+"valor": 477.0,
+"time": "TIME 08",
+"valorTotal3Anos": 31382.8,
+"qtdPedidos3Anos": 66,
+"valorMedio3Anos": 475.5
+},
+{
+"codigo": "C07247",
+"nome": "INCOMTUBO IND. E COMERCIO DE TUBOS LTDA - ME",
+"ultimaCompra": "2025-11-13 00:00:00.000",
+"dias": 63,
+"valor": 400.0,
+"time": "TIME 04",
+"valorTotal3Anos": 4508.0,
+"qtdPedidos3Anos": 3,
+"valorMedio3Anos": 1502.67
+},
+{
+"codigo": "C09629",
+"nome": "LAILA CLEA CAVALCANTI BRAYNER",
+"ultimaCompra": "2025-11-13 00:00:00.000",
+"dias": 63,
+"valor": 356.29,
+"time": "TIME 20",
+"valorTotal3Anos": 356.29,
+"qtdPedidos3Anos": 1,
+"valorMedio3Anos": 356.29
+},
+{
+"codigo": "C11519",
+"nome": "VENEZA EPIS E FERRAGENS LTDA",
+"ultimaCompra": "2025-11-13 00:00:00.000",
+"dias": 63,
+"valor": 326.0,
+"time": "TIME 09",
+"valorTotal3Anos": 7525.41,
+"qtdPedidos3Anos": 14,
+"valorMedio3Anos": 537.53
+},
+{
+"codigo": "C10313",
+"nome": "DORGIVAL HENRIQUES N F ODONTOLOGIA EIRELI",
+"ultimaCompra": "2025-11-13 00:00:00.000",
+"dias": 63,
+"valor": 418.54,
+"time": "TIME 01",
+"valorTotal3Anos": 6438.87,
+"qtdPedidos3Anos": 16,
+"valorMedio3Anos": 402.43
+},
+{
+"codigo": "C11337",
+"nome": "EQUIPE NEUROLOGICA E NEUROCIRURGICA DO SAO FRANCIS",
+"ultimaCompra": "2025-11-13 00:00:00.000",
+"dias": 63,
+"valor": 550.0,
+"time": "TIME 10",
+"valorTotal3Anos": 7677.06,
+"qtdPedidos3Anos": 11,
+"valorMedio3Anos": 697.91
+},
+{
+"codigo": "C11845",
+"nome": "TESS INDUSTRIA E COMERCIO LTDA",
+"ultimaCompra": "2025-11-13 00:00:00.000",
+"dias": 63,
+"valor": 6000.0,
+"time": "TIME 20",
+"valorTotal3Anos": 57785.43,
+"qtdPedidos3Anos": 7,
+"valorMedio3Anos": 8255.06
+},
+{
+"codigo": "C11930",
+"nome": "HAPVIDA ASSISTENCIA MEDICA S.A",
+"ultimaCompra": "2025-11-13 00:00:00.000",
+"dias": 63,
+"valor": 1587.84,
+"time": "TIME 13",
+"valorTotal3Anos": 23524.1,
+"qtdPedidos3Anos": 10,
+"valorMedio3Anos": 2352.41
+},
+{
+"codigo": "C10489",
+"nome": "JANE DE MORAIS E SILVA 03784305482",
+"ultimaCompra": "2025-11-14 00:00:00.000",
+"dias": 62,
+"valor": 177.0,
+"time": "TIME 11",
+"valorTotal3Anos": 59183.0,
+"qtdPedidos3Anos": 26,
+"valorMedio3Anos": 2276.27
+},
+{
+"codigo": "C11004",
+"nome": "CONSORCIO INOVAR LOTE 03",
+"ultimaCompra": "2025-11-14 00:00:00.000",
+"dias": 62,
+"valor": 4644.0,
+"time": "TIME 25",
+"valorTotal3Anos": 87487.25,
+"qtdPedidos3Anos": 24,
+"valorMedio3Anos": 3645.3
+},
+{
+"codigo": "C12190",
+"nome": "ACOUGUE ALI CARNES LTDA",
+"ultimaCompra": "2025-11-14 00:00:00.000",
+"dias": 62,
+"valor": 1030.18,
+"time": "TIME 20",
+"valorTotal3Anos": 2469.06,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 1234.53
+},
+{
+"codigo": "C11505",
+"nome": "HAPVIDA ASSISTENCIA MEDICA S.A.",
+"ultimaCompra": "2025-11-14 00:00:00.000",
+"dias": 62,
+"valor": 973.4,
+"time": "TIME 13",
+"valorTotal3Anos": 16783.28,
+"qtdPedidos3Anos": 6,
+"valorMedio3Anos": 2797.21
+},
+{
+"codigo": "C12104",
+"nome": "BHDIESEL INJECAO ELETRONICA E ELETRICA LTDA",
+"ultimaCompra": "2025-11-14 00:00:00.000",
+"dias": 62,
+"valor": 352.0,
+"time": "TIME 06",
+"valorTotal3Anos": 704.0,
+"qtdPedidos3Anos": 2,
+"valorMedio3Anos": 352.0
+},
+{
+"codigo": "C10213",
+"nome": "CLINICA ESPECIALIZADA DE SERRA TALHADA S/S",
+"ultimaCompra": "2025-11-14 00:00:00.000",
+"dias": 62,
+"valor": 840.0,
+"time": "TIME 18",
+"valorTotal3Anos": 5671.0,
+"qtdPedidos3Anos": 8,
+"valorMedio3Anos": 708.88
+},
+{
+"codigo": "T00031",
+"nome": "DEBORA ALEXANDRE DE SOUZA MARINHO",
+"ultimaCompra": "2025-11-14 00:00:00.000",
+"dias": 62,
+"valor": 55.0,
+"time": "TIME 13",
+"valorTotal3Anos": 5164.91,
+"qtdPedidos3Anos": 17,
+"valorMedio3Anos": 303.82
+}
+];
 
         let allClients = clientesData;
         let filteredClients = [...allClients];
 
+        // Event Listeners
+        document.getElementById('searchClient').addEventListener('input', applyFilters);
+        document.getElementById('filterTime').addEventListener('change', applyFilters);
+        document.getElementById('filterDias').addEventListener('change', applyFilters);
+
+        // Inicialização
         function init() {
             populateFilters();
             updateDashboard();
+            
+            // Verificar se há nova versão no console
+            console.log('📊 DSViewData - Versão dos Dados:', DATA_VERSION);
+            console.log('📅 Dados gerados em:', DATA_GERACAO);
         }
 
         function populateFilters() {
@@ -925,18 +2798,15 @@
                 let matchDias = true;
                 let matchSearch = true;
 
-                // Filtro por Time
                 if (selectedTime) {
                     matchTime = client.time === selectedTime;
                 }
 
-                // Filtro por Dias
                 if (selectedDias) {
                     const [min, max] = selectedDias.split('-').map(Number);
                     matchDias = client.dias >= min && client.dias <= max;
                 }
 
-                // Filtro por Pesquisa (nome ou código)
                 if (searchTerm) {
                     const nomeMatch = client.nome.toLowerCase().includes(searchTerm);
                     const codigoMatch = client.codigo.toLowerCase().includes(searchTerm);
@@ -965,20 +2835,28 @@
         function updateStats() {
             const totalClientes = filteredClients.length;
             const valorTotal = filteredClients.reduce((sum, c) => sum + c.valor, 0);
+            const valorMedioRisco = filteredClients.reduce((sum, c) => sum + c.valorMedio3Anos, 0);
             const diasMedio = totalClientes > 0 
                 ? Math.round(filteredClients.reduce((sum, c) => sum + c.dias, 0) / totalClientes)
                 : 0;
 
             document.getElementById('totalClientes').textContent = totalClientes.toLocaleString('pt-BR');
             
-            // Formato especial para o valor total com destaque
             const valorFormatado = valorTotal >= 1000000 
-                ? 'R$ ' + (valorTotal / 1000000).toFixed(2) + 'M'
+                ? 'R$ ' + (valorTotal / 1000000).toFixed(2).replace('.', ',') + 'M'
                 : valorTotal >= 1000
-                ? 'R$ ' + (valorTotal / 1000).toFixed(0) + 'k'
-                : 'R$ ' + valorTotal.toFixed(2);
+                ? 'R$ ' + (valorTotal / 1000).toFixed(0).replace('.', ',') + 'k'
+                : 'R$ ' + valorTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             
             document.getElementById('valorTotal').textContent = valorFormatado;
+
+            const valorMedioFormatado = valorMedioRisco >= 1000000 
+                ? 'R$ ' + (valorMedioRisco / 1000000).toFixed(2).replace('.', ',') + 'M'
+                : valorMedioRisco >= 1000
+                ? 'R$ ' + (valorMedioRisco / 1000).toFixed(0).replace('.', ',') + 'k'
+                : 'R$ ' + valorMedioRisco.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            document.getElementById('valorMedioRisco').textContent = valorMedioFormatado;
             document.getElementById('diasMedio').textContent = diasMedio;
         }
 
@@ -997,6 +2875,10 @@
                     ? 'R$ ' + client.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
                     : '-';
 
+                const valorMedioFormatado = client.valorMedio3Anos > 0
+                    ? 'R$ ' + client.valorMedio3Anos.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                    : '-';
+
                 let diasClass = '';
                 if (client.dias >= 81) diasClass = 'dias-danger';
                 else if (client.dias >= 71) diasClass = 'dias-warning';
@@ -1008,6 +2890,8 @@
                         <td class="date-cell">${dataCompra}</td>
                         <td class="dias-cell ${diasClass}">${client.dias} dias</td>
                         <td class="valor-cell">${valorFormatado}</td>
+                        <td class="info-cell">${client.qtdPedidos3Anos}</td>
+                        <td class="valor-medio-cell">${valorMedioFormatado}</td>
                         <td><span class="rca-cell">${client.time || '-'}</span></td>
                     </tr>
                 `;
@@ -1018,132 +2902,102 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Data atual
             const dataAtual = new Date().toLocaleDateString('pt-BR');
             const horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
-            // Configurar cores
-            const corPrimaria = [251, 191, 36]; // Amarelo
-            const corSecundaria = [249, 115, 22]; // Laranja
-            const corTexto = [255, 255, 255]; // Branco
-            const corFundo = [42, 49, 72]; // Cinza escuro
+            const corPrimaria = [251, 191, 36];
 
-            // Título do documento
             doc.setFillColor(...corPrimaria);
             doc.rect(0, 0, 210, 35, 'F');
             
             doc.setTextColor(26, 31, 46);
             doc.setFontSize(22);
             doc.setFont('helvetica', 'bold');
-            doc.text('⚠️ ALERTA DE PRÉ-CHURN', 105, 15, { align: 'center' });
+            doc.text('ALERTA DE PRE-CHURN', 105, 15, { align: 'center' });
             
             doc.setFontSize(12);
             doc.setFont('helvetica', 'normal');
-            doc.text('DSViewData Analytics - Gestão de Carteira', 105, 23, { align: 'center' });
-            doc.text(`Gerado em: ${dataAtual} às ${horaAtual}`, 105, 30, { align: 'center' });
+            doc.text('DSViewData Analytics - Gestao de Carteira', 105, 23, { align: 'center' });
+            doc.text(`Dados atualizados em: ${DATA_GERACAO}`, 105, 30, { align: 'center' });
 
-            // Estatísticas resumidas
             let yPos = 45;
             doc.setTextColor(0, 0, 0);
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
-            doc.text('📊 RESUMO EXECUTIVO', 14, yPos);
+            doc.text('RESUMO EXECUTIVO', 14, yPos);
+            
+            yPos += 10;
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Total de Clientes em Risco: ${filteredClients.length}`, 14, yPos);
             
             yPos += 7;
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
+            const valorTotalPDF = filteredClients.reduce((sum, c) => sum + c.valor, 0);
+            doc.text(`Valor Ultima Compra: R$ ${valorTotalPDF.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`, 14, yPos);
+
+            yPos += 7;
+            const valorMedioPDF = filteredClients.reduce((sum, c) => sum + c.valorMedio3Anos, 0);
+            doc.text(`Valor Medio em Risco: R$ ${valorMedioPDF.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`, 14, yPos);
             
-            const totalClientes = filteredClients.length;
-            const valorTotal = filteredClients.reduce((sum, c) => sum + c.valor, 0);
-            const diasMedio = totalClientes > 0 
-                ? Math.round(filteredClients.reduce((sum, c) => sum + c.dias, 0) / totalClientes)
+            yPos += 7;
+            const diasMedioPDF = filteredClients.length > 0 
+                ? Math.round(filteredClients.reduce((sum, c) => sum + c.dias, 0) / filteredClients.length)
                 : 0;
+            doc.text(`Media de Dias Sem Comprar: ${diasMedioPDF} dias`, 14, yPos);
 
-            doc.text(`• Total de Clientes em Risco: ${totalClientes}`, 14, yPos);
-            yPos += 5;
-            doc.text(`• Valor Total em Risco: R$ ${valorTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`, 14, yPos);
-            yPos += 5;
-            doc.text(`• Média de Dias sem Comprar: ${diasMedio} dias`, 14, yPos);
+            yPos += 15;
+            doc.setFont('helvetica', 'bold');
+            doc.text('PRINCIPAIS CLIENTES EM RISCO', 14, yPos);
 
-            // Preparar dados da tabela
-            const tableData = filteredClients.map((client, index) => {
-                const dataCompra = client.ultimaCompra && client.ultimaCompra !== 'NULL' 
-                    ? new Date(client.ultimaCompra).toLocaleDateString('pt-BR')
-                    : '-';
-                
-                const valorFormatado = client.valor > 0
-                    ? 'R$ ' + client.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
-                    : '-';
+            const tableData = filteredClients.slice(0, 50).map(c => [
+                c.nome.substring(0, 40),
+                new Date(c.ultimaCompra).toLocaleDateString('pt-BR'),
+                `${c.dias} dias`,
+                `R$ ${c.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                c.qtdPedidos3Anos.toString(),
+                `R$ ${c.valorMedio3Anos.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+            ]);
 
-                return [
-                    index + 1,
-                    client.codigo,
-                    client.nome,
-                    dataCompra,
-                    client.dias + ' dias',
-                    valorFormatado,
-                    client.time || '-'
-                ];
-            });
-
-            // Criar tabela
-            yPos += 10;
             doc.autoTable({
-                startY: yPos,
-                head: [['#', 'Código', 'Cliente', 'Última Compra', 'Dias', 'Valor', 'Time']],
+                startY: yPos + 5,
+                head: [['Cliente', 'Ultima Compra', 'Dias', 'Vlr. Ultima', 'Pedidos 3A', 'Vlr. Medio 3A']],
                 body: tableData,
-                theme: 'striped',
+                styles: {
+                    fontSize: 8,
+                    cellPadding: 3
+                },
                 headStyles: {
                     fillColor: corPrimaria,
                     textColor: [26, 31, 46],
-                    fontStyle: 'bold',
-                    fontSize: 8
-                },
-                bodyStyles: {
-                    fontSize: 7,
-                    cellPadding: 2
-                },
-                columnStyles: {
-                    0: { cellWidth: 10 },
-                    1: { cellWidth: 20 },
-                    2: { cellWidth: 60 },
-                    3: { cellWidth: 25 },
-                    4: { cellWidth: 20 },
-                    5: { cellWidth: 30 },
-                    6: { cellWidth: 20 }
+                    fontStyle: 'bold'
                 },
                 alternateRowStyles: {
                     fillColor: [245, 245, 245]
                 },
-                margin: { left: 14, right: 14 }
+                columnStyles: {
+                    0: { cellWidth: 55 },
+                    1: { cellWidth: 28 },
+                    2: { cellWidth: 22 },
+                    3: { cellWidth: 30, halign: 'right' },
+                    4: { cellWidth: 20, halign: 'center' },
+                    5: { cellWidth: 30, halign: 'right' }
+                }
             });
 
-            // Rodapé
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
                 doc.setFontSize(8);
-                doc.setTextColor(128, 128, 128);
-                doc.text(
-                    `DSViewData - Página ${i} de ${pageCount}`,
-                    105,
-                    doc.internal.pageSize.height - 10,
-                    { align: 'center' }
-                );
+                doc.setTextColor(150);
+                doc.text(`Pagina ${i} de ${pageCount}`, 105, 290, { align: 'center' });
+                doc.text('DSViewData Analytics | Gestao de Carteira de Clientes', 105, 285, { align: 'center' });
             }
 
-            // Salvar PDF com nome descritivo
-            const nomeArquivo = `Pre-Churn_${totalClientes}_clientes_${dataAtual.replace(/\//g, '-')}.pdf`;
+            const nomeArquivo = `Alerta_PreChurn_${dataAtual.replace(/\//g, '-')}.pdf`;
             doc.save(nomeArquivo);
         }
 
-        // Event Listeners
-        document.getElementById('filterTime').addEventListener('change', applyFilters);
-        document.getElementById('filterDias').addEventListener('change', applyFilters);
-        document.getElementById('searchClient').addEventListener('input', applyFilters);
+        init();
 
-        // Inicializar ao carregar a página
-        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
