@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSViewData - Login</title>
+    <title>Drakk - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -123,9 +123,9 @@
         }
 
         .logo-text p {
-            font-size: 13px;
+            font-size: 11px;
             color: var(--text-secondary);
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             font-weight: 500;
         }
 
@@ -309,8 +309,8 @@
         <div class="logo-container">
             <div class="logo-icon">📊</div>
             <div class="logo-text">
-                <h1>Dsviewdata</h1>
-                <p>ANALYTICS PLATFORM</p>
+                <h1>Drakk</h1>
+                <p>GESTÃO INTELIGENTE DA CARTEIRA DE CLIENTES</p>
             </div>
         </div>
 
@@ -366,14 +366,17 @@
         </div>
 
         <div class="footer-text">
-            © 2025 www.dsviewdata.com | <a href="#">Precisa de ajuda?</a>
+            © 2025 Drakk - Powered by DSViewData | <a href="#">Precisa de ajuda?</a>
         </div>
     </div>
 
     <script>
-        // Credenciais padrão
-        const DEFAULT_USER = 'admin';
-        const DEFAULT_PASS = 'dsview2025';
+        // Usuários autorizados
+        const AUTHORIZED_USERS = {
+            'admin': 'dsview2025',
+            'alexandre@setsistemas.com.br': 'set123',
+            'bi@setsistemas.com.br': 'set123'
+        };
 
         // Verificar se já está logado
         if (localStorage.getItem('dsview_logged_in') === 'true') {
@@ -383,7 +386,7 @@
         function handleLogin(event) {
             event.preventDefault();
 
-            const username = document.getElementById('username').value.trim();
+            const username = document.getElementById('username').value.trim().toLowerCase();
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('errorMessage');
             const loginButton = document.getElementById('loginButton');
@@ -392,7 +395,7 @@
             errorMessage.classList.remove('show');
 
             // Validar credenciais
-            if (username === DEFAULT_USER && password === DEFAULT_PASS) {
+            if (AUTHORIZED_USERS[username] && AUTHORIZED_USERS[username] === password) {
                 // Login bem-sucedido
                 loginButton.disabled = true;
                 loginButton.textContent = '✓ Autenticado! Redirecionando...';
