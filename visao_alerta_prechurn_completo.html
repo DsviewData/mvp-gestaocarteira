@@ -3,17 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSViewData - ⚠️ ALERTA DE PRÉ-CHURN - AÇÃO URGENTE</title>
+    <title>DSViewData - ⚠️ ALERTA DE PRÉ-CHURN - v20260115093820</title>
     
     <!-- META TAGS ANTI-CACHE -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="data-version" content="20260115_092240">
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
+    <!-- SCRIPT DE CONTROLE DE VERSÃO - FORÇA RELOAD -->
+    <script>
+        (function() {
+            const CURRENT_VERSION = '20260115093820';
+            const STORAGE_KEY = 'dsview_dashboard_version';
+            
+            try {
+                const lastVersion = localStorage.getItem(STORAGE_KEY);
+                
+                if (lastVersion && lastVersion !== CURRENT_VERSION) {
+                    console.log('🔄 Nova versão detectada! Forçando reload...');
+                    console.log('Versão anterior:', lastVersion);
+                    console.log('Versão atual:', CURRENT_VERSION);
+                    
+                    // Limpar cache do navegador
+                    if ('caches' in window) {
+                        caches.keys().then(function(names) {
+                            for (let name of names) {
+                                caches.delete(name);
+                            }
+                        });
+                    }
+                    
+                    // Atualizar versão
+                    localStorage.setItem(STORAGE_KEY, CURRENT_VERSION);
+                    
+                    // Forçar reload completo (bypass cache)
+                    window.location.reload(true);
+                    
+                } else if (!lastVersion) {
+                    // Primeira vez acessando
+                    localStorage.setItem(STORAGE_KEY, CURRENT_VERSION);
+                    console.log('✅ Versão inicial registrada:', CURRENT_VERSION);
+                } else {
+                    console.log('✅ Dashboard na última versão:', CURRENT_VERSION);
+                }
+            } catch(e) {
+                console.warn('⚠️ Erro ao verificar versão:', e);
+            }
+        })();
+    </script>
+    
     <style>
         :root {
             --bg-primary: #1a1f2e;
@@ -25,6 +67,7 @@
             --accent-orange: #f97316;
             --accent-red: #ef4444;
             --accent-green: #10b981;
+            --accent-blue: #3b82f6;
             --border-color: #3d4560;
             --alert-glow: rgba(251, 191, 36, 0.3);
         }
@@ -44,7 +87,7 @@
         }
 
         .dashboard {
-            max-width: 1800px;
+            max-width: 1900px;
             margin: 0 auto;
         }
 
@@ -617,6 +660,13 @@
             text-align: right;
         }
 
+        .valor-total-cell {
+            color: var(--accent-blue);
+            font-weight: 700;
+            font-size: 14px;
+            text-align: right;
+        }
+
         .rca-cell {
             background: var(--bg-secondary);
             padding: 6px 12px;
@@ -668,10 +718,10 @@
                 <div class="info-icon">✅</div>
                 <div class="info-text">
                     <div class="info-label">📅 Dados Atualizados</div>
-                    <div class="info-datetime">15/01/2026 às 09:22</div>
+                    <div class="info-datetime">15/01/2026 às 09:38</div>
                 </div>
             </div>
-            <div class="info-version">v20260115_092240</div>
+            <div class="info-version">v20260115093820</div>
         </div>
 
         <!-- BANNER DE ALERTA -->
@@ -780,6 +830,7 @@
                             <th style="text-align: right;">Valor Última Compra</th>
                             <th style="text-align: center;">Pedidos (3 anos)</th>
                             <th style="text-align: right;">Valor Médio (3 anos)</th>
+                            <th style="text-align: right;">Valor Total (3 anos)</th>
                             <th>Time/RCA</th>
                         </tr>
                     </thead>
@@ -793,8 +844,8 @@
 
     <script>
         // VERSÃO DOS DADOS PARA CONTROLE DE CACHE
-        const DATA_VERSION = '20260115_092240';
-        const DATA_GERACAO = '15/01/2026 às 09:22';
+        const DATA_VERSION = '20260115093820';
+        const DATA_GERACAO = '15/01/2026 às 09:38';
 
         const clientesData = [
 {
@@ -2770,7 +2821,7 @@
             populateFilters();
             updateDashboard();
             
-            // Verificar se há nova versão no console
+            // Log da versão atual
             console.log('📊 DSViewData - Versão dos Dados:', DATA_VERSION);
             console.log('📅 Dados gerados em:', DATA_GERACAO);
         }
@@ -2879,6 +2930,10 @@
                     ? 'R$ ' + client.valorMedio3Anos.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
                     : '-';
 
+                const valorTotalFormatado = client.valorTotal3Anos > 0
+                    ? 'R$ ' + client.valorTotal3Anos.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                    : '-';
+
                 let diasClass = '';
                 if (client.dias >= 81) diasClass = 'dias-danger';
                 else if (client.dias >= 71) diasClass = 'dias-warning';
@@ -2892,6 +2947,7 @@
                         <td class="valor-cell">${valorFormatado}</td>
                         <td class="info-cell">${client.qtdPedidos3Anos}</td>
                         <td class="valor-medio-cell">${valorMedioFormatado}</td>
+                        <td class="valor-total-cell">${valorTotalFormatado}</td>
                         <td><span class="rca-cell">${client.time || '-'}</span></td>
                     </tr>
                 `;
@@ -2900,7 +2956,7 @@
 
         function exportToPDF() {
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            const doc = new jsPDF('landscape');
 
             const dataAtual = new Date().toLocaleDateString('pt-BR');
             const horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -2908,17 +2964,17 @@
             const corPrimaria = [251, 191, 36];
 
             doc.setFillColor(...corPrimaria);
-            doc.rect(0, 0, 210, 35, 'F');
+            doc.rect(0, 0, 297, 35, 'F');
             
             doc.setTextColor(26, 31, 46);
             doc.setFontSize(22);
             doc.setFont('helvetica', 'bold');
-            doc.text('ALERTA DE PRE-CHURN', 105, 15, { align: 'center' });
+            doc.text('ALERTA DE PRE-CHURN', 148.5, 15, { align: 'center' });
             
             doc.setFontSize(12);
             doc.setFont('helvetica', 'normal');
-            doc.text('DSViewData Analytics - Gestao de Carteira', 105, 23, { align: 'center' });
-            doc.text(`Dados atualizados em: ${DATA_GERACAO}`, 105, 30, { align: 'center' });
+            doc.text('DSViewData Analytics - Gestao de Carteira', 148.5, 23, { align: 'center' });
+            doc.text(`Dados atualizados em: ${DATA_GERACAO}`, 148.5, 30, { align: 'center' });
 
             let yPos = 45;
             doc.setTextColor(0, 0, 0);
@@ -2954,16 +3010,17 @@
                 `${c.dias} dias`,
                 `R$ ${c.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
                 c.qtdPedidos3Anos.toString(),
-                `R$ ${c.valorMedio3Anos.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+                `R$ ${c.valorMedio3Anos.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                `R$ ${c.valorTotal3Anos.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
             ]);
 
             doc.autoTable({
                 startY: yPos + 5,
-                head: [['Cliente', 'Ultima Compra', 'Dias', 'Vlr. Ultima', 'Pedidos 3A', 'Vlr. Medio 3A']],
+                head: [['Cliente', 'Ult. Compra', 'Dias', 'Vlr. Ult.', 'Ped. 3A', 'Vlr. Med. 3A', 'Vlr. Tot. 3A']],
                 body: tableData,
                 styles: {
-                    fontSize: 8,
-                    cellPadding: 3
+                    fontSize: 7,
+                    cellPadding: 2
                 },
                 headStyles: {
                     fillColor: corPrimaria,
@@ -2974,12 +3031,13 @@
                     fillColor: [245, 245, 245]
                 },
                 columnStyles: {
-                    0: { cellWidth: 55 },
-                    1: { cellWidth: 28 },
-                    2: { cellWidth: 22 },
+                    0: { cellWidth: 70 },
+                    1: { cellWidth: 25 },
+                    2: { cellWidth: 20 },
                     3: { cellWidth: 30, halign: 'right' },
-                    4: { cellWidth: 20, halign: 'center' },
-                    5: { cellWidth: 30, halign: 'right' }
+                    4: { cellWidth: 18, halign: 'center' },
+                    5: { cellWidth: 30, halign: 'right' },
+                    6: { cellWidth: 35, halign: 'right' }
                 }
             });
 
@@ -2988,8 +3046,8 @@
                 doc.setPage(i);
                 doc.setFontSize(8);
                 doc.setTextColor(150);
-                doc.text(`Pagina ${i} de ${pageCount}`, 105, 290, { align: 'center' });
-                doc.text('DSViewData Analytics | Gestao de Carteira de Clientes', 105, 285, { align: 'center' });
+                doc.text(`Pagina ${i} de ${pageCount}`, 148.5, 200, { align: 'center' });
+                doc.text('DSViewData Analytics | Gestao de Carteira de Clientes', 148.5, 195, { align: 'center' });
             }
 
             const nomeArquivo = `Alerta_PreChurn_${dataAtual.replace(/\//g, '-')}.pdf`;
