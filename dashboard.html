@@ -17,7 +17,12 @@
             --accent-red: #ef4444;
             --accent-purple: #a855f7;
             --accent-crimson: #dc143c;
+            --accent-blue: #60a5fa;
+            --accent-green: #4ade80;
             --border-color: #3d4560;
+            --sidebar-width: 280px;
+            --sidebar-collapsed-width: 80px;
+            --header-height: 70px;
         }
 
         * {
@@ -31,164 +36,78 @@
             background: linear-gradient(135deg, var(--bg-primary) 0%, #0f1219 100%);
             color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        .nav-tabs {
+        /* Layout Principal */
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: var(--header-height);
             background: var(--bg-card);
-            padding: 0;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .tabs-wrapper {
-            max-width: 1800px;
-            margin: 0 auto;
             display: flex;
             align-items: center;
-            padding: 0 40px;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 999;
+            transition: left 0.3s ease;
         }
 
-        .logo-mini {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 0;
-            margin-right: 40px;
-            border-right: 1px solid var(--border-color);
-            padding-right: 40px;
+        .header.sidebar-collapsed {
+            left: var(--sidebar-collapsed-width);
         }
 
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            border-radius: 8px;
+        .header-left {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 20px;
+        }
+
+        .header-title {
             font-size: 20px;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-text strong {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .logo-text span {
-            font-size: 9px;
-            color: var(--accent-yellow);
-            letter-spacing: 1.5px;
             font-weight: 600;
+            background: linear-gradient(90deg, #fff 0%, #a0a8c0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .tabs {
-            display: flex;
-            gap: 4px;
-            flex: 1;
-            overflow-x: auto;
-        }
-
-        .tab {
-            padding: 18px 24px;
-            background: transparent;
-            border: none;
+        .header-subtitle {
+            font-size: 13px;
             color: var(--text-secondary);
-            font-family: 'Outfit', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
+            margin-left: 12px;
         }
 
-        .tab:hover {
-            color: var(--text-primary);
-            background: rgba(251, 191, 36, 0.05);
-        }
-
-        .tab.active {
-            color: var(--accent-yellow);
-            border-bottom-color: var(--accent-yellow);
-            background: rgba(251, 191, 36, 0.1);
-        }
-
-        .tab.tab-red.active {
-            color: var(--accent-red);
-            border-bottom-color: var(--accent-red);
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        .tab.tab-red:hover {
-            background: rgba(239, 68, 68, 0.05);
-        }
-
-        .tab.tab-purple.active {
-            color: var(--accent-purple);
-            border-bottom-color: var(--accent-purple);
-            background: rgba(168, 85, 247, 0.1);
-        }
-
-        .tab.tab-purple:hover {
-            background: rgba(168, 85, 247, 0.05);
-        }
-
-        .tab.tab-crimson.active {
-            color: var(--accent-crimson);
-            border-bottom-color: var(--accent-crimson);
-            background: rgba(220, 20, 60, 0.1);
-        }
-
-        .tab.tab-crimson:hover {
-            background: rgba(220, 20, 60, 0.05);
-        }
-
-        .tab.tab-blue.active {
-            color: #60a5fa;
-            border-bottom-color: #60a5fa;
-            background: rgba(96, 165, 250, 0.1);
-        }
-
-        .tab.tab-blue:hover {
-            background: rgba(96, 165, 250, 0.05);
-        }
-
-        /* User Menu */
         .user-menu {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding-left: 40px;
-            border-left: 1px solid var(--border-color);
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .user-avatar {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .user-name {
@@ -198,28 +117,247 @@
         }
 
         .logout-button {
-            padding: 8px 16px;
+            padding: 10px 18px;
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid rgba(239, 68, 68, 0.3);
             border-radius: 8px;
             color: var(--accent-red);
             font-family: 'Outfit', sans-serif;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .logout-button:hover {
             background: rgba(239, 68, 68, 0.2);
             border-color: rgba(239, 68, 68, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--bg-card);
+            border-right: 2px solid var(--border-color);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .logo-text strong {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            font-size: 10px;
+            color: var(--accent-yellow);
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .toggle-button {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .toggle-button:hover {
+            background: rgba(251, 191, 36, 0.2);
+            transform: scale(1.05);
+        }
+
+        .sidebar.collapsed .toggle-button {
+            margin: 0 auto;
+        }
+
+        .nav-menu {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 12px 0;
+        }
+
+        .nav-menu::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .nav-menu::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .nav-menu::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 20px;
+            margin: 4px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: left;
+            width: calc(100% - 24px);
+        }
+
+        .nav-item:hover {
+            background: rgba(251, 191, 36, 0.05);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05));
+            color: var(--accent-yellow);
+            border-left: 3px solid var(--accent-yellow);
+        }
+
+        .nav-item.nav-red.active {
+            background: linear-gradient(90deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+            color: var(--accent-red);
+            border-left-color: var(--accent-red);
+        }
+
+        .nav-item.nav-purple.active {
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05));
+            color: var(--accent-purple);
+            border-left-color: var(--accent-purple);
+        }
+
+        .nav-item.nav-crimson.active {
+            background: linear-gradient(90deg, rgba(220, 20, 60, 0.15), rgba(220, 20, 60, 0.05));
+            color: var(--accent-crimson);
+            border-left-color: var(--accent-crimson);
+        }
+
+        .nav-item.nav-blue.active {
+            background: linear-gradient(90deg, rgba(96, 165, 250, 0.15), rgba(96, 165, 250, 0.05));
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item.nav-green.active {
+            background: linear-gradient(90deg, rgba(74, 222, 128, 0.15), rgba(74, 222, 128, 0.05));
+            color: var(--accent-green);
+            border-left-color: var(--accent-green);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .nav-text {
+            flex: 1;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .nav-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .sidebar.collapsed .nav-item {
+            padding: 14px;
+            justify-content: center;
+            margin: 4px auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--header-height);
+            width: calc(100% - var(--sidebar-width));
+            height: calc(100vh - var(--header-height));
+            transition: all 0.3s ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: var(--sidebar-collapsed-width);
+            width: calc(100% - var(--sidebar-collapsed-width));
         }
 
         .tab-content {
             display: none;
+            height: 100%;
         }
 
         .tab-content.active {
@@ -228,8 +366,8 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .instructions {
@@ -286,86 +424,130 @@
             font-family: 'Courier New', monospace;
         }
 
-        @media (max-width: 1200px) {
-            .tabs-wrapper {
-                flex-wrap: wrap;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 240px;
+                --sidebar-collapsed-width: 70px;
+            }
+
+            .nav-item {
+                font-size: 13px;
+                padding: 12px 16px;
+            }
+
+            .header {
                 padding: 0 20px;
             }
 
-            .logo-mini {
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                padding-right: 0;
-                padding-bottom: 16px;
-                margin-right: 0;
-                margin-bottom: 16px;
-                width: 100%;
-                justify-content: center;
+            .header-title {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 1001;
             }
 
-            .tabs {
-                width: 100%;
-                overflow-x: auto;
+            .sidebar.mobile-open {
+                transform: translateX(0);
             }
 
-            .tab {
-                padding: 14px 18px;
-                font-size: 13px;
-                white-space: nowrap;
+            .sidebar.collapsed {
+                transform: translateX(-100%);
             }
 
-            .user-menu {
-                width: 100%;
-                padding-left: 0;
-                padding-top: 16px;
-                border-left: none;
-                border-top: 1px solid var(--border-color);
-                justify-content: space-between;
+            .header {
+                left: 0 !important;
             }
 
-            .instructions {
-                margin: 40px 20px;
-                padding: 24px;
+            .main-content {
+                margin-left: 0 !important;
+                width: 100% !important;
             }
+
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            width: 36px;
+            height: 36px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(251, 191, 36, 0.2);
         }
     </style>
 </head>
 <body>
-    <!-- Navegação com Tabs -->
-    <div class="nav-tabs">
-        <div class="tabs-wrapper">
-            <div class="logo-mini">
-                <div class="logo-icon">📊</div>
-                <div class="logo-text">
-                    <strong>DSViewData</strong>
-                    <span>ANALYTICS</span>
+    <div class="app-container">
+        <!-- Sidebar Lateral -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">📊</div>
+                    <div class="logo-text">
+                        <strong>DSViewData</strong>
+                        <span>ANALYTICS</span>
+                    </div>
                 </div>
+                <button class="toggle-button" onclick="toggleSidebar()" title="Expandir/Recolher Menu">
+                    ☰
+                </button>
             </div>
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab(0)" id="tab-button-0">
-                    <span>📈</span>
-                    <span>Visão Geral</span>
+
+            <nav class="nav-menu">
+                <button class="nav-item active" onclick="switchTab(0)" id="nav-item-0">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Visão Geral</span>
                 </button>
-                <button class="tab" onclick="switchTab(1)" id="tab-button-1">
-                    <span>⚠️</span>
-                    <span>Alerta Pré-Churn</span>
+                <button class="nav-item" onclick="switchTab(1)" id="nav-item-1">
+                    <span class="nav-icon">⚠️</span>
+                    <span class="nav-text">Alerta Pré-Churn</span>
                 </button>
-                <button class="tab tab-red" onclick="switchTab(2)" id="tab-button-2">
-                    <span>💔</span>
-                    <span>Visão de Perda</span>
+                <button class="nav-item nav-red" onclick="switchTab(2)" id="nav-item-2">
+                    <span class="nav-icon">💔</span>
+                    <span class="nav-text">Visão de Perda</span>
                 </button>
-                <button class="tab tab-purple" onclick="switchTab(3)" id="tab-button-3">
-                    <span>🎯</span>
-                    <span>Perda & Risco</span>
+                <button class="nav-item nav-purple" onclick="switchTab(3)" id="nav-item-3">
+                    <span class="nav-icon">🎯</span>
+                    <span class="nav-text">Perda & Risco</span>
                 </button>
-                <button class="tab tab-crimson" onclick="switchTab(4)" id="tab-button-4">
-                    <span>📊</span>
-                    <span>Análise Crítica & Indicadores</span>
+                <button class="nav-item nav-crimson" onclick="switchTab(4)" id="nav-item-4">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Análise Crítica</span>
                 </button>
-                <button class="tab tab-blue" onclick="switchTab(5)" id="tab-button-5">
-                    <span>📈</span>
-                    <span>Histórico de Churn e Pré-Churn</span>
+                <button class="nav-item nav-blue" onclick="switchTab(5)" id="nav-item-5">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Histórico Churn</span>
                 </button>
+                <button class="nav-item nav-green" onclick="switchTab(6)" id="nav-item-6">
+                    <span class="nav-icon">✅</span>
+                    <span class="nav-text">Clientes Recuperados</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Header Superior -->
+        <header class="header" id="header">
+            <div class="header-left">
+                <button class="mobile-menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+                <div>
+                    <h1 class="header-title" id="pageTitle">Visão Geral</h1>
+                    <span class="header-subtitle">Dashboard de Gestão da Carteira</span>
+                </div>
             </div>
             <div class="user-menu">
                 <div class="user-info">
@@ -377,83 +559,104 @@
                     <span>Sair</span>
                 </button>
             </div>
-        </div>
-    </div>
+        </header>
 
-    <!-- Conteúdo das Abas -->
-    
-    <!-- Aba 1: Visão Geral -->
-    <div id="tab-content-0" class="tab-content active">
-        <div class="instructions">
-            <h2>📋 Instruções de Uso</h2>
-            <p><strong>Este dashboard requer 7 arquivos HTML na mesma pasta:</strong></p>
-            
-            <div class="file-list">
-                <p>✓ <code>login.html</code></p>
-                <p>✓ <code>dashboard.html</code> (este arquivo)</p>
-                <p>✓ <code>visão_geral.html</code></p>
-                <p>✓ <code>visao_alerta_prechurn_completo.html</code></p>
-                <p>✓ <code>visao_perda_churn_completo.html</code></p>
-                <p>✓ <code>painel_perda_risco_final.html</code></p>
-                <p>✓ <code>painel_perda_risco_novo.html</code></p>
-                <p>✓ <code>dashboard_historico_churn_completo.html</code></p>
+        <!-- Conteúdo Principal -->
+        <main class="main-content" id="mainContent">
+            <!-- Aba 1: Visão Geral -->
+            <div id="tab-content-0" class="tab-content active">
+                <div class="instructions">
+                    <h2>📋 Instruções de Uso</h2>
+                    <p><strong>Este dashboard requer 9 arquivos HTML na mesma pasta:</strong></p>
+                    
+                    <div class="file-list">
+                        <p>✓ <code>login.html</code></p>
+                        <p>✓ <code>dashboard.html</code> (este arquivo)</p>
+                        <p>✓ <code>visão_geral.html</code></p>
+                        <p>✓ <code>visao_alerta_prechurn_completo.html</code></p>
+                        <p>✓ <code>visao_perda_churn_completo.html</code></p>
+                        <p>✓ <code>painel_perda_risco_final.html</code></p>
+                        <p>✓ <code>painel_perda_risco_novo.html</code></p>
+                        <p>✓ <code>dashboard_historico_churn_completo.html</code></p>
+                        <p>✓ <code>dashboard_clientes_recuperados.html</code></p>
+                    </div>
+
+                    <p><strong>Como configurar:</strong></p>
+                    <ol>
+                        <li>Baixe <strong>todos os 9 arquivos HTML</strong></li>
+                        <li>Coloque-os <strong>na mesma pasta/diretório</strong></li>
+                        <li>Abra o arquivo <code>login.html</code> no navegador</li>
+                        <li>Faça login e os dashboards serão carregados automaticamente</li>
+                    </ol>
+
+                    <p style="margin-top: 24px; color: var(--accent-orange);">
+                        <strong>⚠️ Atenção:</strong> Se você está vendo esta mensagem, os arquivos não estão na mesma pasta!
+                    </p>
+                </div>
             </div>
 
-            <p><strong>Como configurar:</strong></p>
-            <ol>
-                <li>Baixe <strong>todos os 8 arquivos HTML</strong></li>
-                <li>Coloque-os <strong>na mesma pasta/diretório</strong></li>
-                <li>Abra o arquivo <code>login.html</code> no navegador</li>
-                <li>Faça login e os dashboards serão carregados automaticamente</li>
-            </ol>
+            <!-- Aba 2: Alerta Pré-Churn -->
+            <div id="tab-content-1" class="tab-content">
+                <div class="instructions">
+                    <h2>📋 Carregando Dashboard...</h2>
+                    <p>Aguarde enquanto o painel é carregado.</p>
+                </div>
+            </div>
 
-            <p style="margin-top: 24px; color: var(--accent-orange);">
-                <strong>⚠️ Atenção:</strong> Se você está vendo esta mensagem, os arquivos não estão na mesma pasta!
-            </p>
-        </div>
-    </div>
+            <!-- Aba 3: Visão de Perda -->
+            <div id="tab-content-2" class="tab-content">
+                <div class="instructions">
+                    <h2>📋 Carregando Dashboard...</h2>
+                    <p>Aguarde enquanto o painel é carregado.</p>
+                </div>
+            </div>
 
-    <!-- Aba 2: Alerta Pré-Churn -->
-    <div id="tab-content-1" class="tab-content">
-        <div class="instructions">
-            <h2>📋 Carregando Dashboard...</h2>
-            <p>Aguarde enquanto o painel é carregado.</p>
-        </div>
-    </div>
+            <!-- Aba 4: Perda & Risco -->
+            <div id="tab-content-3" class="tab-content">
+                <div class="instructions">
+                    <h2>📋 Carregando Dashboard...</h2>
+                    <p>Aguarde enquanto o painel é carregado.</p>
+                </div>
+            </div>
 
-    <!-- Aba 3: Visão de Perda -->
-    <div id="tab-content-2" class="tab-content">
-        <div class="instructions">
-            <h2>📋 Carregando Dashboard...</h2>
-            <p>Aguarde enquanto o painel é carregado.</p>
-        </div>
-    </div>
+            <!-- Aba 5: Análise Crítica & Indicadores -->
+            <div id="tab-content-4" class="tab-content">
+                <div class="instructions">
+                    <h2>📋 Carregando Dashboard...</h2>
+                    <p>Aguarde enquanto o painel é carregado.</p>
+                </div>
+            </div>
 
-    <!-- Aba 4: Perda & Risco -->
-    <div id="tab-content-3" class="tab-content">
-        <div class="instructions">
-            <h2>📋 Carregando Dashboard...</h2>
-            <p>Aguarde enquanto o painel é carregado.</p>
-        </div>
-    </div>
+            <!-- Aba 6: Histórico de Churn e Pré-Churn -->
+            <div id="tab-content-5" class="tab-content">
+                <div class="instructions">
+                    <h2>📋 Carregando Dashboard...</h2>
+                    <p>Aguarde enquanto o painel é carregado.</p>
+                </div>
+            </div>
 
-    <!-- Aba 5: Análise Crítica & Indicadores -->
-    <div id="tab-content-4" class="tab-content">
-        <div class="instructions">
-            <h2>📋 Carregando Dashboard...</h2>
-            <p>Aguarde enquanto o painel é carregado.</p>
-        </div>
-    </div>
-
-    <!-- Aba 6: Histórico de Churn e Pré-Churn -->
-    <div id="tab-content-5" class="tab-content">
-        <div class="instructions">
-            <h2>📋 Carregando Dashboard...</h2>
-            <p>Aguarde enquanto o painel é carregado.</p>
-        </div>
+            <!-- Aba 7: Clientes Recuperados -->
+            <div id="tab-content-6" class="tab-content">
+                <div class="instructions">
+                    <h2>📋 Carregando Dashboard...</h2>
+                    <p>Aguarde enquanto o painel é carregado.</p>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>
+        // Títulos das páginas
+        const pageTitles = [
+            'Visão Geral',
+            'Alerta Pré-Churn',
+            'Visão de Perda',
+            'Perda & Risco',
+            'Análise Crítica & Indicadores',
+            'Histórico de Churn e Pré-Churn',
+            'Clientes Recuperados'
+        ];
+
         // Verificar autenticação
         function checkAuth() {
             const isLoggedIn = localStorage.getItem('dsview_logged_in');
@@ -479,6 +682,41 @@
             throw new Error('Não autenticado');
         }
 
+        // Toggle Sidebar (Desktop)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const header = document.getElementById('header');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('collapsed');
+            header.classList.toggle('sidebar-collapsed');
+            mainContent.classList.toggle('sidebar-collapsed');
+
+            // Salvar estado no localStorage
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem('sidebar_collapsed', isCollapsed);
+        }
+
+        // Toggle Sidebar Mobile
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // Restaurar estado do sidebar ao carregar
+        function restoreSidebarState() {
+            const isCollapsed = localStorage.getItem('sidebar_collapsed') === 'true';
+            if (isCollapsed) {
+                const sidebar = document.getElementById('sidebar');
+                const header = document.getElementById('header');
+                const mainContent = document.getElementById('mainContent');
+                
+                sidebar.classList.add('collapsed');
+                header.classList.add('sidebar-collapsed');
+                mainContent.classList.add('sidebar-collapsed');
+            }
+        }
+
         function handleLogout() {
             if (confirm('Deseja realmente sair do sistema?')) {
                 // Limpar dados de sessão
@@ -492,16 +730,25 @@
         }
 
         function switchTab(index) {
-            // Remover active de todas as abas e conteúdos
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            // Remover active de todos os itens de navegação e conteúdos
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-            // Adicionar active na aba e conteúdo selecionados
-            document.getElementById(`tab-button-${index}`).classList.add('active');
+            // Adicionar active no item e conteúdo selecionados
+            document.getElementById(`nav-item-${index}`).classList.add('active');
             document.getElementById(`tab-content-${index}`).classList.add('active');
+
+            // Atualizar título da página
+            document.getElementById('pageTitle').textContent = pageTitles[index];
 
             // Carregar o iframe se ainda não foi carregado
             loadDashboard(index);
+
+            // Fechar sidebar no mobile após selecionar
+            if (window.innerWidth <= 768) {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.remove('mobile-open');
+            }
         }
 
         function loadDashboard(index) {
@@ -515,7 +762,7 @@
             // Criar iframe
             const iframe = document.createElement('iframe');
             iframe.style.width = '100%';
-            iframe.style.height = 'calc(100vh - 80px)';
+            iframe.style.height = '100%';
             iframe.style.border = 'none';
             iframe.style.display = 'block';
             
@@ -532,6 +779,8 @@
                 iframe.src = 'painel_perda_risco_novo.html';
             } else if (index === 5) {
                 iframe.src = 'dashboard_historico_churn_completo.html';
+            } else if (index === 6) {
+                iframe.src = 'dashboard_clientes_recuperados.html';
             }
 
             // Adicionar loading
@@ -554,11 +803,19 @@
 
         // Tentar carregar o primeiro dashboard ao iniciar
         window.addEventListener('DOMContentLoaded', () => {
+            restoreSidebarState();
             loadDashboard(0);
         });
 
         // Atalhos de teclado
         document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + B para toggle sidebar
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+                toggleSidebar();
+                e.preventDefault();
+            }
+            
+            // Alt + número para mudar de aba
             if (e.altKey) {
                 if (e.key === '1') {
                     switchTab(0);
@@ -578,6 +835,23 @@
                 } else if (e.key === '6') {
                     switchTab(5);
                     e.preventDefault();
+                } else if (e.key === '7') {
+                    switchTab(6);
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Fechar sidebar mobile ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                const sidebar = document.getElementById('sidebar');
+                const mobileToggle = document.querySelector('.mobile-menu-toggle');
+                
+                if (sidebar.classList.contains('mobile-open') && 
+                    !sidebar.contains(e.target) && 
+                    !mobileToggle.contains(e.target)) {
+                    sidebar.classList.remove('mobile-open');
                 }
             }
         });
