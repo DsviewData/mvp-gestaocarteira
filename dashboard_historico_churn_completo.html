@@ -6815,8 +6815,8 @@ const clientesData = [
             const selectRCA = document.getElementById('filtroRCA');
             const selectStatus = document.getElementById('filtroStatus');
 
-            // RCAs únicos
-            const rcas = [...new Set(dadosBase.map(c => c.rca).filter(r => r !== 'SEM RCA'))].sort();
+            // RCAs únicos - apenas os que começam com "TIME"
+            const rcas = [...new Set(dadosBase.map(c => c.rca).filter(r => r && r.startsWith('TIME')))].sort();
             rcas.forEach(rca => {
                 const option = document.createElement('option');
                 option.value = rca;
