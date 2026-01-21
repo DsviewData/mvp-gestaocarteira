@@ -218,109 +218,56 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-green) 0%, transparent 100%);
         }
 
-        .kpi-card.recovered::before { background: linear-gradient(90deg, #4ade80, #22c55e); }
-        .kpi-card.revenue::before { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
-        .kpi-card.ticket::before { background: linear-gradient(90deg, #3b82f6, #2563eb); }
-        .kpi-card.days::before { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
-        .kpi-card.prechurn::before { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
-        .kpi-card.churninativo::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
-        .kpi-card.total::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
-        .kpi-card.active::before { background: linear-gradient(90deg, #4ade80, #22c55e); }
-
         .kpi-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        .kpi-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .kpi-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-
-        .kpi-card.recovered .kpi-icon {
-            background: rgba(74, 222, 128, 0.15);
-            border: 1px solid rgba(74, 222, 128, 0.3);
-        }
-
-        .kpi-card.revenue .kpi-icon {
-            background: rgba(251, 191, 36, 0.15);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-        }
-
-        .kpi-card.ticket .kpi-icon {
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .kpi-card.days .kpi-icon {
-            background: rgba(139, 92, 246, 0.15);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-        }
-
-        .kpi-card.prechurn .kpi-icon {
-            background: rgba(251, 191, 36, 0.15);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-        }
-
-        .kpi-card.churninativo .kpi-icon {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .kpi-card.total .kpi-icon {
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .kpi-card.active .kpi-icon {
-            background: rgba(74, 222, 128, 0.15);
-            border: 1px solid rgba(74, 222, 128, 0.3);
-        }
-
-        .kpi-card h3 {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 18px;
         }
 
         .kpi-value {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 8px;
-            line-height: 1;
         }
 
-        .kpi-card.recovered .kpi-value { color: var(--accent-green); }
-        .kpi-card.revenue .kpi-value { color: var(--accent-yellow); }
-        .kpi-card.ticket .kpi-value { color: var(--accent-blue); }
-        .kpi-card.days .kpi-value { color: var(--accent-purple); }
-        .kpi-card.prechurn .kpi-value { color: var(--accent-yellow); }
-        .kpi-card.churninativo .kpi-value { color: var(--accent-red); }
-        .kpi-card.total .kpi-value { color: #6366f1; }
-        .kpi-card.active .kpi-value { color: var(--accent-green); }
-
-        .kpi-subtitle {
+        .kpi-trend {
             font-size: 12px;
-            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend-positive {
+            color: var(--accent-green);
+        }
+
+        .trend-negative {
+            color: var(--accent-red);
         }
 
         .charts-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
+            gap: 20px;
             margin-bottom: 24px;
         }
 
@@ -335,27 +282,76 @@
             grid-column: 1 / -1;
         }
 
-        .chart-card h3 {
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
             font-size: 16px;
             font-weight: 600;
-            margin-bottom: 20px;
             color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .chart-card h3::before {
-            content: '';
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(180deg, var(--accent-green), var(--accent-yellow));
-            border-radius: 2px;
+        .chart-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
 
-        .chart-wrapper {
+        .chart-container {
             position: relative;
-            height: 320px;
+            height: 300px;
+        }
+
+        .chart-container.tall {
+            height: 400px;
+        }
+
+        .insights-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .insight-item {
+            padding: 16px;
+            background: rgba(74, 222, 128, 0.05);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-item.warning {
+            background: rgba(251, 191, 36, 0.05);
+            border-left-color: var(--accent-yellow);
+        }
+
+        .insight-item.info {
+            background: rgba(59, 130, 246, 0.05);
+            border-left-color: var(--accent-blue);
+        }
+
+        .insight-item strong {
+            color: var(--accent-green);
+        }
+
+        .insight-item.warning strong {
+            color: var(--accent-yellow);
+        }
+
+        .insight-item.info strong {
+            color: var(--accent-blue);
         }
 
         .table-card {
@@ -365,22 +361,28 @@
             border: 1px solid var(--border-color);
         }
 
-        .table-card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--text-primary);
+        .table-controls {
             display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
             align-items: center;
-            gap: 10px;
         }
 
-        .table-card h3::before {
-            content: '';
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(180deg, var(--accent-green), var(--accent-yellow));
-            border-radius: 2px;
+        .search-box {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1);
         }
 
         .table-wrapper {
@@ -392,7 +394,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;
         }
 
         thead {
@@ -403,19 +404,26 @@
         }
 
         th {
-            padding: 16px;
+            padding: 14px 16px;
             text-align: left;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-secondary);
             text-transform: uppercase;
-            font-size: 12px;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid var(--border-color);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        th:hover {
+            color: var(--accent-green);
         }
 
         td {
-            padding: 16px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 14px 16px;
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
         }
 
         tbody tr {
@@ -427,87 +435,51 @@
         }
 
         .status-badge {
-            display: inline-block;
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 6px;
             font-size: 11px;
             font-weight: 600;
-            text-transform: uppercase;
+            display: inline-block;
         }
 
-        .status-badge.prechurn {
+        .status-prechurn {
             background: rgba(251, 191, 36, 0.15);
             color: var(--accent-yellow);
-            border: 1px solid rgba(251, 191, 36, 0.3);
+            border: 1px solid var(--accent-yellow);
         }
 
-        .status-badge.churn {
+        .status-churn {
             background: rgba(239, 68, 68, 0.15);
             color: var(--accent-red);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border: 1px solid var(--accent-red);
         }
 
-        .value-positive {
+        .status-ativo {
+            background: rgba(74, 222, 128, 0.15);
             color: var(--accent-green);
-            font-weight: 600;
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .insight-item {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--accent-green);
-            padding: 16px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .insight-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .insight-item strong {
-            color: var(--accent-yellow);
-            font-weight: 600;
-        }
-
-        .insight-item.warning {
-            border-left-color: var(--accent-orange);
-        }
-
-        .insight-item.info {
-            border-left-color: var(--accent-blue);
+            border: 1px solid var(--accent-green);
         }
 
         @media (max-width: 1200px) {
             .kpis {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
             .charts-grid {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
             .kpis {
                 grid-template-columns: 1fr;
             }
-            
             .filters-section {
                 flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .filter-group {
-                width: 100%;
             }
         }
     </style>
@@ -515,187 +487,219 @@
 <body>
     <div class="dashboard">
         <!-- Header -->
-        <header class="header">
+        <div class="header">
             <div class="logo">
-                <div class="logo-icon">📈</div>
+                <div class="logo-icon">📊</div>
                 <div class="logo-text">
                     <strong>DSViewData</strong>
                     <span>BUSINESS INTELLIGENCE</span>
                 </div>
             </div>
             <div class="header-title">
-                <h1>Clientes Recuperados</h1>
-                <p>Análise executiva de recuperação e performance comercial</p>
+                <h1>Dashboard de Clientes Recuperados</h1>
+                <p>Análise de Performance Comercial</p>
             </div>
             <div class="update-info">
-                <div class="update-date">Última atualização</div>
-                <div class="update-badge">19/01/2026</div>
+                <div class="update-date">Atualizado em: <span id="lastUpdate">20/01/2026</span></div>
+                <div class="update-badge">● AO VIVO</div>
             </div>
-        </header>
+        </div>
 
         <!-- Filtros -->
         <div class="filters-section">
             <div class="filter-group">
-                <label>Período</label>
+                <label>📅 Período</label>
                 <select id="filterPeriod">
-                    <option value="all">Todos os períodos</option>
-                    <option value="today">Hoje</option>
-                    <option value="week">Última semana</option>
-                    <option value="month">Último mês</option>
+                    <option value="all">Todos os Períodos</option>
+                    <option value="2026-01-20">20/01/2026</option>
+                    <option value="2026-01-19">19/01/2026</option>
                 </select>
             </div>
             <div class="filter-group">
-                <label>Time/RCA <span style="font-size: 11px; color: var(--text-secondary);">(segure Ctrl/Cmd para múltipla seleção)</span></label>
-                <select id="filterTime" multiple style="height: 120px;">
-                    <option value="all" selected>Todos os times</option>
+                <label>👥 Time</label>
+                <select id="filterTime" multiple size="1">
+                    <option value="all" selected>Todos os Times</option>
+                    <option value="TIME 01">TIME 01</option>
+                    <option value="TIME 03">TIME 03</option>
+                    <option value="TIME 04">TIME 04</option>
+                    <option value="TIME 12">TIME 12</option>
+                    <option value="TIME 15">TIME 15</option>
+                    <option value="TIME 18">TIME 18</option>
+                    <option value="TIME 20">TIME 20</option>
+                    <option value="TIME 22">TIME 22</option>
                 </select>
             </div>
             <div class="filter-group">
-                <label>Status Anterior</label>
+                <label>📊 Status Anterior</label>
                 <select id="filterStatus">
-                    <option value="all">Todos os status</option>
+                    <option value="all">Todos os Status</option>
                     <option value="PRE-CHURN">Pré-Churn</option>
                     <option value="CHURN-INATIVO">Churn-Inativo</option>
                 </select>
             </div>
             <div class="filter-group">
-                <label>Faixa de Dias Sem Compra</label>
+                <label>⏱️ Dias sem Compra</label>
                 <select id="filterDays">
-                    <option value="all">Todas as faixas</option>
-                    <option value="0-60">0-60 dias</option>
-                    <option value="61-90">61-90 dias</option>
-                    <option value="91-120">91-120 dias</option>
-                    <option value="121+">121+ dias</option>
+                    <option value="all">Todos</option>
+                    <option value="0-90">0-90 dias</option>
+                    <option value="91-180">91-180 dias</option>
+                    <option value="181-365">181-365 dias</option>
+                    <option value="365+">365+ dias</option>
                 </select>
             </div>
-            <button class="btn-clear" onclick="clearFilters()">Limpar Filtros</button>
+            <button class="btn-clear" onclick="clearFilters()">🔄 Limpar Filtros</button>
         </div>
 
-        <!-- KPIs Principais -->
+        <!-- KPIs -->
         <div class="kpis">
-            <div class="kpi-card recovered">
-                <div class="kpi-icon">👥</div>
-                <h3>Clientes Recuperados</h3>
-                <div class="kpi-value" id="kpiRecovered">0</div>
-                <div class="kpi-subtitle">Total no período</div>
+            <div class="kpi-card">
+                <div class="kpi-label"><span class="kpi-icon">👥</span> Total de Clientes</div>
+                <div class="kpi-value" id="kpiClientes">0</div>
+                <div class="kpi-trend trend-positive">
+                    <span>↗</span> Clientes recuperados
+                </div>
             </div>
-            <div class="kpi-card revenue">
-                <div class="kpi-icon">💰</div>
-                <h3>Faturamento Recuperado</h3>
-                <div class="kpi-value" id="kpiRevenue">R$ 0</div>
-                <div class="kpi-subtitle">Valor total gerado</div>
+            <div class="kpi-card">
+                <div class="kpi-label"><span class="kpi-icon">💰</span> Valor Recuperado</div>
+                <div class="kpi-value" id="kpiFaturamento">R$ 0</div>
+                <div class="kpi-trend trend-positive">
+                    <span>↗</span> Faturamento total
+                </div>
             </div>
-            <div class="kpi-card ticket">
-                <div class="kpi-icon">🎯</div>
-                <h3>Ticket Médio</h3>
+            <div class="kpi-card">
+                <div class="kpi-label"><span class="kpi-icon">📈</span> Ticket Médio</div>
                 <div class="kpi-value" id="kpiTicket">R$ 0</div>
-                <div class="kpi-subtitle">Por recuperação</div>
+                <div class="kpi-trend">
+                    Por cliente recuperado
+                </div>
             </div>
-            <div class="kpi-card days">
-                <div class="kpi-icon">⏱️</div>
-                <h3>Dias Sem Compra</h3>
-                <div class="kpi-value" id="kpiDays">0</div>
-                <div class="kpi-subtitle">Média antes da recuperação</div>
+            <div class="kpi-card">
+                <div class="kpi-label"><span class="kpi-icon">⏱️</span> Dias Médios</div>
+                <div class="kpi-value" id="kpiDias">0</div>
+                <div class="kpi-trend">
+                    Sem compra antes da recuperação
+                </div>
             </div>
         </div>
 
-        <!-- KPIs de Distribuição -->
-        <div class="kpis" style="margin-top: 16px;">
-            <div class="kpi-card prechurn">
-                <div class="kpi-icon">⚠️</div>
-                <h3>Recuperados de Pré-Churn</h3>
-                <div class="kpi-value" id="kpiPreChurn">0</div>
-                <div class="kpi-subtitle" id="kpiPreChurnPercent">0% do total</div>
+        <!-- Insights Automáticos -->
+        <div class="insights-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">💡 Insights Automáticos</div>
+                    <div class="chart-subtitle">Análise inteligente dos dados</div>
+                </div>
             </div>
-            <div class="kpi-card churninativo">
-                <div class="kpi-icon">🔴</div>
-                <h3>Recuperados de Churn</h3>
-                <div class="kpi-value" id="kpiChurn">0</div>
-                <div class="kpi-subtitle" id="kpiChurnPercent">0% do total</div>
-            </div>
-            <div class="kpi-card total">
-                <div class="kpi-icon">📊</div>
-                <h3>Times Ativos</h3>
-                <div class="kpi-value" id="kpiTimesAtivos">0</div>
-                <div class="kpi-subtitle">Com recuperações</div>
-            </div>
-            <div class="kpi-card active">
-                <div class="kpi-icon">🏆</div>
-                <h3>Melhor Time</h3>
-                <div class="kpi-value" id="kpiMelhorTime">-</div>
-                <div class="kpi-subtitle" id="kpiMelhorTimePercent">0% do total</div>
-            </div>
+            <div id="insightsCard"></div>
         </div>
 
         <!-- Gráficos -->
         <div class="charts-grid">
+            <!-- Distribuição por Status -->
             <div class="chart-card">
-                <h3>Distribuição por Status Anterior</h3>
-                <div class="chart-wrapper">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Status Anterior dos Clientes</div>
+                        <div class="chart-subtitle">Distribuição por categoria</div>
+                    </div>
+                </div>
+                <div class="chart-container">
                     <canvas id="chartStatus"></canvas>
                 </div>
             </div>
+
+            <!-- Performance por Time -->
             <div class="chart-card">
-                <h3>Top 10 Times por Faturamento</h3>
-                <div class="chart-wrapper">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Performance por Time</div>
+                        <div class="chart-subtitle">Clientes recuperados por equipe</div>
+                    </div>
+                </div>
+                <div class="chart-container">
                     <canvas id="chartTimes"></canvas>
                 </div>
             </div>
-            <div class="chart-card full-width">
-                <h3>Evolução do Faturamento Recuperado</h3>
-                <div class="chart-wrapper">
-                    <canvas id="chartEvolution"></canvas>
-                </div>
-            </div>
-        </div>
 
-        <!-- Insights e Análises Adicionais -->
-        <div class="charts-grid" style="margin-top: 24px;">
+            <!-- Faturamento por Time -->
             <div class="chart-card">
-                <h3>📊 Insights e Destaques</h3>
-                <div id="insightsCard" style="padding: 12px;">
-                    <!-- Preenchido via JavaScript -->
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Faturamento por Time</div>
+                        <div class="chart-subtitle">Valor recuperado por equipe</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartFaturamentoTime"></canvas>
                 </div>
             </div>
+
+            <!-- Ticket Médio por Time -->
             <div class="chart-card">
-                <h3>Ticket Médio por Time</h3>
-                <div class="chart-wrapper">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Ticket Médio por Time</div>
+                        <div class="chart-subtitle">Valor médio recuperado</div>
+                    </div>
+                </div>
+                <div class="chart-container">
                     <canvas id="chartTicketMedio"></canvas>
                 </div>
             </div>
+
+            <!-- Distribuição de Dias sem Compra -->
             <div class="chart-card">
-                <h3>Distribuição por Dias Sem Compra</h3>
-                <div class="chart-wrapper">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Distribuição de Dias sem Compra</div>
+                        <div class="chart-subtitle">Tempo até recuperação</div>
+                    </div>
+                </div>
+                <div class="chart-container">
                     <canvas id="chartDiasSemCompra"></canvas>
                 </div>
             </div>
+
+            <!-- Evolução Diária -->
             <div class="chart-card">
-                <h3>Análise de Concentração (Pareto)</h3>
-                <div class="chart-wrapper">
-                    <canvas id="chartPareto"></canvas>
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Evolução de Valor Recuperado</div>
+                        <div class="chart-subtitle">Faturamento recuperado por data</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartEvolucao"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- Tabela Detalhada -->
         <div class="table-card">
-            <h3>Detalhamento de Clientes Recuperados</h3>
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">📋 Detalhamento dos Clientes</div>
+                    <div class="chart-subtitle">Lista completa com filtros aplicados</div>
+                </div>
+            </div>
+            <div class="table-controls">
+                <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar por cliente, código, time...">
+            </div>
             <div class="table-wrapper">
-                <table>
+                <table id="clientesTable">
                     <thead>
                         <tr>
-                            <th>Data Recuperação</th>
-                            <th>Cliente</th>
-                            <th>Código</th>
-                            <th>Status Anterior</th>
-                            <th>Dias Sem Compra</th>
-                            <th>Valor Recuperado</th>
-                            <th>% do Total</th>
-                            <th>Time</th>
+                            <th onclick="sortTable(0)">Código</th>
+                            <th onclick="sortTable(1)">Cliente</th>
+                            <th onclick="sortTable(2)">Data</th>
+                            <th onclick="sortTable(3)">Status Anterior</th>
+                            <th onclick="sortTable(4)">Dias sem Compra</th>
+                            <th onclick="sortTable(5)">Valor Recuperado</th>
+                            <th onclick="sortTable(6)">Time</th>
+                            <th onclick="sortTable(7)">Status Atual</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <!-- Preenchido via JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -703,55 +707,353 @@
     </div>
 
     <script>
-        // Dados do CSV
-        const rawData = `2026-01-19;C00219;INST. DE MEDICINA INTEGRAL PROF FERNANDO FIGUEIRA;2026-01-18;CHURN-INATIVO;541;2024-07-26;1487.00;ATIVO;0;3129.90;100002;TIME 01
-2026-01-19;C00014;CLINICA SANTA MARIA LTDA;2026-01-18;CHURN-INATIVO;107;2025-10-03;2973.30;ATIVO;0;2384.26;130001;TIME 20
-2026-01-19;C12102;CLINICA OFTALMOLOGICA PRIME LTDA;2026-01-18;PRE-CHURN;81;2025-10-29;1749.62;ATIVO;0;1030.70;130001;TIME 20
-2026-01-19;C09219;PA COMERCIO DE ALIMENTOS LTDA;2026-01-18;PRE-CHURN;89;2025-10-21;895.00;ATIVO;0;895.00;102002;TIME 03
-2026-01-19;C09148;DILENE MARQUES HENRIQUES DE ALBUQUERQUE;2026-01-18;PRE-CHURN;79;2025-10-31;747.50;ATIVO;0;854.94;130001;TIME 20
-2026-01-19;C10134;RL RESTAURANTE EIRELI;2026-01-18;CHURN-INATIVO;103;2025-10-07;465.00;ATIVO;0;837.00;102002;TIME 03
-2026-01-19;C05772;L ADRESSE STUDIO DE BELEZA LTDA - ME;2026-01-18;PRE-CHURN;69;2025-11-10;727.00;ATIVO;0;727.00;100002;TIME 01
-2026-01-19;C00116;HOSPITAL ANTONIO TARGINO;2026-01-18;CHURN-INATIVO;143;2025-08-28;950.00;ATIVO;0;642.60;130001;TIME 20
-2026-01-19;C08921;NALULU RESTAURANTE E COMENDORIA LTDA;2026-01-18;PRE-CHURN;73;2025-11-06;297.00;ATIVO;0;549.00;111002;TIME 12
-2026-01-19;C08729;ROSELIA AMORIM DA COSTA;2026-01-18;CHURN-INATIVO;235;2025-05-28;426.50;ATIVO;0;516.68;130001;TIME 20`;
-
-        // Processar dados
-        const data = rawData.trim().split('\n').map(line => {
-            const fields = line.split(';');
-            return {
-                dataRecuperacao: fields[0],
-                codigoCliente: fields[1],
-                nomeCliente: fields[2],
-                statusAnterior: fields[4],
-                diasSemCompra: parseInt(fields[5]),
-                valorRecuperado: parseFloat(fields[10]),
-                time: fields[12]
-            };
-        });
+        const data = [
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C11673",
+                "cliente": "SERVICO NACIONAL DE APRENDIZAGEM COMERCIAL SENAC",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 563,
+                "dataUltimaCompra": "2024-07-05",
+                "faturamentoUltimaCompra": 2430.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 1935.0,
+                "vendedor": "119001",
+                "time": "TIME 18"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C09912",
+                "cliente": "HOP BROS CERVEJARIA LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 61,
+                "dataUltimaCompra": "2025-11-19",
+                "faturamentoUltimaCompra": 1758.27,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 1758.27,
+                "vendedor": "121001",
+                "time": "TIME 22"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C12125",
+                "cliente": "INSTITUTO EMANUEL SANTANA LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 75,
+                "dataUltimaCompra": "2025-11-05",
+                "faturamentoUltimaCompra": 816.88,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 1307.63,
+                "vendedor": "130001",
+                "time": "TIME 20"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C01295",
+                "cliente": "CENTRO DE ESPECIALIDADES MEDICAS DE ARCOVERDE LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 70,
+                "dataUltimaCompra": "2025-11-10",
+                "faturamentoUltimaCompra": 1456.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 1214.0,
+                "vendedor": "119001",
+                "time": "TIME 18"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C12100",
+                "cliente": "NOVA DIAGNOSTICO POR IMAGEM LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 83,
+                "dataUltimaCompra": "2025-10-28",
+                "faturamentoUltimaCompra": 1075.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 1075.0,
+                "vendedor": "115002",
+                "time": "TIME 15"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C11417",
+                "cliente": "GRUPO K1 NORDESTE S.A",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 314,
+                "dataUltimaCompra": "2025-03-11",
+                "faturamentoUltimaCompra": 676.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 676.0,
+                "vendedor": "115002",
+                "time": "TIME 15"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C11604",
+                "cliente": "R & M MADUREIRA LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 270,
+                "dataUltimaCompra": "2025-04-24",
+                "faturamentoUltimaCompra": 806.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 600.0,
+                "vendedor": "111001",
+                "time": "TIME 12"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C12186",
+                "cliente": "CORTFULL IND. E COM. DE CARNES LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 81,
+                "dataUltimaCompra": "2025-10-30",
+                "faturamentoUltimaCompra": 833.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 575.0,
+                "vendedor": "119001",
+                "time": "TIME 18"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C12173",
+                "cliente": "ARCONTEC COMERCIO E SERVICOS TECNICOS LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 98,
+                "dataUltimaCompra": "2025-10-13",
+                "faturamentoUltimaCompra": 440.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 440.0,
+                "vendedor": "103002",
+                "time": "TIME 04"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C03841",
+                "cliente": "JOSE GERALDO DA SILVA LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 117,
+                "dataUltimaCompra": "2025-09-24",
+                "faturamentoUltimaCompra": 585.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 380.0,
+                "vendedor": "111002",
+                "time": "TIME 12"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C11596",
+                "cliente": "LC FISIO LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 161,
+                "dataUltimaCompra": "2025-08-11",
+                "faturamentoUltimaCompra": 385.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 330.0,
+                "vendedor": "100003",
+                "time": "TIME 01"
+        },
+        {
+                "dataAtualizacao": "2026-01-20",
+                "codigo": "C01714",
+                "cliente": "PORTELA DA FONTE LTDA",
+                "dataRecuperacao": "2026-01-19",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 126,
+                "dataUltimaCompra": "2025-09-15",
+                "faturamentoUltimaCompra": 210.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 315.0,
+                "vendedor": "102002",
+                "time": "TIME 03"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C00219",
+                "cliente": "INST. DE MEDICINA INTEGRAL PROF FERNANDO FIGUEIRA",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 541,
+                "dataUltimaCompra": "2024-07-26",
+                "faturamentoUltimaCompra": 1487.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 3129.9,
+                "vendedor": "100002",
+                "time": "TIME 01"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C00014",
+                "cliente": "CLINICA SANTA MARIA LTDA",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 107,
+                "dataUltimaCompra": "2025-10-03",
+                "faturamentoUltimaCompra": 2973.3,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 2384.26,
+                "vendedor": "130001",
+                "time": "TIME 20"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C12102",
+                "cliente": "CLINICA OFTALMOLOGICA PRIME LTDA",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 81,
+                "dataUltimaCompra": "2025-10-29",
+                "faturamentoUltimaCompra": 1749.62,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 1030.7,
+                "vendedor": "130001",
+                "time": "TIME 20"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C09219",
+                "cliente": "PA COMERCIO DE ALIMENTOS LTDA",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 89,
+                "dataUltimaCompra": "2025-10-21",
+                "faturamentoUltimaCompra": 895.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 895.0,
+                "vendedor": "102002",
+                "time": "TIME 03"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C09148",
+                "cliente": "DILENE MARQUES HENRIQUES DE ALBUQUERQUE",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 79,
+                "dataUltimaCompra": "2025-10-31",
+                "faturamentoUltimaCompra": 747.5,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 854.94,
+                "vendedor": "130001",
+                "time": "TIME 20"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C10134",
+                "cliente": "RL RESTAURANTE EIRELI",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 103,
+                "dataUltimaCompra": "2025-10-07",
+                "faturamentoUltimaCompra": 465.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 837.0,
+                "vendedor": "102002",
+                "time": "TIME 03"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C05772",
+                "cliente": "L ADRESSE STUDIO DE BELEZA LTDA - ME",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 69,
+                "dataUltimaCompra": "2025-11-10",
+                "faturamentoUltimaCompra": 727.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 727.0,
+                "vendedor": "100002",
+                "time": "TIME 01"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C00116",
+                "cliente": "HOSPITAL ANTONIO TARGINO",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 143,
+                "dataUltimaCompra": "2025-08-28",
+                "faturamentoUltimaCompra": 950.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 642.6,
+                "vendedor": "130001",
+                "time": "TIME 20"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C08921",
+                "cliente": "NALULU RESTAURANTE E COMENDORIA LTDA",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "PRE-CHURN",
+                "diasSemCompra": 73,
+                "dataUltimaCompra": "2025-11-06",
+                "faturamentoUltimaCompra": 297.0,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 549.0,
+                "vendedor": "111002",
+                "time": "TIME 12"
+        },
+        {
+                "dataAtualizacao": "2026-01-19",
+                "codigo": "C08729",
+                "cliente": "ROSELIA AMORIM DA COSTA",
+                "dataRecuperacao": "2026-01-18",
+                "statusAnterior": "CHURN-INATIVO",
+                "diasSemCompra": 235,
+                "dataUltimaCompra": "2025-05-28",
+                "faturamentoUltimaCompra": 426.5,
+                "statusAtual": "ATIVO",
+                "diasDesdeRecuperacao": 0,
+                "valorRecuperado": 516.68,
+                "vendedor": "130001",
+                "time": "TIME 20"
+        }
+];
 
         let filteredData = [...data];
-
-        // Preencher filtro de times
-        const times = [...new Set(data.map(d => d.time))].sort();
-        const filterTime = document.getElementById('filterTime');
-        times.forEach(time => {
-            const option = document.createElement('option');
-            option.value = time;
-            option.textContent = time;
-            filterTime.appendChild(option);
-        });
+        let charts = {};
 
         // Função para formatar moeda
         function formatCurrency(value) {
-            return new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
+            return new Intl.NumberFormat('pt-BR', { 
+                style: 'currency', 
+                currency: 'BRL' 
             }).format(value);
         }
 
         // Função para formatar data
-        function formatDate(dateStr) {
-            const [year, month, day] = dateStr.split('-');
+        function formatDate(dateString) {
+            const [year, month, day] = dateString.split('-');
             return `${day}/${month}/${year}`;
         }
 
@@ -764,74 +1066,28 @@
                 ? Math.round(filteredData.reduce((sum, d) => sum + d.diasSemCompra, 0) / totalClientes)
                 : 0;
 
-            // KPIs principais
-            document.getElementById('kpiRecovered').textContent = totalClientes;
-            document.getElementById('kpiRevenue').textContent = formatCurrency(totalFaturamento);
+            document.getElementById('kpiClientes').textContent = totalClientes;
+            document.getElementById('kpiFaturamento').textContent = formatCurrency(totalFaturamento);
             document.getElementById('kpiTicket').textContent = formatCurrency(ticketMedio);
-            document.getElementById('kpiDays').textContent = diasMedios;
-
-            // Distribuição por status
-            const preChurnCount = filteredData.filter(d => d.statusAnterior === 'PRE-CHURN').length;
-            const churnCount = filteredData.filter(d => d.statusAnterior === 'CHURN-INATIVO').length;
-            const preChurnPercent = totalClientes > 0 ? ((preChurnCount / totalClientes) * 100).toFixed(1) : 0;
-            const churnPercent = totalClientes > 0 ? ((churnCount / totalClientes) * 100).toFixed(1) : 0;
-
-            document.getElementById('kpiPreChurn').textContent = preChurnCount;
-            document.getElementById('kpiPreChurnPercent').textContent = `${preChurnPercent}% do total`;
-            document.getElementById('kpiChurn').textContent = churnCount;
-            document.getElementById('kpiChurnPercent').textContent = `${churnPercent}% do total`;
-
-            // Análise por times
-            const timeCount = {};
-            filteredData.forEach(d => {
-                timeCount[d.time] = (timeCount[d.time] || 0) + 1;
-            });
-
-            const timesAtivos = Object.keys(timeCount).length;
-            document.getElementById('kpiTimesAtivos').textContent = timesAtivos;
-
-            // Melhor time
-            if (timesAtivos > 0) {
-                const melhorTime = Object.entries(timeCount).sort((a, b) => b[1] - a[1])[0];
-                const melhorTimePercent = ((melhorTime[1] / totalClientes) * 100).toFixed(1);
-                document.getElementById('kpiMelhorTime').textContent = melhorTime[0];
-                document.getElementById('kpiMelhorTimePercent').textContent = `${melhorTimePercent}% do total`;
-            } else {
-                document.getElementById('kpiMelhorTime').textContent = '-';
-                document.getElementById('kpiMelhorTimePercent').textContent = '0% do total';
-            }
+            document.getElementById('kpiDias').textContent = diasMedios;
         }
 
-        // Gráfico de Status
-        let chartStatus, chartTimes, chartEvolution, chartTicketMedio, chartDiasSemCompra, chartPareto;
-
+        // Atualizar gráfico de status
         function updateChartStatus() {
+            const ctx = document.getElementById('chartStatus');
+            
             const statusCount = {
-                'PRE-CHURN': 0,
-                'CHURN-INATIVO': 0
-            };
-            const statusRevenue = {
-                'PRE-CHURN': 0,
-                'CHURN-INATIVO': 0
+                'PRE-CHURN': filteredData.filter(d => d.statusAnterior === 'PRE-CHURN').length,
+                'CHURN-INATIVO': filteredData.filter(d => d.statusAnterior === 'CHURN-INATIVO').length
             };
 
-            filteredData.forEach(d => {
-                statusCount[d.statusAnterior]++;
-                statusRevenue[d.statusAnterior] += d.valorRecuperado;
-            });
+            if (charts.status) charts.status.destroy();
 
-            const total = statusCount['PRE-CHURN'] + statusCount['CHURN-INATIVO'];
-
-            const ctx = document.getElementById('chartStatus').getContext('2d');
-            
-            if (chartStatus) chartStatus.destroy();
-            
-            chartStatus = new Chart(ctx, {
+            charts.status = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Pré-Churn', 'Churn-Inativo'],
                     datasets: [{
-                        label: 'Clientes',
                         data: [statusCount['PRE-CHURN'], statusCount['CHURN-INATIVO']],
                         backgroundColor: ['#fbbf24', '#ef4444'],
                         borderWidth: 0
@@ -845,507 +1101,273 @@
                             position: 'bottom',
                             labels: {
                                 color: '#a0a8c0',
-                                padding: 20,
                                 font: {
-                                    size: 13,
+                                    size: 12,
                                     family: 'Outfit'
-                                }
+                                },
+                                padding: 16
                             }
                         },
                         tooltip: {
                             backgroundColor: '#2a3148',
-                            titleColor: '#ffffff',
+                            titleColor: '#fff',
                             bodyColor: '#a0a8c0',
                             borderColor: '#3d4560',
                             borderWidth: 1,
                             padding: 12,
-                            displayColors: true,
                             callbacks: {
                                 label: function(context) {
-                                    const label = context.label || '';
-                                    const value = context.parsed || 0;
-                                    const percent = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                                    const status = context.label === 'Pré-Churn' ? 'PRE-CHURN' : 'CHURN-INATIVO';
-                                    const revenue = formatCurrency(statusRevenue[status]);
-                                    return [
-                                        `${label}: ${value} clientes (${percent}%)`,
-                                        `Faturamento: ${revenue}`
-                                    ];
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    return `${context.label}: ${context.parsed} (${percentage}%)`;
                                 }
-                            }
-                        },
-                        datalabels: {
-                            color: '#1a1f2e',
-                            font: {
-                                weight: 'bold',
-                                size: 16,
-                                family: 'Outfit'
-                            },
-                            formatter: function(value, context) {
-                                const percent = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                                return value + '\n(' + percent + '%)';
                             }
                         }
                     }
-                },
-                plugins: [{
-                    id: 'datalabels',
-                    afterDatasetsDraw: function(chart) {
-                        const ctx = chart.ctx;
-                        chart.data.datasets.forEach((dataset, i) => {
-                            const meta = chart.getDatasetMeta(i);
-                            meta.data.forEach((element, index) => {
-                                const data = dataset.data[index];
-                                const percent = total > 0 ? ((data / total) * 100).toFixed(1) : 0;
-                                
-                                const position = element.tooltipPosition();
-                                ctx.fillStyle = '#1a1f2e';
-                                ctx.font = 'bold 16px Outfit';
-                                ctx.textAlign = 'center';
-                                ctx.textBaseline = 'middle';
-                                ctx.fillText(data, position.x, position.y - 10);
-                                ctx.font = 'bold 14px Outfit';
-                                ctx.fillText(`(${percent}%)`, position.x, position.y + 10);
-                            });
-                        });
-                    }
-                }]
+                }
             });
         }
 
-        // Gráfico de Times
+        // Atualizar gráfico de times (quantidade)
         function updateChartTimes() {
-            const timeData = {};
+            const ctx = document.getElementById('chartTimes');
+            
+            const timeCount = {};
             filteredData.forEach(d => {
-                if (!timeData[d.time]) {
-                    timeData[d.time] = { revenue: 0, count: 0 };
-                }
-                timeData[d.time].revenue += d.valorRecuperado;
-                timeData[d.time].count += 1;
+                timeCount[d.time] = (timeCount[d.time] || 0) + 1;
             });
 
-            const totalClientes = filteredData.length;
-            const sortedTimes = Object.entries(timeData)
-                .sort((a, b) => b[1].revenue - a[1].revenue)
-                .slice(0, 10);
+            const sortedTimes = Object.entries(timeCount).sort((a, b) => b[1] - a[1]);
 
-            const ctx = document.getElementById('chartTimes').getContext('2d');
+            if (charts.times) charts.times.destroy();
+
+            charts.times = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sortedTimes.map(t => t[0]),
+                    datasets: [{
+                        label: 'Clientes',
+                        data: sortedTimes.map(t => t[1]),
+                        backgroundColor: '#4ade80',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#2a3148',
+                            titleColor: '#fff',
+                            bodyColor: '#a0a8c0',
+                            borderColor: '#3d4560',
+                            borderWidth: 1,
+                            padding: 12
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: '#a0a8c0',
+                                font: { size: 11, family: 'Outfit' }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(61, 69, 96, 0.3)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#a0a8c0',
+                                font: { size: 11, family: 'Outfit' },
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Atualizar gráfico de faturamento por time
+        function updateChartFaturamentoTime() {
+            const ctx = document.getElementById('chartFaturamentoTime');
             
-            if (chartTimes) chartTimes.destroy();
-            
-            chartTimes = new Chart(ctx, {
+            const timeRevenue = {};
+            filteredData.forEach(d => {
+                timeRevenue[d.time] = (timeRevenue[d.time] || 0) + d.valorRecuperado;
+            });
+
+            const sortedTimes = Object.entries(timeRevenue).sort((a, b) => b[1] - a[1]);
+
+            if (charts.faturamentoTime) charts.faturamentoTime.destroy();
+
+            charts.faturamentoTime = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: sortedTimes.map(t => t[0]),
                     datasets: [{
                         label: 'Faturamento',
-                        data: sortedTimes.map(t => t[1].revenue),
-                        backgroundColor: 'rgba(74, 222, 128, 0.8)',
-                        borderColor: '#4ade80',
-                        borderWidth: 2,
+                        data: sortedTimes.map(t => t[1]),
+                        backgroundColor: '#3b82f6',
                         borderRadius: 8
                     }]
                 },
                 options: {
-                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
                             backgroundColor: '#2a3148',
-                            titleColor: '#ffffff',
+                            titleColor: '#fff',
                             bodyColor: '#a0a8c0',
                             borderColor: '#3d4560',
                             borderWidth: 1,
                             padding: 12,
                             callbacks: {
                                 label: function(context) {
-                                    const timeIndex = context.dataIndex;
-                                    const timeName = sortedTimes[timeIndex][0];
-                                    const timeInfo = timeData[timeName];
-                                    const percent = totalClientes > 0 ? ((timeInfo.count / totalClientes) * 100).toFixed(1) : 0;
-                                    return [
-                                        `Faturamento: ${formatCurrency(context.parsed.x)}`,
-                                        `Clientes: ${timeInfo.count} (${percent}%)`
-                                    ];
+                                    return `Faturamento: ${formatCurrency(context.parsed.y)}`;
                                 }
                             }
                         }
                     },
                     scales: {
                         x: {
-                            grid: {
-                                color: 'rgba(61, 69, 96, 0.3)',
-                                drawBorder: false
-                            },
+                            grid: { display: false },
                             ticks: {
                                 color: '#a0a8c0',
-                                font: {
-                                    size: 11,
-                                    family: 'Outfit'
-                                },
-                                callback: function(value) {
-                                    return formatCurrency(value);
-                                }
+                                font: { size: 11, family: 'Outfit' }
                             }
                         },
                         y: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#a0a8c0',
-                                font: {
-                                    size: 12,
-                                    family: 'Outfit',
-                                    weight: '600'
-                                }
-                            }
-                        }
-                    }
-                },
-                plugins: [{
-                    id: 'barLabels',
-                    afterDatasetsDraw: function(chart) {
-                        const ctx = chart.ctx;
-                        chart.data.datasets.forEach((dataset, i) => {
-                            const meta = chart.getDatasetMeta(i);
-                            meta.data.forEach((bar, index) => {
-                                const data = dataset.data[index];
-                                const timeName = sortedTimes[index][0];
-                                const timeInfo = timeData[timeName];
-                                const percent = totalClientes > 0 ? ((timeInfo.count / totalClientes) * 100).toFixed(0) : 0;
-                                
-                                ctx.fillStyle = '#a0a8c0';
-                                ctx.font = 'bold 11px Outfit';
-                                ctx.textAlign = 'left';
-                                ctx.textBaseline = 'middle';
-                                
-                                const text = `${formatCurrency(data)} (${percent}%)`;
-                                const x = bar.x + 5;
-                                const y = bar.y;
-                                
-                                ctx.fillText(text, x, y);
-                            });
-                        });
-                    }
-                }]
-            });
-        }
-
-        // Gráfico de Evolução
-        function updateChartEvolution() {
-            const dateRevenue = {};
-            filteredData.forEach(d => {
-                dateRevenue[d.dataRecuperacao] = (dateRevenue[d.dataRecuperacao] || 0) + d.valorRecuperado;
-            });
-
-            const sortedDates = Object.entries(dateRevenue).sort((a, b) => a[0].localeCompare(b[0]));
-
-            const ctx = document.getElementById('chartEvolution').getContext('2d');
-            
-            if (chartEvolution) chartEvolution.destroy();
-            
-            chartEvolution = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: sortedDates.map(d => formatDate(d[0])),
-                    datasets: [{
-                        label: 'Faturamento Recuperado',
-                        data: sortedDates.map(d => d[1]),
-                        borderColor: '#4ade80',
-                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 6,
-                        pointHoverRadius: 8,
-                        pointBackgroundColor: '#4ade80',
-                        pointBorderColor: '#1a1f2e',
-                        pointBorderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: '#2a3148',
-                            titleColor: '#ffffff',
-                            bodyColor: '#a0a8c0',
-                            borderColor: '#3d4560',
-                            borderWidth: 1,
-                            padding: 12,
-                            callbacks: {
-                                label: function(context) {
-                                    return formatCurrency(context.parsed.y);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
+                            beginAtZero: true,
                             grid: {
                                 color: 'rgba(61, 69, 96, 0.3)',
                                 drawBorder: false
                             },
                             ticks: {
                                 color: '#a0a8c0',
-                                font: {
-                                    size: 12,
-                                    family: 'Outfit'
-                                }
-                            }
-                        },
-                        y: {
-                            grid: {
-                                color: 'rgba(61, 69, 96, 0.3)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#a0a8c0',
-                                font: {
-                                    size: 12,
-                                    family: 'Outfit'
-                                },
+                                font: { size: 11, family: 'Outfit' },
                                 callback: function(value) {
                                     return formatCurrency(value);
                                 }
                             }
                         }
                     }
-                },
-                plugins: [{
-                    id: 'lineLabels',
-                    afterDatasetsDraw: function(chart) {
-                        const ctx = chart.ctx;
-                        chart.data.datasets.forEach((dataset, i) => {
-                            const meta = chart.getDatasetMeta(i);
-                            meta.data.forEach((point, index) => {
-                                const data = dataset.data[index];
-                                
-                                ctx.fillStyle = '#4ade80';
-                                ctx.font = 'bold 12px Outfit';
-                                ctx.textAlign = 'center';
-                                ctx.textBaseline = 'bottom';
-                                
-                                const text = formatCurrency(data).replace('R$', '').trim();
-                                const x = point.x;
-                                const y = point.y - 8;
-                                
-                                ctx.fillText(text, x, y);
-                            });
-                        });
-                    }
-                }]
-            });
-        }
-
-        // Atualizar tabela
-        function updateTable() {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-
-            if (filteredData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" class="no-data">
-                            Nenhum cliente recuperado encontrado com os filtros selecionados.
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            // Calcular total de faturamento
-            const totalFaturamento = filteredData.reduce((sum, d) => sum + d.valorRecuperado, 0);
-
-            // Ordenar por valor recuperado (decrescente)
-            const sortedData = [...filteredData].sort((a, b) => b.valorRecuperado - a.valorRecuperado);
-
-            sortedData.forEach(row => {
-                const tr = document.createElement('tr');
-                
-                const statusClass = row.statusAnterior === 'PRE-CHURN' ? 'prechurn' : 'churn';
-                const percentTotal = totalFaturamento > 0 ? ((row.valorRecuperado / totalFaturamento) * 100).toFixed(1) : 0;
-                
-                tr.innerHTML = `
-                    <td>${formatDate(row.dataRecuperacao)}</td>
-                    <td>${row.nomeCliente}</td>
-                    <td>${row.codigoCliente}</td>
-                    <td><span class="status-badge ${statusClass}">${row.statusAnterior}</span></td>
-                    <td>${row.diasSemCompra} dias</td>
-                    <td class="value-positive">${formatCurrency(row.valorRecuperado)}</td>
-                    <td>${percentTotal}%</td>
-                    <td>${row.time}</td>
-                `;
-                
-                tbody.appendChild(tr);
-            });
-        }
-
-        // Gráfico de Ticket Médio por Time
-        function updateChartTicketMedio() {
-            const timeData = {};
-            filteredData.forEach(d => {
-                if (!timeData[d.time]) {
-                    timeData[d.time] = { revenue: 0, count: 0 };
                 }
-                timeData[d.time].revenue += d.valorRecuperado;
-                timeData[d.time].count += 1;
+            });
+        }
+
+        // Atualizar gráfico de ticket médio
+        function updateChartTicketMedio() {
+            const ctx = document.getElementById('chartTicketMedio');
+            
+            const timeStats = {};
+            filteredData.forEach(d => {
+                if (!timeStats[d.time]) {
+                    timeStats[d.time] = { count: 0, total: 0 };
+                }
+                timeStats[d.time].count++;
+                timeStats[d.time].total += d.valorRecuperado;
             });
 
-            const sortedTimes = Object.entries(timeData)
-                .map(([time, data]) => ({
-                    time,
-                    ticketMedio: data.revenue / data.count
-                }))
-                .sort((a, b) => b.ticketMedio - a.ticketMedio)
-                .slice(0, 10);
+            const ticketMedio = Object.entries(timeStats).map(([time, stats]) => ({
+                time,
+                ticket: stats.total / stats.count
+            })).sort((a, b) => b.ticket - a.ticket);
 
-            const ctx = document.getElementById('chartTicketMedio').getContext('2d');
-            
-            if (chartTicketMedio) chartTicketMedio.destroy();
-            
-            chartTicketMedio = new Chart(ctx, {
+            if (charts.ticketMedio) charts.ticketMedio.destroy();
+
+            charts.ticketMedio = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: sortedTimes.map(t => t.time),
+                    labels: ticketMedio.map(t => t.time),
                     datasets: [{
                         label: 'Ticket Médio',
-                        data: sortedTimes.map(t => t.ticketMedio),
-                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                        borderColor: '#3b82f6',
-                        borderWidth: 2,
+                        data: ticketMedio.map(t => t.ticket),
+                        backgroundColor: '#8b5cf6',
                         borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    indexAxis: 'y',
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
                             backgroundColor: '#2a3148',
-                            titleColor: '#ffffff',
+                            titleColor: '#fff',
                             bodyColor: '#a0a8c0',
                             borderColor: '#3d4560',
                             borderWidth: 1,
                             padding: 12,
                             callbacks: {
                                 label: function(context) {
-                                    return `Ticket Médio: ${formatCurrency(context.parsed.y)}`;
+                                    return `Ticket Médio: ${formatCurrency(context.parsed.x)}`;
                                 }
                             }
                         }
                     },
                     scales: {
                         x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#a0a8c0',
-                                font: {
-                                    size: 11,
-                                    family: 'Outfit',
-                                    weight: '600'
-                                }
-                            }
-                        },
-                        y: {
+                            beginAtZero: true,
                             grid: {
                                 color: 'rgba(61, 69, 96, 0.3)',
                                 drawBorder: false
                             },
                             ticks: {
                                 color: '#a0a8c0',
-                                font: {
-                                    size: 11,
-                                    family: 'Outfit'
-                                },
+                                font: { size: 11, family: 'Outfit' },
                                 callback: function(value) {
                                     return formatCurrency(value);
                                 }
                             }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: {
+                                color: '#a0a8c0',
+                                font: { size: 11, family: 'Outfit' }
+                            }
                         }
                     }
-                },
-                plugins: [{
-                    id: 'barTopLabels',
-                    afterDatasetsDraw: function(chart) {
-                        const ctx = chart.ctx;
-                        chart.data.datasets.forEach((dataset, i) => {
-                            const meta = chart.getDatasetMeta(i);
-                            meta.data.forEach((bar, index) => {
-                                const data = dataset.data[index];
-                                
-                                ctx.fillStyle = '#a0a8c0';
-                                ctx.font = 'bold 11px Outfit';
-                                ctx.textAlign = 'center';
-                                ctx.textBaseline = 'bottom';
-                                
-                                const text = formatCurrency(data).replace('R$', '').trim();
-                                const x = bar.x;
-                                const y = bar.y - 5;
-                                
-                                ctx.fillText(text, x, y);
-                            });
-                        });
-                    }
-                }]
+                }
             });
         }
 
-        // Gráfico de Distribuição por Dias Sem Compra
+        // Atualizar gráfico de dias sem compra
         function updateChartDiasSemCompra() {
-            const faixas = {
-                '0-60': 0,
-                '61-90': 0,
-                '91-120': 0,
-                '121-180': 0,
-                '181+': 0
+            const ctx = document.getElementById('chartDiasSemCompra');
+            
+            const ranges = {
+                '0-90': 0,
+                '91-180': 0,
+                '181-365': 0,
+                '365+': 0
             };
 
             filteredData.forEach(d => {
                 const dias = d.diasSemCompra;
-                if (dias <= 60) faixas['0-60']++;
-                else if (dias <= 90) faixas['61-90']++;
-                else if (dias <= 120) faixas['91-120']++;
-                else if (dias <= 180) faixas['121-180']++;
-                else faixas['181+']++;
+                if (dias <= 90) ranges['0-90']++;
+                else if (dias <= 180) ranges['91-180']++;
+                else if (dias <= 365) ranges['181-365']++;
+                else ranges['365+']++;
             });
 
-            const ctx = document.getElementById('chartDiasSemCompra').getContext('2d');
-            
-            if (chartDiasSemCompra) chartDiasSemCompra.destroy();
-            
-            chartDiasSemCompra = new Chart(ctx, {
-                type: 'bar',
+            if (charts.diasSemCompra) charts.diasSemCompra.destroy();
+
+            charts.diasSemCompra = new Chart(ctx, {
+                type: 'doughnut',
                 data: {
-                    labels: Object.keys(faixas),
+                    labels: ['0-90 dias', '91-180 dias', '181-365 dias', '365+ dias'],
                     datasets: [{
-                        label: 'Clientes',
-                        data: Object.values(faixas),
-                        backgroundColor: [
-                            'rgba(74, 222, 128, 0.8)',
-                            'rgba(251, 191, 36, 0.8)',
-                            'rgba(249, 115, 22, 0.8)',
-                            'rgba(239, 68, 68, 0.8)',
-                            'rgba(107, 114, 128, 0.8)'
-                        ],
-                        borderWidth: 0,
-                        borderRadius: 8
+                        data: Object.values(ranges),
+                        backgroundColor: ['#4ade80', '#fbbf24', '#f97316', '#ef4444'],
+                        borderWidth: 0
                     }]
                 },
                 options: {
@@ -1353,132 +1375,80 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            display: false
+                            position: 'bottom',
+                            labels: {
+                                color: '#a0a8c0',
+                                font: { size: 11, family: 'Outfit' },
+                                padding: 12
+                            }
                         },
                         tooltip: {
                             backgroundColor: '#2a3148',
-                            titleColor: '#ffffff',
+                            titleColor: '#fff',
                             bodyColor: '#a0a8c0',
                             borderColor: '#3d4560',
                             borderWidth: 1,
                             padding: 12,
                             callbacks: {
                                 label: function(context) {
-                                    const total = filteredData.length;
-                                    const percent = total > 0 ? ((context.parsed.y / total) * 100).toFixed(1) : 0;
-                                    return `${context.parsed.y} clientes (${percent}%)`;
+                                    return `${context.label}: ${context.parsed} clientes`;
                                 }
                             }
                         }
-                    },
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#a0a8c0',
-                                font: {
-                                    size: 12,
-                                    family: 'Outfit',
-                                    weight: '600'
-                                }
-                            }
-                        },
-                        y: {
-                            grid: {
-                                color: 'rgba(61, 69, 96, 0.3)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#a0a8c0',
-                                font: {
-                                    size: 11,
-                                    family: 'Outfit'
-                                },
-                                stepSize: 1
-                            }
-                        }
                     }
-                },
-                plugins: [{
-                    id: 'barDaysLabels',
-                    afterDatasetsDraw: function(chart) {
-                        const ctx = chart.ctx;
-                        const total = filteredData.length;
-                        chart.data.datasets.forEach((dataset, i) => {
-                            const meta = chart.getDatasetMeta(i);
-                            meta.data.forEach((bar, index) => {
-                                const data = dataset.data[index];
-                                if (data > 0) {
-                                    const percent = total > 0 ? ((data / total) * 100).toFixed(0) : 0;
-                                    
-                                    ctx.fillStyle = '#a0a8c0';
-                                    ctx.font = 'bold 12px Outfit';
-                                    ctx.textAlign = 'center';
-                                    ctx.textBaseline = 'bottom';
-                                    
-                                    const text = `${data} (${percent}%)`;
-                                    const x = bar.x;
-                                    const y = bar.y - 5;
-                                    
-                                    ctx.fillText(text, x, y);
-                                }
-                            });
-                        });
-                    }
-                }]
+                }
             });
         }
 
-        // Gráfico de Pareto (Concentração de Faturamento)
-        function updateChartPareto() {
-            // Calcular faturamento acumulado
-            const sortedData = [...filteredData].sort((a, b) => b.valorRecuperado - a.valorRecuperado);
-            const totalRevenue = sortedData.reduce((sum, d) => sum + d.valorRecuperado, 0);
+        // Atualizar gráfico de evolução diária
+        function updateChartEvolucao() {
+            const ctx = document.getElementById('chartEvolucao');
             
-            let accumulated = 0;
-            const paretoData = sortedData.map((d, index) => {
-                accumulated += d.valorRecuperado;
-                return {
-                    index: index + 1,
-                    cliente: d.nomeCliente,
-                    valor: d.valorRecuperado,
-                    acumulado: accumulated,
-                    percentAcumulado: (accumulated / totalRevenue) * 100
-                };
+            // Agrupar por data de atualização (data correta)
+            const dailyData = {};
+            filteredData.forEach(d => {
+                const date = d.dataAtualizacao;  // Usar dataAtualizacao
+                if (!dailyData[date]) {
+                    dailyData[date] = {
+                        count: 0,
+                        revenue: 0
+                    };
+                }
+                dailyData[date].count++;
+                dailyData[date].revenue += d.valorRecuperado;
             });
 
-            const ctx = document.getElementById('chartPareto').getContext('2d');
+            // Ordenar por data
+            const sortedDates = Object.keys(dailyData).sort();
             
-            if (chartPareto) chartPareto.destroy();
-            
-            chartPareto = new Chart(ctx, {
-                type: 'bar',
+            const evolutionData = sortedDates.map(date => ({
+                date,
+                count: dailyData[date].count,
+                revenue: dailyData[date].revenue
+            }));
+
+            if (charts.evolucao) charts.evolucao.destroy();
+
+            charts.evolucao = new Chart(ctx, {
+                type: 'line',
                 data: {
-                    labels: paretoData.map(d => `#${d.index}`),
-                    datasets: [{
-                        type: 'bar',
-                        label: 'Faturamento',
-                        data: paretoData.map(d => d.valor),
-                        backgroundColor: 'rgba(74, 222, 128, 0.6)',
-                        borderColor: '#4ade80',
-                        borderWidth: 2,
-                        borderRadius: 6,
-                        yAxisID: 'y'
-                    }, {
-                        type: 'line',
-                        label: '% Acumulado',
-                        data: paretoData.map(d => d.percentAcumulado),
-                        borderColor: '#fbbf24',
-                        backgroundColor: 'rgba(251, 191, 36, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        yAxisID: 'y1',
-                        pointRadius: 0
-                    }]
+                    labels: evolutionData.map(d => formatDate(d.date)),
+                    datasets: [
+                        {
+                            label: 'Valor Recuperado',
+                            data: evolutionData.map(d => d.revenue),
+                            borderColor: '#4ade80',
+                            backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 5,
+                            pointHoverRadius: 7,
+                            pointBackgroundColor: '#4ade80',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -1489,88 +1459,48 @@
                     },
                     plugins: {
                         legend: {
-                            labels: {
-                                color: '#a0a8c0',
-                                padding: 15,
-                                font: {
-                                    size: 12,
-                                    family: 'Outfit'
-                                }
-                            }
+                            display: false
                         },
                         tooltip: {
                             backgroundColor: '#2a3148',
-                            titleColor: '#ffffff',
+                            titleColor: '#fff',
                             bodyColor: '#a0a8c0',
                             borderColor: '#3d4560',
                             borderWidth: 1,
                             padding: 12,
                             callbacks: {
-                                title: function(context) {
-                                    const index = context[0].dataIndex;
-                                    return paretoData[index].cliente.substring(0, 30);
-                                },
                                 label: function(context) {
-                                    if (context.dataset.yAxisID === 'y') {
-                                        return `Faturamento: ${formatCurrency(context.parsed.y)}`;
-                                    } else {
-                                        return `Acumulado: ${context.parsed.y.toFixed(1)}%`;
-                                    }
+                                    const data = evolutionData[context.dataIndex];
+                                    return [
+                                        `Valor Recuperado: ${formatCurrency(context.parsed.y)}`,
+                                        `Clientes: ${data.count}`
+                                    ];
                                 }
                             }
                         }
                     },
                     scales: {
                         x: {
-                            grid: {
+                            grid: { 
                                 display: false,
                                 drawBorder: false
                             },
                             ticks: {
                                 color: '#a0a8c0',
-                                font: {
-                                    size: 10,
-                                    family: 'Outfit'
-                                },
-                                maxRotation: 0
+                                font: { size: 11, family: 'Outfit' }
                             }
                         },
                         y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
+                            beginAtZero: true,
                             grid: {
                                 color: 'rgba(61, 69, 96, 0.3)',
                                 drawBorder: false
                             },
                             ticks: {
                                 color: '#a0a8c0',
-                                font: {
-                                    size: 11,
-                                    family: 'Outfit'
-                                },
+                                font: { size: 11, family: 'Outfit' },
                                 callback: function(value) {
                                     return formatCurrency(value);
-                                }
-                            }
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            min: 0,
-                            max: 100,
-                            grid: {
-                                drawOnChartArea: false
-                            },
-                            ticks: {
-                                color: '#a0a8c0',
-                                font: {
-                                    size: 11,
-                                    family: 'Outfit'
-                                },
-                                callback: function(value) {
-                                    return value + '%';
                                 }
                             }
                         }
@@ -1579,15 +1509,13 @@
             });
         }
 
-        // Gerar Insights Automáticos
+        // Atualizar insights
         function updateInsights() {
             const insightsCard = document.getElementById('insightsCard');
             const insights = [];
 
-            // Total e médias
             const totalClientes = filteredData.length;
             const totalFaturamento = filteredData.reduce((sum, d) => sum + d.valorRecuperado, 0);
-            const ticketMedio = totalClientes > 0 ? totalFaturamento / totalClientes : 0;
 
             // Análise por status
             const preChurnCount = filteredData.filter(d => d.statusAnterior === 'PRE-CHURN').length;
@@ -1595,83 +1523,107 @@
             
             if (preChurnCount > churnCount) {
                 const diff = ((preChurnCount / totalClientes) * 100).toFixed(1);
-                insights.push(`<div class="insight-item"><strong>${diff}%</strong> das recuperações são de clientes em Pré-Churn, indicando ação preventiva efetiva da equipe comercial.</div>`);
+                insights.push(`<div class="insight-item"><strong>${diff}%</strong> das recuperações são de clientes em Pré-Churn, indicando ação preventiva efetiva.</div>`);
             } else if (churnCount > preChurnCount) {
                 const diff = ((churnCount / totalClientes) * 100).toFixed(1);
-                insights.push(`<div class="insight-item warning"><strong>${diff}%</strong> das recuperações são de clientes em Churn-Inativo. Considere intensificar ações preventivas para reduzir chegada ao churn.</div>`);
+                insights.push(`<div class="insight-item warning"><strong>${diff}%</strong> das recuperações são de Churn-Inativo. Oportunidade para intensificar ações preventivas.</div>`);
             }
 
-            // Análise de concentração
-            const sortedByRevenue = [...filteredData].sort((a, b) => b.valorRecuperado - a.valorRecuperado);
-            const top3Revenue = sortedByRevenue.slice(0, 3).reduce((sum, d) => sum + d.valorRecuperado, 0);
+            // Top 3 concentração
+            const sorted = [...filteredData].sort((a, b) => b.valorRecuperado - a.valorRecuperado);
+            const top3Revenue = sorted.slice(0, 3).reduce((sum, d) => sum + d.valorRecuperado, 0);
             const top3Percent = ((top3Revenue / totalFaturamento) * 100).toFixed(1);
             
             if (top3Percent > 50) {
-                insights.push(`<div class="insight-item warning">Top 3 recuperações representam <strong>${top3Percent}%</strong> do faturamento total. Alta concentração em poucos clientes.</div>`);
+                insights.push(`<div class="insight-item warning">Top 3 clientes representam <strong>${top3Percent}%</strong> do faturamento total. Alta concentração.</div>`);
             }
 
-            // Análise de dias sem compra
+            // Dias médios
             const diasMedios = Math.round(filteredData.reduce((sum, d) => sum + d.diasSemCompra, 0) / totalClientes);
-            if (diasMedios > 100) {
-                insights.push(`<div class="insight-item info">Média de <strong>${diasMedios} dias</strong> sem compra antes da recuperação. Oportunidade para reduzir tempo de ação comercial.</div>`);
+            if (diasMedios > 150) {
+                insights.push(`<div class="insight-item info">Média de <strong>${diasMedios} dias</strong> sem compra antes da recuperação. Oportunidade para reduzir tempo de ação.</div>`);
             } else {
-                insights.push(`<div class="insight-item">Tempo médio de <strong>${diasMedios} dias</strong> sem compra demonstra agilidade na ação de recuperação.</div>`);
+                insights.push(`<div class="insight-item">Tempo médio de <strong>${diasMedios} dias</strong> demonstra agilidade na recuperação.</div>`);
             }
 
-            // Análise do melhor time
-            const timeCount = {};
+            // Melhor time
             const timeRevenue = {};
             filteredData.forEach(d => {
-                timeCount[d.time] = (timeCount[d.time] || 0) + 1;
                 timeRevenue[d.time] = (timeRevenue[d.time] || 0) + d.valorRecuperado;
             });
             
             const melhorTime = Object.entries(timeRevenue).sort((a, b) => b[1] - a[1])[0];
             if (melhorTime) {
-                const timePercent = ((timeRevenue[melhorTime[0]] / totalFaturamento) * 100).toFixed(1);
-                insights.push(`<div class="insight-item"><strong>${melhorTime[0]}</strong> lidera em faturamento recuperado com ${formatCurrency(melhorTime[1])} (${timePercent}% do total).</div>`);
+                const timePercent = ((melhorTime[1] / totalFaturamento) * 100).toFixed(1);
+                insights.push(`<div class="insight-item"><strong>${melhorTime[0]}</strong> lidera em faturamento com ${formatCurrency(melhorTime[1])} (${timePercent}% do total).</div>`);
             }
 
-            insightsCard.innerHTML = insights.length > 0 ? insights.join('') : '<div class="insight-item info">Nenhum insight disponível com os filtros atuais.</div>';
+            insightsCard.innerHTML = insights.length > 0 ? insights.join('') : '<div class="insight-item info">Nenhum insight disponível.</div>';
+        }
+
+        // Atualizar tabela
+        function updateTable() {
+            const tableBody = document.getElementById('tableBody');
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+
+            let displayData = filteredData;
+            
+            if (searchTerm) {
+                displayData = filteredData.filter(d => 
+                    d.cliente.toLowerCase().includes(searchTerm) ||
+                    d.codigo.toLowerCase().includes(searchTerm) ||
+                    d.time.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            tableBody.innerHTML = displayData.map(d => `
+                <tr>
+                    <td>${d.codigo}</td>
+                    <td>${d.cliente}</td>
+                    <td>${formatDate(d.dataAtualizacao)}</td>
+                    <td><span class="status-badge status-${d.statusAnterior === 'PRE-CHURN' ? 'prechurn' : 'churn'}">${d.statusAnterior}</span></td>
+                    <td>${d.diasSemCompra} dias</td>
+                    <td>${formatCurrency(d.valorRecuperado)}</td>
+                    <td>${d.time}</td>
+                    <td><span class="status-badge status-ativo">${d.statusAtual}</span></td>
+                </tr>
+            `).join('');
         }
 
         // Aplicar filtros
         function applyFilters() {
             const periodFilter = document.getElementById('filterPeriod').value;
-            const timeFilterElement = document.getElementById('filterTime');
-            const selectedTimes = Array.from(timeFilterElement.selectedOptions).map(option => option.value);
+            const timeFilter = document.getElementById('filterTime');
+            const selectedTimes = Array.from(timeFilter.selectedOptions).map(opt => opt.value);
             const statusFilter = document.getElementById('filterStatus').value;
             const daysFilter = document.getElementById('filterDays').value;
 
             filteredData = data.filter(row => {
-                // Filtro de período (atualmente todos os dados são de hoje)
-                let periodMatch = true;
+                // Filtro de período (usa dataAtualizacao)
+                const periodMatch = periodFilter === 'all' || row.dataAtualizacao === periodFilter;
                 
-                // Filtro de time (seleção múltipla)
-                let timeMatch = true;
-                if (selectedTimes.length > 0 && !selectedTimes.includes('all')) {
-                    timeMatch = selectedTimes.includes(row.time);
-                }
+                // Filtro de time
+                const timeMatch = selectedTimes.includes('all') || selectedTimes.includes(row.time);
                 
                 // Filtro de status
                 const statusMatch = statusFilter === 'all' || row.statusAnterior === statusFilter;
                 
-                // Filtro de dias sem compra
+                // Filtro de dias
                 let daysMatch = true;
                 if (daysFilter !== 'all') {
                     const dias = row.diasSemCompra;
                     switch(daysFilter) {
-                        case '0-60':
-                            daysMatch = dias <= 60;
+                        case '0-90':
+                            daysMatch = dias <= 90;
                             break;
-                        case '61-90':
-                            daysMatch = dias >= 61 && dias <= 90;
+                        case '91-180':
+                            daysMatch = dias >= 91 && dias <= 180;
                             break;
-                        case '91-120':
-                            daysMatch = dias >= 91 && dias <= 120;
+                        case '181-365':
+                            daysMatch = dias >= 181 && dias <= 365;
                             break;
-                        case '121+':
-                            daysMatch = dias >= 121;
+                        case '365+':
+                            daysMatch = dias > 365;
                             break;
                     }
                 }
@@ -1682,10 +1634,10 @@
             updateKPIs();
             updateChartStatus();
             updateChartTimes();
-            updateChartEvolution();
+            updateChartFaturamentoTime();
             updateChartTicketMedio();
             updateChartDiasSemCompra();
-            updateChartPareto();
+            updateChartEvolucao();
             updateInsights();
             updateTable();
         }
@@ -1695,8 +1647,8 @@
             document.getElementById('filterPeriod').value = 'all';
             document.getElementById('filterStatus').value = 'all';
             document.getElementById('filterDays').value = 'all';
+            document.getElementById('searchBox').value = '';
             
-            // Resetar seleção múltipla de times
             const timeFilter = document.getElementById('filterTime');
             Array.from(timeFilter.options).forEach(option => {
                 option.selected = option.value === 'all';
@@ -1705,13 +1657,42 @@
             applyFilters();
         }
 
+        // Ordenar tabela
+        let sortDirection = {};
+        function sortTable(columnIndex) {
+            const direction = sortDirection[columnIndex] === 'asc' ? 'desc' : 'asc';
+            sortDirection[columnIndex] = direction;
+
+            const keys = ['codigo', 'cliente', 'dataAtualizacao', 'statusAnterior', 'diasSemCompra', 'valorRecuperado', 'time', 'statusAtual'];
+            const key = keys[columnIndex];
+
+            filteredData.sort((a, b) => {
+                let valA = a[key];
+                let valB = b[key];
+                
+                if (typeof valA === 'string') {
+                    valA = valA.toLowerCase();
+                    valB = valB.toLowerCase();
+                }
+                
+                if (direction === 'asc') {
+                    return valA > valB ? 1 : -1;
+                } else {
+                    return valA < valB ? 1 : -1;
+                }
+            });
+
+            updateTable();
+        }
+
         // Event listeners
         document.getElementById('filterPeriod').addEventListener('change', applyFilters);
         document.getElementById('filterTime').addEventListener('change', applyFilters);
         document.getElementById('filterStatus').addEventListener('change', applyFilters);
         document.getElementById('filterDays').addEventListener('change', applyFilters);
+        document.getElementById('searchBox').addEventListener('input', updateTable);
 
-        // Inicializar dashboard
+        // Inicializar
         applyFilters();
     </script>
 </body>
